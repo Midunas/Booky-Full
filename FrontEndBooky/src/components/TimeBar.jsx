@@ -5,7 +5,7 @@ import { get } from '../plugins/http'
 const TimeBar = ({ id }) => {
 
   const [events, setEvents] = useState([])
-  const [w, setW] = useState(1200)
+  const [w, setW] = useState(760)
 
   const getEventByDay = async () => {
     const res = await get("getEventByDay/" + id)
@@ -17,30 +17,24 @@ const TimeBar = ({ id }) => {
     getEventByDay();
   }, [])
 
-  // const getOffset = (eventStart) => {
-  //   const eventOffsetPercentage = (eventStart - dayStart) / dayLength;
-  //   setOffset(eventOffsetPercentage * containerWidth)
-  // };
-
-  // const getWidthPercentage = (eventEnd, eventStart) => {
-  //   const eventWidthPercentage = (eventEnd - eventStart) / dayLength
-  //   setWidth(eventWidthPercentage * containerWidth)
-  // };
-
   return (
-    <div className='max-w-[900px] mx-auto'>
-      <div className='w-full overflow-x-auto'>
-        <div className='relative h-24 border-solid border-2 border-indigo-600 bg-white' style={{ width: w }} id={id}>
+    <div className=' flex'>
+      <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black'>{id}</div>
+      <div className='w-5/6'>
+        <div
+          className='relative h-16 border-solid border border-black bg-white flex justify-center items-center rounded'
+          style={{ width: w }}
+          id={id}>
           {events.map((event) => {
             return (
               <div
-                className='absolute h-20 m-2 p-2 rounded'
+                className='absolute h-18 rounded align-center'
                 style={{
                   backgroundColor: event.color,
                   width: ((event.eventEnd - event.eventStart) / 14) * w,
                   left: ((event.eventStart - 8) / 14) * w
                 }}
-              >{event.username}</div>
+              >{event.username} {event.eventStart} - {event.eventEnd}</div>
             )
           })}
         </div>
@@ -49,29 +43,11 @@ const TimeBar = ({ id }) => {
   )
 }
 
+// {new Array(21).fill(0).map((_, i) => {
+//   return <span
+//     className='h-18 ml-2 my-2 w-[1px] bg-slate-500 absolute'
+//     style={{ left: (i + 1) * (w / 22) }}></span>
+// })}
 
-// .time-bar {
-//   border: 2.5px solid black;
-//   border-radius: 8px;
-//   width: 100%;
-//   height: 100px;
-//   margin-top: 2px;
-//   margin-left: 1px;
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   overflow-x: auto;
-//   background-color: white;
-// }
+
 export default TimeBar;
-
-{/* <div className='h-5/5 flex-col w-4/5'>
-<div className='time-bar' id='Monday'></div>
-<div className='time-bar' id='Tuesday'></div>
-<div className='time-bar' id='Wednesday'></div>
-<div className='time-bar' id='Thursday'></div>
-<div className='time-bar' id='Friday'></div>
-<div className='time-bar' id='Saturday'></div>
-<div className='time-bar' id='Sunday'></div>
-</div> */}

@@ -15,7 +15,6 @@ const BookTime = ({ setRegistered, registered, user, setUser }) => {
 
   const [currentColor, setCurrentColor] = useState()
   const [selectedDay, setSelectedDay] = useState('Monday');
-  // const [user, setUser] = useState([])
 
   async function getUser() {
     const secret = localStorage.getItem("secret")
@@ -54,7 +53,7 @@ const BookTime = ({ setRegistered, registered, user, setUser }) => {
   }
 
   return (
-    <div className='book-time'>
+    <div className='flex flex-col w-[280px] mb-20'>
       <span className="bigInp" >{username}</span>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>

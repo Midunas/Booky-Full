@@ -19,7 +19,6 @@ module.exports = {
     },
     getEventByDay: async (req, res) => {
         const day = req.params.id
-        console.log(day)
 
         const eventsByDay = await bookingSchema.find({ eventDay: day })
 
