@@ -1,0 +1,40 @@
+const cars = [];
+const carSchema = require("../schemas/carSchema")
+const models = [];
+let result = [];
+module.exports = {
+
+  addCars: (req, res) => {
+    const data = req.body
+
+    const newCar = new carSchema({
+      model: data.model,
+      color: data.color,
+      year: data.year,
+      consumption: data.consumption,
+      fuelType: data.fuelType
+    })
+    newCar.save()
+
+    cars.push(data)
+    console.log({ cars })
+    res.send({ cars })
+  },
+
+  findCar: (req, res) => {
+    const data = req.body
+
+    const model = data.model;
+    models.push(data.model)
+    console.log(model)
+
+    async function find(carModel) {
+      const foundCar = await carSchema.findOne({ model: carModel })
+      result.push(foundCar)
+      res.send({ result })
+      console.log({ foundCar })
+    }
+    find(data.model)
+  }
+
+}
