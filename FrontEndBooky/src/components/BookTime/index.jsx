@@ -8,7 +8,12 @@ import { post } from '../../plugins/http'
 import { get } from '../../plugins/http'
 
 
-const BookTime = ({ setRegistered, registered, user, setUser }) => {
+const BookTime = ({
+  setRegistered,
+  registered,
+  user,
+  setUser,
+  bookyName }) => {
 
   const eventStartRef = useRef();
   const eventEndRef = useRef();
@@ -19,32 +24,24 @@ const BookTime = ({ setRegistered, registered, user, setUser }) => {
   async function getUser() {
     const secret = localStorage.getItem("secret")
     const res = await get("getUser/" + secret)
-    setUser(res.userExists)
-  }
-  let username = '';
-  let userBooky = '';
-
-  if (user.length > 0) {
-    username = user.map((x) => x.username)
-    userBooky = user.map((x) => x.bookyName)
+    console.log(res.userExists)
+    setUser(res.userExists[0].username)
   }
 
   useEffect(() => {
     getUser()
   }, [])
 
-  // console.log(user)
   const addReservation = async () => {
     const newBooking = {
       eventStart: eventStartRef.current.value,
       eventEnd: eventEndRef.current.value,
       color: currentColor,
       eventDay: selectedDay,
-      username: username.toString(),
-      bookyName: userBooky.toString()
+      username: user,
+      bookyName: bookyName
     }
     const data = await post("addReservation", newBooking)
-    // console.log(data)
     setRegistered(registered + 1)
   }
 
@@ -54,7 +51,7 @@ const BookTime = ({ setRegistered, registered, user, setUser }) => {
 
   return (
     <div className='flex flex-col w-[280px] mb-20'>
-      <span className="bigInp" >{username}</span>
+      <span className="bigInp" >{user}</span>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>
       <TimeSelect eventTimeRef={eventEndRef} label="To: "></TimeSelect>

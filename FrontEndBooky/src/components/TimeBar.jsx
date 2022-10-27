@@ -1,34 +1,36 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { get } from '../plugins/http'
 
-const TimeBar = ({ id }) => {
+const TimeBar = ({ id, bookyName, registered }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
 
   const getEventByDay = async () => {
-    const res = await get("getEventByDay/" + id)
-    console.log(res.eventsByDay)
+    const res = await get(`getEventByDay/${id}/${bookyName}`)
     setEvents(res.eventsByDay)
   }
 
   useEffect(() => {
     getEventByDay();
-  }, [])
+  }, [registered])
 
   return (
     <div className=' flex'>
       <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black'>{id}</div>
       <div className='w-5/6'>
         <div
-          className='relative h-16 border-solid border border-black bg-white flex justify-center items-center rounded'
+          className='relative h-20 border-solid border border-black bg-white flex justify-center items-center rounded'
           style={{ width: w }}
           id={id}>
-          {events.map((event) => {
+          {events.map((event, i) => {
             return (
               <div
                 className='absolute h-18 rounded align-center'
+                key={i}
                 style={{
                   backgroundColor: event.color,
                   width: ((event.eventEnd - event.eventStart) / 14) * w,

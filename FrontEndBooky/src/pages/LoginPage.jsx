@@ -19,10 +19,9 @@ const LoginPage = () => {
     const res = await post("login", user)
 
     if (!res.error) {
-      console.log(res.message)
       navigate(`/Booky`)
       localStorage.setItem("secret", res.data.secret)
-      console.log(res.data.secret)
+      localStorage.setItem("bookyName", res.data.sessions.bookyName)
     }
     setError(res.message)
   }

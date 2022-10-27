@@ -29,7 +29,7 @@ const NavBar = () => {
           <Typography
             variant="h2"
             component="div"
-            sx={{ flexGrow: 1, color: '#FF6900' }}
+            sx={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
             onClick={goToWelcome}>
             Booky
           </Typography>

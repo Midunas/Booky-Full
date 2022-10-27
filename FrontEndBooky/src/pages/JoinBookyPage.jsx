@@ -17,6 +17,7 @@ const JoinBookyPage = () => {
   const addUser = async () => {
 
     const user = {
+      bookyName: bookyNameRef.current.value,
       email: emailRef.current.value,
       username: usernameRef.current.value,
       password: passRef.current.value,
@@ -27,7 +28,7 @@ const JoinBookyPage = () => {
     setError(data.message)
 
     if (!data.error) {
-      navigate("/home")
+      navigate("/login")
     }
   }
 
