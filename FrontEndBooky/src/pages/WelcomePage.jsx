@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../components/NavBar';
 
 const WelcomePage = () => {
 
@@ -14,7 +13,7 @@ const WelcomePage = () => {
   }
   return (
     <div>
-      <NavBar />
+
       <div className='container flex flex-col bg-white p-20 rounded w-[900px]'>
         <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-gray-800">
           Welcome!

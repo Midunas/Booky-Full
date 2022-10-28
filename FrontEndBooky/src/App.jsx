@@ -7,20 +7,24 @@ import LoginPage from './pages/LoginPage';
 import WelcomePage from './pages/WelcomePage';
 import CreateBookyPage from './pages/CreateBookyPage';
 import JoinBookyPage from './pages/JoinBookyPage';
+import Layout from './components/layout/Layout';
 
 const App = () => {
 
+  // const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/register' element={<RegisterPage />}></Route>
-        <Route path='/login' element={<LoginPage />}></Route>
-        <Route path='/Booky' element={<BookyPage />}></Route>
-        <Route path='/create-booky' element={<CreateBookyPage />}></Route>
-        <Route path='/join-booky' element={<JoinBookyPage />}></Route>
-        <Route path='/' element={<WelcomePage />}></Route>
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path='/register' element={<RegisterPage />}></Route>
+          <Route path='/login' element={<LoginPage />}></Route>
+          <Route path='/Booky' element={<BookyPage />}></Route>
+          <Route path='/create-booky' element={<CreateBookyPage />}></Route>
+          <Route path='/join-booky' element={<JoinBookyPage />}></Route>
+          <Route path='/' element={<WelcomePage />}></Route>
+        </Routes>
+      </Layout>
     </BrowserRouter >
   )
 }

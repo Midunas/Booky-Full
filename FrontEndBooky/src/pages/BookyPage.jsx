@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react'
 import BookTime from '../components/BookTime'
-import NavBar from '../components/NavBar';
 import TimeBar from '../components/TimeBar';
-
 
 const BookyPage = () => {
 
@@ -15,7 +13,6 @@ const BookyPage = () => {
 
   return (
     <div className='max-w-[1980px] mx-auto'>
-      <NavBar></NavBar>
       <div className='mt-52 flex flex-wrap items-center justify-around'>
         <div className='overflow-x-auto w-[980px] mb-20'>
           {days.length > 0 && days.map((x, i) =>

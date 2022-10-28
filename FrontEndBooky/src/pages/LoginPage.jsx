@@ -1,46 +1,30 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect } from 'react';
+import Login from "../components/Login";
+import { get } from "../plugins/http";
 import { useNavigate } from "react-router-dom";
-import { post } from '../plugins/http';
-
 
 const LoginPage = () => {
 
-  const emailRef = useRef()
-  const passRef = useRef()
-  const navigate = useNavigate()
+  const nav = useNavigate()
 
-  const [error, setError] = useState()
+  useEffect(() => {
+    const autoLogin = localStorage.getItem("autologin")
 
-  const login = async () => {
-    const user = {
-      email: emailRef.current.value,
-      password: passRef.current.value,
+    if (autoLogin === "true") {
+      get("autologin").then(res => {
+        if (res.error) return
+        console.log(res)
+        nav("/Booky")
+      })
     }
-    const res = await post("login", user)
 
-    if (!res.error) {
-      navigate(`/Booky`)
-      localStorage.setItem("secret", res.data.secret)
-      localStorage.setItem("bookyName", res.data.sessions.bookyName)
-    }
-    setError(res.message)
-  }
+  }, [])
 
   return (
-    <div className='container mt-80'>
-      <div className='flex flex-col bg-white p-10 text-center rounded'>
-        <h1 className="text-5xl font-normal leading-normal  mb-6 text-gray-800" >Login</h1>
-        <input className='bigInp' type="text" placeholder='email' ref={emailRef} />
-        <input className='bigInp' type="password" placeholder='password' ref={passRef} />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4  mt-6 rounded"
-          onClick={login}>
-          Login
-        </button>
-        <div className='bigInp red'>{error}</div>
-      </div>
+    <div>
+      <Login />
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

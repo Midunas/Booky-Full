@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { post } from '../plugins/http';
 
-
 const JoinBookyPage = () => {
 
   const emailRef = useRef()

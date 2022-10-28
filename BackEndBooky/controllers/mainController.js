@@ -15,18 +15,20 @@ module.exports = {
     },
     getEventByDay: async (req, res) => {
 
-        const booky = req.params.bookyName
-        const day = req.params.id
-        const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
+        // req.session.email = email
+        const email = req.session.email
+        console.log(email)
+        // console.log(req.session.email)
 
-        res.send({ success: true, eventsByDay })
-    },
-    findPost: async (req, res) => {
-        const id = req.params.id
+        if (email) {
+            const booky = req.params.bookyName
+            const day = req.params.id
+            const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
 
-        const post = await postSchema.find({ _id: id })
-
-        res.send({ success: true, post })
+            res.send({ success: true, eventsByDay })
+        } else {
+            res.send({ error: true, message: 'user is not logged in' })
+        }
     },
     register: async (req, res) => {
 
@@ -37,7 +39,7 @@ module.exports = {
         new userSchema({
             email,
             username,
-            hashPass,
+            password: hashPass,
             bookyName,
             admin,
             secret: uid(),
@@ -50,24 +52,38 @@ module.exports = {
 
         const { email, password } = req.body
         const userExists = await userSchema.findOne({ email, password })
-        req.session.bookyName = userExists.bookyName
 
         const hashedPass = userExists.hashPass
         const passwordsMatch = await bcrypt.compare(password, hashedPass)
 
         if (userExists && passwordsMatch) {
+            req.session.bookyName = userExists.bookyName
+            req.session.email = userExists.email
+            // req.session.save(req.session.email)
 
-            return sendRes(res, false, "all good", { secret: userExists.secret, bookyName: userExists.bookyName, sessions: req.session })
+            return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
         }
 
         return sendRes(res, true, "bad credentials", null)
 
     },
+    autoLogin: async (req, res) => {
+        const { email } = req.session
+        if (email) {
+            const user = await userSchema.findOne({ email })
+            return sendRes(res, false, "all good", { secret: user.secret, email })
+        }
+        return sendRes(res, true, "no session data", null)
+    },
+    logout: async (req, res) => {
+        req.session.email = null
+        return sendRes(res, false, "all good", null)
+    },
     getUser: async (req, res) => {
         const { secret } = req.params
 
         const userExists = await userSchema.find({ secret })
-        console.log(userExists)
+
         if (!userExists.length > 0) {
             return res.status(400).send({ error: true, message: "user doesn't exist" });
         } else {

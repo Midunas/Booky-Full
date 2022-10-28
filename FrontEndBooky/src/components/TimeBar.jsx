@@ -2,16 +2,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { get } from '../plugins/http'
 
 const TimeBar = ({ id, bookyName, registered }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
+  const navigate = useNavigate()
 
   const getEventByDay = async () => {
     const res = await get(`getEventByDay/${id}/${bookyName}`)
-    setEvents(res.eventsByDay)
+    console.log(res)
+    // setEvents(res.eventsByDay)
+    // if (!res.message) {
+    //   setEvents(res.eventsByDay)
+    // } else {
+    //   navigate("/")
+    // }
+
   }
 
   useEffect(() => {

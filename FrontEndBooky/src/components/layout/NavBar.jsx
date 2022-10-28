@@ -7,17 +7,37 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import { get } from '../../plugins/http';
 
-const NavBar = () => {
+const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const navigate = useNavigate()
 
   const goToLogin = () => {
+
     navigate('/login')
+
   }
   const goToWelcome = () => {
     navigate('/')
   }
+
+  const logOut = () => {
+    get("logout").then(res => {
+      localStorage.setItem("autologin", false)
+      navigate('/')
+    })
+  }
+  // const goToLogin = () => {
+  //   if (localStorage.getItem("secret")) {
+  //     navigate('/login')
+  //     setLog('Login')
+  //   }
+  // get("logout").then(res => {
+  //   localStorage.setItem("autologin", false)
+  //   navigate('/')
+  //   setLog('Logout')
+  // })
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ backgroundColor: 'white' }}>
@@ -33,7 +53,9 @@ const NavBar = () => {
             onClick={goToWelcome}>
             Booky
           </Typography>
-          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={goToLogin}>Login</Button>
+          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={goToLogin}>LogIn</Button>
+          <Button sx={{ color: 'black', fontSize: '25px', }} onClick={logOut}>LogOut</Button>
+
           <IconButton
             size="large"
             edge="start"
