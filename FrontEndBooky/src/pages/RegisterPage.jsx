@@ -18,11 +18,11 @@ const RegisterPage = () => {
       password: passRef.current.value,
       repeat: repeatPass.current.value,
     }
-    const data = await post("register", user)
+    const data = await post("login", user)
     setError(data.message)
 
     if (!data.error) {
-      navigate("/login")
+      navigate("/Booky")
     }
   }
 

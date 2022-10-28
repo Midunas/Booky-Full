@@ -44,7 +44,7 @@ const JoinBookyPage = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4  mt-6 rounded"
           onClick={addUser}>
           Join
-        </button>        <div className='bigInp red'>{error}</div>
+        </button><div className='bigInp red'>{error}</div>
       </div>
     </div>
   )
