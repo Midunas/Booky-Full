@@ -9,12 +9,11 @@ const TimeBar = ({ id, bookyName, registered }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const getEventByDay = async () => {
     const res = await get(`getEventByDay/${id}/${bookyName}`)
-    console.log(res)
-    // setEvents(res.eventsByDay)
+    setEvents(res.eventsByDay)
     // if (!res.message) {
     //   setEvents(res.eventsByDay)
     // } else {

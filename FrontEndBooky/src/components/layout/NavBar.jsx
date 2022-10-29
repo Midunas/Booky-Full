@@ -9,24 +9,28 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { get } from '../../plugins/http';
 
+
 const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const navigate = useNavigate()
+  const localEmail = localStorage.getItem("email")
 
-  const goToLogin = () => {
+  const logInOrOut = () => {
 
-    navigate('/login')
-
+    if (localEmail) {
+      get("logout").then(res => {
+        localStorage.setItem("autologin", false)
+        localStorage.clear()
+        navigate('/')
+        setIsLoggedIn(false)
+      })
+    } else {
+      navigate('/login')
+      setIsLoggedIn(false)
+    }
   }
-  const goToWelcome = () => {
-    navigate('/')
-  }
-
-  const logOut = () => {
-    get("logout").then(res => {
-      localStorage.setItem("autologin", false)
-      navigate('/')
-    })
+  function goToWelcome() {
+    navigate("/")
   }
   // const goToLogin = () => {
   //   if (localStorage.getItem("secret")) {
@@ -38,6 +42,7 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
   //   navigate('/')
   //   setLog('Logout')
   // })
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ backgroundColor: 'white' }}>
@@ -53,9 +58,9 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
             onClick={goToWelcome}>
             Booky
           </Typography>
-          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={goToLogin}>LogIn</Button>
-          <Button sx={{ color: 'black', fontSize: '25px', }} onClick={logOut}>LogOut</Button>
-
+          {/* <Button sx={{ color: 'black', fontSize: '25px' }} onClick={goToLogin}>LogIn</Button> */}
+          {/* <Button sx={{ color: 'black', fontSize: '25px', }} onClick={logOut}>LogOut</Button> */}
+          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn ? 'Logout' : 'Login'}</Button>
           <IconButton
             size="large"
             edge="start"

@@ -24,7 +24,7 @@ const BookTime = ({
   async function getUser() {
     const secret = localStorage.getItem("secret")
     const res = await get("getUser/" + secret)
-    console.log(res.userExists)
+    // console.log(res.userExists)
     setUser(res.userExists[0].username)
   }
 

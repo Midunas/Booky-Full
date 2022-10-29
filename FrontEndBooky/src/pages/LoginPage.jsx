@@ -3,7 +3,7 @@ import Login from "../components/Login";
 import { get } from "../plugins/http";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const nav = useNavigate()
 
@@ -22,7 +22,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <Login />
+      <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
     </div>
   );
 };

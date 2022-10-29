@@ -22,12 +22,13 @@ const Login = ({ setIsLoggedIn }) => {
       navigate(`/Booky`)
       localStorage.setItem("secret", res.data.secret)
       localStorage.setItem("bookyName", res.data.sessions.bookyName)
+      localStorage.setItem("email", res.data.sessions.email)
+      setIsLoggedIn(true)
     }
     setError(res.message)
   }
 
   const autoLoginCheck = (e) => {
-    console.log(e.target.checked)
     localStorage.setItem("autologin", e.target.checked)
   }
   useEffect(() => {

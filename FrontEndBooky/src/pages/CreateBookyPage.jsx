@@ -23,7 +23,7 @@ const CreateBookyPage = () => {
       admin: true,
     }
     const data = await post("register", adminUser)
-    console.log(data)
+    // console.log(data)
     if (!data.error) {
       navigate("/login")
     }

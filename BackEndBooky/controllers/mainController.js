@@ -35,7 +35,6 @@ module.exports = {
 
         req.session.bookyName = userExists.bookyName
         req.session.email = userExists.email
-        // req.session.save(req.session.email)
 
         return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
       } else {
@@ -43,7 +42,7 @@ module.exports = {
       }
 
     } else {
-      return sendRes(res, true, "something went wrong", null)
+      return sendRes(res, true, "user doesn't exist", null)
     }
 
   },
@@ -52,24 +51,21 @@ module.exports = {
     const post = await newReservation.save()
 
     res.send({ success: 'Ok', post })
-    console.log(post)
   },
   getEventByDay: async (req, res) => {
 
-    // req.session.email = email
-    const email = req.session.email
-    console.log(email)
-    // console.log(req.session.email)
+    // const email = req.session.email
+    // console.log(email)
 
-    if (email) {
-      const booky = req.params.bookyName
-      const day = req.params.id
-      const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
+    // if (email) {
+    const booky = req.params.bookyName
+    const day = req.params.id
+    const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
 
-      res.send({ success: true, eventsByDay })
-    } else {
-      res.send({ error: true, message: 'user is not logged in' })
-    }
+    res.send({ success: true, eventsByDay })
+    // } else {
+    //   res.send({ error: true, message: 'user is not logged in' })
+    // }
   },
   autoLogin: async (req, res) => {
     const { email } = req.session

@@ -11,14 +11,14 @@ import Layout from './components/layout/Layout';
 
 const App = () => {
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
         <Routes>
           <Route path='/register' element={<RegisterPage />}></Route>
-          <Route path='/login' element={<LoginPage />}></Route>
+          <Route path='/login' element={<LoginPage isLoggedI={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>
           <Route path='/Booky' element={<BookyPage />}></Route>
           <Route path='/create-booky' element={<CreateBookyPage />}></Route>
           <Route path='/join-booky' element={<JoinBookyPage />}></Route>
