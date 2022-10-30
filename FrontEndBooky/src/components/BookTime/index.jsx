@@ -16,6 +16,7 @@ const BookTime = ({
 
   const eventStartRef = useRef();
   const eventEndRef = useRef();
+  const eventNameRef = useRef();
 
   const [currentColor, setCurrentColor] = useState()
   const [selectedDay, setSelectedDay] = useState('Monday');
@@ -37,6 +38,7 @@ const BookTime = ({
     const newBooking = {
       eventStart: eventStartRef.current.value,
       eventEnd: eventEndRef.current.value,
+      eventName: eventNameRef.current.value,
       color: currentColor,
       eventDay: selectedDay,
       username: user,
@@ -55,6 +57,7 @@ const BookTime = ({
     <div className='flex flex-col w-[280px] mb-20'>
       <div className='text-red-500'>{error}</div>
       <span className="bigInp" >{user}</span>
+      <input className="bigInp" ref={eventNameRef} placeholder='event name'></input>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>
       <TimeSelect eventTimeRef={eventEndRef} label="To: "></TimeSelect>

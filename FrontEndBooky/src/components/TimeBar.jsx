@@ -3,7 +3,7 @@
 import { ChakraProvider, extendTheme, useDisclosure } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { get } from '../plugins/http'
+import { get, post } from '../plugins/http'
 import EditModal from './EditModal'
 
 const theme = extendTheme({
@@ -16,12 +16,12 @@ const theme = extendTheme({
   }
 });
 
-const TimeBar = ({ id, bookyName, registered }) => {
+const TimeBar = ({ id, bookyName, user }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
   const [eventToEdit, setEventToEdit] = useState()
-
+  const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const getEventByDay = async () => {
@@ -31,17 +31,43 @@ const TimeBar = ({ id, bookyName, registered }) => {
 
   useEffect(() => {
     getEventByDay();
-  }, [registered])
+  }, [events])
 
   const updateOrDelete = (event) => {
     setEventToEdit(event)
     onOpen()
+  }
+
+  const deleteBooky = async () => {
+
+    const bookyToDelete = {
+      username: user,
+      id: eventToEdit._id
+    }
+    const data = await post("delete", bookyToDelete)
+    setError(data.message)
+  }
+
+  const updateBooky = async () => {
 
   }
 
+  const convertNumbersToTime = (time) => {
+    if (time.toString().length < 3) {
+      const minutes = ':00 '
+      return time.toString() + minutes
+    } else {
+      return time.toString().replace('.5', ':30 ')
+    }
+  }
   return (
     <ChakraProvider theme={theme}>
-      <EditModal onClose={onClose} isOpen={isOpen}></EditModal>
+      <EditModal
+        error={error}
+        deleteBooky={deleteBooky}
+        updateBooky={updateBooky}
+        onClose={onClose}
+        isOpen={isOpen}></EditModal>
       <div className=' flex'>
         <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black'>{id}</div>
         <div className='w-5/6'>
@@ -60,7 +86,12 @@ const TimeBar = ({ id, bookyName, registered }) => {
                     left: ((event.eventStart - 8) / 14) * w
                   }}
                   onClick={() => updateOrDelete(event)}
-                >{event.username} {event.eventStart.toString().replace('.5', ':30')} - {event.eventEnd.toString().replace('.5', ':30')}
+
+                >{event.username}<br />
+                  {convertNumbersToTime(event.eventStart)}
+                  - {convertNumbersToTime(event.eventEnd)}
+                  <br />
+                  {event.eventName}
                 </div>
               )
             })}
@@ -72,3 +103,6 @@ const TimeBar = ({ id, bookyName, registered }) => {
 }
 
 export default TimeBar;
+
+// {event.eventStart.toString().replace('.5', ':30')}
+// - {event.eventEnd.toString().replace('.5', ':30')}

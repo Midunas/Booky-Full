@@ -10,6 +10,10 @@ const bookingSchema = new Schema({
     type: Number,
     required: true
   },
+  eventName: {
+    type: String,
+    required: false,
+  },
   username: {
     type: String,
     required: true

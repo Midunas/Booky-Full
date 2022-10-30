@@ -142,11 +142,24 @@ module.exports = {
   },
   update: async (req, res) => {
 
-    const { secret, email, photo } = req.body
+    const { id, newEventName } = req.body
 
-    const updatedUser = await userSchema.findOneAndUpdate({ secret }, { $set: { email, photo } }, { new: true })
+    const updatedBooking = await bookingSchema.findOneAndUpdate({ _id: id }, { $set: { newEventName } }, { new: true })
 
-    res.send({ success: true, updatedUser })
+    res.send({ success: true, updatedBooking })
+  },
+  deleteBooky: async (req, res) => {
+    // const id = req.params.id
+    const { id, username } = req.body
+    const userMadeTheBooky = await bookingSchema.findOne({ _id: id, username })
+
+    if (userMadeTheBooky) {
+      await bookingSchema.deleteOne({ _id: id })
+      res.send({ success: true })
+    } else {
+      return sendRes(res, true, 'You can only remove your own Bookies.', null)
+    }
+
   },
 
 }
