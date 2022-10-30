@@ -26,6 +26,7 @@ const App = () => {
         </Routes>
       </Layout>
     </BrowserRouter >
+
   )
 }
 
