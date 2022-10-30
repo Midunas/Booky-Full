@@ -52,6 +52,7 @@ module.exports = {
     const { email, password } = req.body
     const userExists = await userSchema.findOne({ email })
 
+
     if (userExists) {
       const passwordsMatch = await bcrypt.compare(password, userExists.password)
 
@@ -60,7 +61,6 @@ module.exports = {
         req.session.bookyName = userExists.bookyName
         req.session.email = userExists.email
 
-        // console.log(req.session)
         return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
       } else {
         return sendRes(res, true, "bad credentials", null)
@@ -72,10 +72,34 @@ module.exports = {
 
   },
   addReservation: async (req, res) => {
-    const newReservation = new bookingSchema(req.body)
-    const post = await newReservation.save()
 
-    res.send({ success: 'Ok', post })
+    const { eventStart, eventEnd, bookyName, eventDay } = req.body
+    const existingBookies = await bookingSchema.find({ eventDay, bookyName })
+
+    if (existingBookies.length > 0) {
+      const overlap = existingBookies.map((booky) => {
+        if (booky.eventStart < eventEnd && booky.eventEnd > eventStart) {
+          return true;
+        }
+        return false;
+      })
+
+      const atLeastOneOverlaps = overlap.reduce((current, next) => current || next, false)
+
+      if (atLeastOneOverlaps) {
+        return sendRes(res, true, "times overlap", null)
+      } else {
+        console.log('book it ')
+        const newReservation = new bookingSchema(req.body)
+        const post = await newReservation.save()
+        res.send({ success: 'Ok', post })
+      }
+    } else {
+      const newReservation = new bookingSchema(req.body)
+      const post = await newReservation.save()
+      res.send({ success: 'Ok', post })
+    }
+
   },
   getEventByDay: async (req, res) => {
 

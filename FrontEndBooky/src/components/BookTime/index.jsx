@@ -19,6 +19,7 @@ const BookTime = ({
 
   const [currentColor, setCurrentColor] = useState()
   const [selectedDay, setSelectedDay] = useState('Monday');
+  const [error, setError] = useState('')
 
   async function getUser() {
     const secret = localStorage.getItem("secret")
@@ -42,6 +43,7 @@ const BookTime = ({
       bookyName: bookyName
     }
     const data = await post("addReservation", newBooking)
+    setError(data.message)
     setRegistered(registered + 1)
   }
 
@@ -51,6 +53,7 @@ const BookTime = ({
 
   return (
     <div className='flex flex-col w-[280px] mb-20'>
+      <div className='text-red-500'>{error}</div>
       <span className="bigInp" >{user}</span>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>
