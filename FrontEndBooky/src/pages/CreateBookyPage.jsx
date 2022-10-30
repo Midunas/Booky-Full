@@ -22,7 +22,7 @@ const CreateBookyPage = () => {
       bookyName: bookyNameRef.current.value,
       admin: true,
     }
-    const data = await post("register", adminUser)
+    const data = await post("registerAdmin", adminUser)
     // console.log(data)
     if (!data.error) {
       navigate("/login")

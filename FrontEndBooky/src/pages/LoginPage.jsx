@@ -15,6 +15,7 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
         if (res.error) return
         console.log(res)
         nav("/Booky")
+        setIsLoggedIn(true)
       })
     }
 

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import BookTime from '../components/BookTime'
 import TimeBar from '../components/TimeBar';
 
@@ -8,6 +9,15 @@ const BookyPage = () => {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   const [registered, setRegistered] = useState(0)
   const [user, setUser] = useState()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const localEmail = localStorage.getItem("email")
+    if (!localEmail) {
+      alert('You are not Logged in')
+      navigate('/')
+    }
+  },)
 
   const bookyName = localStorage.getItem("bookyName")
 

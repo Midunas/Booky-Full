@@ -44,6 +44,7 @@ const Login = ({ setIsLoggedIn }) => {
     <div className='container mt-80'>
       <div className='flex flex-col bg-white p-10 text-center rounded'>
         <h1 className="text-5xl font-normal leading-normal  mb-6 text-gray-800" >Login</h1>
+        <div className='text-red-500'>{error}</div>
         <input className='bigInp' type="text" placeholder='email' ref={emailRef} />
         <input className='bigInp' type="password" placeholder='password' ref={passRef} />
         <label htmlFor="autoLogin">Stay logged in</label>
@@ -53,7 +54,6 @@ const Login = ({ setIsLoggedIn }) => {
           onClick={login}>
           Login
         </button>
-        <div className='bigInp red'>{error}</div>
       </div>
     </div>
   )

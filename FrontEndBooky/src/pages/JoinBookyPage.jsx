@@ -23,7 +23,7 @@ const JoinBookyPage = () => {
       repeat: repeatPass.current.value,
       admin: false,
     }
-    const data = await post("register", user)
+    const data = await post("registerUser", user)
     setError(data.message)
 
     if (!data.error) {
@@ -35,6 +35,7 @@ const JoinBookyPage = () => {
     <div className='container mt-80'>
       <div className='flex flex-col bg-white p-10 text-center rounded'>
         <h1 className="text-5xl font-normal leading-normal  mb-6 text-gray-800" >Join a Booky</h1>
+        <div className='text-red-500'>{error}</div>
         <input className='bigInp' type="text" placeholder='Booky name' ref={bookyNameRef} />
         <input className='bigInp' type="text" placeholder='email' ref={emailRef} />
         <input className='bigInp' type="text" placeholder='username' ref={usernameRef} />
@@ -44,7 +45,7 @@ const JoinBookyPage = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4  mt-6 rounded"
           onClick={addUser}>
           Join
-        </button><div className='bigInp red'>{error}</div>
+        </button>
       </div>
     </div>
   )

@@ -7,7 +7,6 @@ import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
 import { get } from '../../plugins/http'
 
-
 const BookTime = ({
   setRegistered,
   registered,
@@ -23,9 +22,10 @@ const BookTime = ({
 
   async function getUser() {
     const secret = localStorage.getItem("secret")
-    const res = await get("getUser/" + secret)
-    // console.log(res.userExists)
-    setUser(res.userExists[0].username)
+    if (secret) {
+      const res = await get("getUser/" + secret)
+      setUser(res.userExists[0].username)
+    }
   }
 
   useEffect(() => {
