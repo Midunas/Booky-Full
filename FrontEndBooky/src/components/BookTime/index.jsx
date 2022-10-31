@@ -8,8 +8,6 @@ import { post } from '../../plugins/http'
 import { get } from '../../plugins/http'
 
 const BookTime = ({
-  setRegistered,
-  registered,
   user,
   setUser,
   bookyName }) => {
@@ -30,7 +28,6 @@ const BookTime = ({
       setUser(res.userExists[0].username)
     }
   }
-
   useEffect(() => {
     getUser()
   }, [])
@@ -47,7 +44,6 @@ const BookTime = ({
     }
     const data = await post("addReservation", newBooking)
     setError(data.message)
-    setRegistered(registered + 1)
     setIsActive(false)
   }
 
@@ -80,5 +76,5 @@ const BookTime = ({
   )
 }
 
-export default BookTime
+export default BookTime;
 

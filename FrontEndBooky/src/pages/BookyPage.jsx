@@ -7,7 +7,6 @@ import TimeBar from '../components/TimeBar';
 const BookyPage = () => {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-  const [registered, setRegistered] = useState(0)
   const [user, setUser] = useState()
   const navigate = useNavigate()
 
@@ -26,10 +25,10 @@ const BookyPage = () => {
       <div className='mt-52 flex flex-wrap items-center justify-around'>
         <div className='overflow-x-auto w-[980px] mb-20'>
           {days.length > 0 && days.map((x, i) =>
-            <TimeBar user={user} registered={registered} key={i} id={x} bookyName={bookyName} />
+            <TimeBar user={user} key={i} id={x} bookyName={bookyName} />
           )}
         </div>
-        <BookTime bookyName={bookyName} setUser={setUser} user={user} setRegistered={setRegistered} registered={registered} ></BookTime>
+        <BookTime bookyName={bookyName} setUser={setUser} user={user} ></BookTime>
       </div>
     </div>
   )

@@ -103,22 +103,16 @@ module.exports = {
   },
   getEventByDay: async (req, res) => {
 
-    // const email = req.session.email
-    // console.log(email)
-
-    // if (email) {
     const booky = req.params.bookyName
     const day = req.params.id
     const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
 
     res.send({ success: true, eventsByDay })
-    // } else {
-    //   res.send({ error: true, message: 'user is not logged in' })
-    // }
+
   },
   autoLogin: async (req, res) => {
+
     const { email } = req.session
-    // console.log(req.session)
     if (email) {
       const user = await userSchema.findOne({ email })
       return sendRes(res, false, "all good", { secret: user.secret, email })
