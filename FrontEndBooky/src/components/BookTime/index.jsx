@@ -18,9 +18,10 @@ const BookTime = ({
   const eventEndRef = useRef();
   const eventNameRef = useRef();
 
-  const [currentColor, setCurrentColor] = useState()
+  const [currentColor, setCurrentColor] = useState([])
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [error, setError] = useState('')
+  const [isActive, setIsActive] = useState(false)
 
   async function getUser() {
     const secret = localStorage.getItem("secret")
@@ -47,10 +48,12 @@ const BookTime = ({
     const data = await post("addReservation", newBooking)
     setError(data.message)
     setRegistered(registered + 1)
+    setIsActive(false)
   }
 
   const handleOnChange = (color) => {
     setCurrentColor(color.hex)
+    setIsActive(true)
   }
 
   return (
@@ -71,6 +74,7 @@ const BookTime = ({
         variant="contained"
         sx={{ p: 3, backgroundColor: currentColor }}
         onClick={addReservation}
+        disabled={isActive ? false : true}
       >Reserve</Button>
     </div>
   )
