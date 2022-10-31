@@ -20,7 +20,7 @@ const TimeBar = ({ id, bookyName, user }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
-  const [eventToEdit, setEventToEdit] = useState()
+  const [eventToEdit, setEventToEdit] = useState([])
   const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -36,6 +36,7 @@ const TimeBar = ({ id, bookyName, user }) => {
   const updateOrDelete = (event) => {
     setEventToEdit(event)
     onOpen()
+
   }
 
   const deleteBooky = async () => {
@@ -48,8 +49,14 @@ const TimeBar = ({ id, bookyName, user }) => {
     setError(data.message)
   }
 
-  const updateBooky = async () => {
+  const updateBooky = async (newEventName, id) => {
 
+    const bookyToUpdate = {
+      id,
+      eventName: newEventName
+    }
+    const data = await post("update", bookyToUpdate)
+    console.log(data.message)
   }
 
   const convertNumbersToTime = (time) => {
@@ -60,10 +67,12 @@ const TimeBar = ({ id, bookyName, user }) => {
       return time.toString().replace('.5', ':30 ')
     }
   }
+
   return (
     <ChakraProvider theme={theme}>
       <EditModal
         error={error}
+        eventToEdit={eventToEdit}
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}

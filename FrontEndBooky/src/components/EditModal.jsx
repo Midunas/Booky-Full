@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -10,7 +10,16 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error }) => {
+const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit }) => {
+
+  const [isActive, setIsActive] = useState(true)
+  const newEventNameRef = useRef()
+
+  const editEventName = () => {
+    setIsActive(current => !current)
+  }
+
+
   return (
     <Modal
       isOpen={isOpen}
@@ -20,21 +29,31 @@ const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error }) => {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>{eventToEdit.username} 13:00 - 15:40</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, vel id. Atque earum hic delectus ex vel odio tempore vitae sapiente iure asperiores alias maiores aliquam, ducimus libero dolorum nobis.</div>
+          <div onClick={editEventName}
+            style={{ display: isActive ? 'block' : 'none' }}
+          >{eventToEdit.eventName}</div>
+          <input
+            type="text"
+            placeholder='new event name'
+            style={{ display: isActive ? 'none' : 'block', padding: '5px' }}
+            ref={newEventNameRef}
+          />
         </ModalBody>
         <ModalFooter>
           <div className='text-red-500'>{error}</div>
-          <Button variant='ghost' onClick={updateBooky}>Update</Button>
+          <Button
+            variant='ghost'
+            onClick={() => updateBooky(newEventNameRef.current.value, eventToEdit._id)}>Update</Button>
           <Button variant='ghost' color='red' onClick={deleteBooky}>Delete</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
             Close
           </Button>
         </ModalFooter>
       </ModalContent>
-    </Modal>
+    </Modal >
   )
 }
 

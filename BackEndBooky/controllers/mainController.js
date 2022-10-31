@@ -142,14 +142,15 @@ module.exports = {
   },
   update: async (req, res) => {
 
-    const { id, newEventName } = req.body
+    const { id, eventName } = req.body
 
-    const updatedBooking = await bookingSchema.findOneAndUpdate({ _id: id }, { $set: { newEventName } }, { new: true })
+    const updatedBooking = await bookingSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
+    console.log(updatedBooking)
+    return sendRes(res, false, 'Booky Updated', null)
 
-    res.send({ success: true, updatedBooking })
   },
   deleteBooky: async (req, res) => {
-    // const id = req.params.id
+
     const { id, username } = req.body
     const userMadeTheBooky = await bookingSchema.findOne({ _id: id, username })
 
