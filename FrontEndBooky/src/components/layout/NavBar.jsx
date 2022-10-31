@@ -9,8 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { get } from '../../plugins/http';
 
-
-const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
+const NavBar = ({ isLoggedIn, setIsLoggedIn, setIsDrawerOpen }) => {
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
@@ -32,16 +31,6 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
   function goToWelcome() {
     navigate("/")
   }
-  // const goToLogin = () => {
-  //   if (localStorage.getItem("secret")) {
-  //     navigate('/login')
-  //     setLog('Login')
-  //   }
-  // get("logout").then(res => {
-  //   localStorage.setItem("autologin", false)
-  //   navigate('/')
-  //   setLog('Logout')
-  // })
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -58,14 +47,13 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
             onClick={goToWelcome}>
             Booky
           </Typography>
-          {/* <Button sx={{ color: 'black', fontSize: '25px' }} onClick={goToLogin}>LogIn</Button> */}
-          {/* <Button sx={{ color: 'black', fontSize: '25px', }} onClick={logOut}>LogOut</Button> */}
           <Button sx={{ color: 'black', fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn ? 'Logout' : 'Login'}</Button>
           <IconButton
             size="large"
             edge="start"
             aria-label="menu"
             sx={{ ml: 2 }}
+            onClick={() => setIsDrawerOpen(true)}
           >
             <MenuIcon />
           </IconButton>

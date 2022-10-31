@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import Login from "../components/Login";
+import Login from "../components/Login/Login";
 import { get } from "../plugins/http";
 import { useNavigate } from "react-router-dom";
 

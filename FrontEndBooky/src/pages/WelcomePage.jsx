@@ -13,7 +13,6 @@ const WelcomePage = () => {
   }
   return (
     <div>
-
       <div className='container flex flex-col bg-white p-20 rounded w-[900px]'>
         <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-gray-800">
           Welcome!

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import DaySelect from './components/DaySelect'
 import { Button } from '@mui/material'

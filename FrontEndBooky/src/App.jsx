@@ -9,13 +9,15 @@ import CreateBookyPage from './pages/CreateBookyPage';
 import JoinBookyPage from './pages/JoinBookyPage';
 import Layout from './components/layout/Layout';
 
+
 const App = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <BrowserRouter>
-      <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
+      <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}
+      >
         <Routes>
           <Route path='/register' element={<RegisterPage />}></Route>
           <Route path='/login' element={<LoginPage isLoggedI={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>

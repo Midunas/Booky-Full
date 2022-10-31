@@ -19,6 +19,10 @@ const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEd
     setIsActive(current => !current)
   }
 
+  const updateBookyAndCloseModal = () => {
+    updateBooky(newEventNameRef.current.value, eventToEdit._id)
+    onClose()
+  }
 
   return (
     <Modal
@@ -46,7 +50,7 @@ const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEd
           <div className='text-red-500'>{error}</div>
           <Button
             variant='ghost'
-            onClick={() => updateBooky(newEventNameRef.current.value, eventToEdit._id)}>Update</Button>
+            onClick={updateBookyAndCloseModal}>Update</Button>
           <Button variant='ghost' color='red' onClick={deleteBooky}>Delete</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
             Close

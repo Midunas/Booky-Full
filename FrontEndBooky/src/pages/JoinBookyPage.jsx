@@ -34,7 +34,7 @@ const JoinBookyPage = () => {
   return (
     <div className='container mt-80'>
       <div className='flex flex-col bg-white p-10 text-center rounded'>
-        <h1 className="text-5xl font-normal leading-normal  mb-6 text-gray-800" >Join a Booky</h1>
+        <h1 className="text-5xl font-normal leading-normal mb-6 text-gray-800" >Join a Booky</h1>
         <div className='text-red-500'>{error}</div>
         <input className='bigInp' type="text" placeholder='Booky name' ref={bookyNameRef} />
         <input className='bigInp' type="text" placeholder='email' ref={emailRef} />

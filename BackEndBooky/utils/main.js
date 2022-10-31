@@ -67,5 +67,3 @@ module.exports = {
   convertNumbersToNumberNames
 }
 
-// takes array of numbers, converts to array of number names [1, 2] => ["one", "two"]
-// return all numbers from string in array "adf29d3" => [2,9,3]
