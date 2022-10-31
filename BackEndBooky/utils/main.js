@@ -32,7 +32,8 @@ const alwaysReturn100 = (number) => {
 }
 const convertNumbersToNumberNames = (arr) => {
   let result = []
-  const digits = arr.map((num) => {
+
+  arr.map((num) => {
     result.push(converter.toWords(num))
   })
   return result
