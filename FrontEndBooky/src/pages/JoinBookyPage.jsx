@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Header from '../components/Header';
 import { post } from '../plugins/http';
 
 const JoinBookyPage = () => {
@@ -34,15 +35,20 @@ const JoinBookyPage = () => {
   return (
     <div className='container mt-80'>
       <div className='flex flex-col bg-white p-10 text-center rounded'>
-        <h1 className="text-5xl font-normal leading-normal mb-6 text-gray-800" >Join a Booky</h1>
+        <Header
+          heading="Join a Booky"
+          paragraph="Already have an account?"
+          linkName="Login"
+          linkUrl="/login"
+        />
         <div className='text-red-500'>{error}</div>
-        <input className='bigInp' type="text" placeholder='Booky name' ref={bookyNameRef} />
-        <input className='bigInp' type="text" placeholder='email' ref={emailRef} />
-        <input className='bigInp' type="text" placeholder='username' ref={usernameRef} />
-        <input className='bigInp' type="password" placeholder='password' ref={passRef} />
-        <input className='bigInp' type="password" placeholder='repeat password' ref={repeatPass} />
+        <input className='p-4 text-2xl' type="text" placeholder='Booky name' ref={bookyNameRef} />
+        <input className='p-4 text-2xl' type="text" placeholder='email' ref={emailRef} />
+        <input className='p-4 text-2xl' type="text" placeholder='username' ref={usernameRef} />
+        <input className='p-4 text-2xl' type="password" placeholder='password' ref={passRef} />
+        <input className='p-4 text-2xl' type="password" placeholder='repeat password' ref={repeatPass} />
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4  mt-6 rounded"
+          className="w-full flex justify-center p-4 text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-purple-500 mt-10"
           onClick={addUser}>
           Join
         </button>

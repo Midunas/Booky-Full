@@ -4,7 +4,7 @@ import { ChakraProvider, extendTheme, useDisclosure } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { get, post } from '../plugins/http'
-import EditModal from './EditModal'
+import EditEventModal from './EditEventModal'
 
 const theme = extendTheme({
   styles: {
@@ -70,13 +70,13 @@ const TimeBar = ({ id, bookyName, user }) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <EditModal
+      <EditEventModal
         error={error}
         eventToEdit={eventToEdit}
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}
-        isOpen={isOpen}></EditModal>
+        isOpen={isOpen}></EditEventModal>
       <div className=' flex'>
         <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black'>{id}</div>
         <div className='w-5/6'>

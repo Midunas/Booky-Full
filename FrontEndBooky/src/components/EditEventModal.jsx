@@ -10,7 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit }) => {
+const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit }) => {
 
   const [isActive, setIsActive] = useState(true)
   const newEventNameRef = useRef()
@@ -61,4 +61,4 @@ const EditModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEd
   )
 }
 
-export default EditModal
+export default EditEventModal

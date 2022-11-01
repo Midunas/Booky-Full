@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { post } from '../../plugins/http';
-import Header from './Header';
+import Header from '../Header';
 
 const Login = ({ setIsLoggedIn }) => {
 
@@ -40,7 +40,6 @@ const Login = ({ setIsLoggedIn }) => {
     }
 
   }, [])
-
   return (
     <div className='container mt-80'>
       <div className='flex flex-col bg-white p-10 text-center rounded'>
@@ -51,14 +50,30 @@ const Login = ({ setIsLoggedIn }) => {
           linkUrl="/join-booky"
         />
         <div className='text-red-500'>{error}</div>
-        <input className='bigInp' type="text" placeholder='email' ref={emailRef} />
-        <input className='bigInp' type="password" placeholder='password' ref={passRef} />
-        <div className='flex items-center ml-2 gap-x-1.5'>
-          <input className='p-4' ref={checkRef} id="autoLogin" onChange={autoLoginCheck} type="checkbox" />
-          <label htmlFor="autoLogin">remember me</label>
+        <input className='p-4 text-2xl' type="text" placeholder='email' ref={emailRef} />
+        <input className='p-4 text-2xl' type="password" placeholder='password' ref={passRef} />
+        <div className="flex items-center justify-between ">
+          <div className="flex items-center mt-6">
+            <input
+              ref={checkRef}
+              id="autoLogin"
+              onChange={autoLoginCheck}
+              type="checkbox"
+              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+            />
+            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              Remember me
+            </label>
+          </div>
+
+          <div className="text-sm mt-6">
+            <Link to='/create-booky' className="font-medium text-purple-600 hover:text-purple-500">
+              Create a new booky?
+            </Link>
+          </div>
         </div>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4  mt-6 rounded"
+          className="w-full flex justify-center p-4 text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-purple-500 mt-10"
           onClick={login}>
           Login
         </button>
