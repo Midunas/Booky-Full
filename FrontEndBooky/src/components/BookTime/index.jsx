@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import DaySelect from './components/DaySelect'
-import { Box, Button } from '@mui/material'
 import { useRef } from 'react'
 import TimeSelect from './components/TimeSelect'
 import { TwitterPicker } from 'react-color'
@@ -56,23 +55,22 @@ const BookTime = ({
   return (
     <div className='flex flex-col w-[280px] mb-20'>
       <div className='text-red-500'>{error}</div>
-      <Box className="bigInp" >{user}</Box>
-      <input className="bigInp" ref={eventNameRef} placeholder='event name'></input>
+      <div className="bigInp dark:bg-zinc-700 dark:text-white" >{user}</div>
+      <input className="bigInp dark:bg-zinc-700 dark:text-white" ref={eventNameRef} placeholder='event name'></input>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>
       <TimeSelect eventTimeRef={eventEndRef} label="To: "></TimeSelect>
-      <div className='flex'>
+      <div className='flex '>
         <TwitterPicker
           color={currentColor}
           onChangeComplete={handleOnChange}
         />
       </div>
-      <Button
-        variant="contained"
-        sx={{ p: 3, backgroundColor: currentColor, color: 'white' }}
+      <button
+        style={{ padding: 20, backgroundColor: currentColor.length > 0 ? currentColor : '#e9d5ff', color: 'white' }}
         onClick={addReservation}
         disabled={isActive ? false : true}
-      >Reserve</Button>
+      >Reserve</button>
     </div>
   )
 }

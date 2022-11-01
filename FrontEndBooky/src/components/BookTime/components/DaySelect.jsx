@@ -5,7 +5,7 @@ const DaySelect = ({ setSelectedDay }) => {
   const dayRef = useRef()
 
   return (
-    <select className="bigInp" name="Weekday" onChange={() => setSelectedDay(dayRef.current.value)} ref={dayRef}>
+    <select className="bigInp dark:bg-zinc-700 dark:text-white" name="Weekday" onChange={() => setSelectedDay(dayRef.current.value)} ref={dayRef}>
       <option value="Monday">Monday</option>
       <option value="Tuesday">Tuesday</option>
       <option value="Wednesday">Wednesday</option>

@@ -10,6 +10,8 @@ import Layout from './components/layout/Layout';
 
 const App = () => {
 
+  // const body = document.getElementsByTagName('body')
+
   return (
     <BrowserRouter>
       <Layout

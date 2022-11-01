@@ -6,12 +6,18 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { get } from '../../plugins/http';
+import { Switch } from '@mui/material';
+import useDarkMode from '../../hook/useDarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const NavBar = ({ setIsDrawerOpen }) => {
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
+  const [colorTheme, setTheme] = useDarkMode()
+  const [checked, setChecked] = React.useState(false);
 
   const logInOrOut = () => {
 
@@ -34,10 +40,17 @@ const NavBar = ({ setIsDrawerOpen }) => {
       navigate("/")
     }
   }
-
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+    if (event.target.checked === true) {
+      setTheme('dark')
+    } else {
+      setTheme('light')
+    }
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" className='bg-white dark:bg-neutral-700 ' >
+      <AppBar position="fixed" className='bg-white dark:bg-neutral-800 ' >
         <Toolbar sx={{
           width: '50%',
           height: 30,
@@ -49,16 +62,26 @@ const NavBar = ({ setIsDrawerOpen }) => {
             onClick={goToWelcome}>
             Booky
           </h1>
-          <button className='text-2xl text-black' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
+          <button className='text-2xl text-black dark:text-white' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
           <IconButton
             size="large"
             edge="start"
             aria-label="menu"
+            className='dark:text-white'
             sx={{ ml: 2, display: isLoggedIn === 'true' ? 'block' : 'none' }}
             onClick={() => setIsDrawerOpen(true)}
           >
             <MenuIcon />
           </IconButton>
+          <Switch
+            checked={checked}
+            onChange={handleChange} >
+          </Switch>
+          {colorTheme === 'dark' ? (
+            <LightModeIcon ></LightModeIcon>
+          ) : (
+            <DarkModeIcon ></DarkModeIcon>
+          )}
         </Toolbar>
       </AppBar>
     </Box >

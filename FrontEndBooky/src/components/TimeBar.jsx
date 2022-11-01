@@ -78,10 +78,10 @@ const TimeBar = ({ id, bookyName, user }) => {
         onClose={onClose}
         isOpen={isOpen}></EditEventModal>
       <div className=' flex'>
-        <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black'>{id}</div>
+        <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black dark:bg-zinc-700 dark:text-white'>{id}</div>
         <div className='w-5/6'>
           <div
-            className='relative h-20 border-solid border border-black bg-white flex justify-center items-center rounded'
+            className='relative h-20 border-solid border border-black bg-white flex justify-center items-center rounded dark:bg-zinc-700 dark:text-white'
             style={{ width: w }}
             id={id}>
             {events.map((event, i) => {
