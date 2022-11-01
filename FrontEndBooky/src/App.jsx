@@ -7,26 +7,22 @@ import WelcomePage from './pages/WelcomePage';
 import CreateBookyPage from './pages/CreateBookyPage';
 import JoinBookyPage from './pages/JoinBookyPage';
 import Layout from './components/layout/Layout';
-import ColorModeContextProvider from './context/ColorModeContext';
-
 
 const App = () => {
 
   return (
-    <ColorModeContextProvider>
-      <BrowserRouter>
-        <Layout
-        >
-          <Routes>
-            <Route path='/login' element={<LoginPage />}></Route>
-            <Route path='/Booky' element={<BookyPage />}></Route>
-            <Route path='/create-booky' element={<CreateBookyPage />}></Route>
-            <Route path='/join-booky' element={<JoinBookyPage />}></Route>
-            <Route path='/' element={<WelcomePage />}></Route>
-          </Routes>
-        </Layout>
-      </BrowserRouter >
-    </ColorModeContextProvider>
+    <BrowserRouter>
+      <Layout
+      >
+        <Routes>
+          <Route path='/login' element={<LoginPage />}></Route>
+          <Route path='/Booky' element={<BookyPage />}></Route>
+          <Route path='/create-booky' element={<CreateBookyPage />}></Route>
+          <Route path='/join-booky' element={<JoinBookyPage />}></Route>
+          <Route path='/' element={<WelcomePage />}></Route>
+        </Routes>
+      </Layout>
+    </BrowserRouter >
 
   )
 }

@@ -2,8 +2,6 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
@@ -39,20 +37,19 @@ const NavBar = ({ setIsDrawerOpen }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className='bg-white dark:bg-neutral-700 ' >
         <Toolbar sx={{
           width: '50%',
           height: 30,
           mx: 'auto',
         }}>
-          <Typography
-            variant="h2"
-            component="div"
-            sx={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
+          <h1
+            className='text-5xl'
+            style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
             onClick={goToWelcome}>
             Booky
-          </Typography>
-          <Button sx={{ fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</Button>
+          </h1>
+          <button className='text-2xl text-black' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
           <IconButton
             size="large"
             edge="start"
