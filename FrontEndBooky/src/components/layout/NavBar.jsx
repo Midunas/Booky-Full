@@ -30,7 +30,7 @@ const NavBar = ({ setIsDrawerOpen }) => {
     }
   }
   function goToWelcome() {
-    if (isLoggedIn) {
+    if (isLoggedIn === "true") {
       navigate('/Booky')
     } else {
       navigate("/")
@@ -52,7 +52,7 @@ const NavBar = ({ setIsDrawerOpen }) => {
             onClick={goToWelcome}>
             Booky
           </Typography>
-          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn ? 'Logout' : 'Login'}</Button>
+          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</Button>
           <IconButton
             size="large"
             edge="start"

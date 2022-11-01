@@ -7,10 +7,11 @@ const Welcome = () => {
   const isLoggedIn = localStorage.getItem("logedIn")
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn === "true") {
       navigate('/Booky')
     }
-  })
+  }, [])
+
   const createNewBooky = () => {
     navigate('/create-booky')
   }
