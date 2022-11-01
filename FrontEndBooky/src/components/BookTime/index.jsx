@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import DaySelect from './components/DaySelect'
-import { Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useRef } from 'react'
 import TimeSelect from './components/TimeSelect'
 import { TwitterPicker } from 'react-color'
@@ -56,7 +56,7 @@ const BookTime = ({
   return (
     <div className='flex flex-col w-[280px] mb-20'>
       <div className='text-red-500'>{error}</div>
-      <span className="bigInp" >{user}</span>
+      <Box className="bigInp" >{user}</Box>
       <input className="bigInp" ref={eventNameRef} placeholder='event name'></input>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>
@@ -69,7 +69,7 @@ const BookTime = ({
       </div>
       <Button
         variant="contained"
-        sx={{ p: 3, backgroundColor: currentColor }}
+        sx={{ p: 3, backgroundColor: currentColor, color: 'white' }}
         onClick={addReservation}
         disabled={isActive ? false : true}
       >Reserve</Button>

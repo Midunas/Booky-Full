@@ -125,7 +125,6 @@ module.exports = {
   },
   getUser: async (req, res) => {
     const { secret } = req.params
-
     const userExists = await userSchema.find({ secret })
 
     if (!userExists.length > 0) {

@@ -39,7 +39,7 @@ const NavBar = ({ setIsDrawerOpen }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: 'white' }}>
+      <AppBar position="fixed">
         <Toolbar sx={{
           width: '50%',
           height: 30,
@@ -52,12 +52,12 @@ const NavBar = ({ setIsDrawerOpen }) => {
             onClick={goToWelcome}>
             Booky
           </Typography>
-          <Button sx={{ color: 'black', fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</Button>
+          <Button sx={{ fontSize: '25px' }} onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</Button>
           <IconButton
             size="large"
             edge="start"
             aria-label="menu"
-            sx={{ ml: 2 }}
+            sx={{ ml: 2, display: isLoggedIn === 'true' ? 'block' : 'none' }}
             onClick={() => setIsDrawerOpen(true)}
           >
             <MenuIcon />

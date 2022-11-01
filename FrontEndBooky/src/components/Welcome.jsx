@@ -20,18 +20,18 @@ const Welcome = () => {
   }
   return (
     <div>
-      <div className='container flex flex-col bg-white p-20 rounded w-[900px]'>
-        <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-gray-800">
-          Welcome!
+      <div className='container flex flex-col mt-52 bg-white p-20 rounded w-[900px]'>
+        <h1 className="text-6xl font-normal leading-normal mb-2 text-gray-800">
+          Welcome To Booky!
         </h1>
         <div className=' w-full flex justify-around mt-20'>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
+            className="bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-purple-500 text-white font-bold py-4 px-4 rounded"
             onClick={createNewBooky}>
             Create a new Booky
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
+            className="bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-purple-500 text-white font-bold py-4 px-4 rounded"
             onClick={registerUser}>
             Join an existing Booky
           </button>
