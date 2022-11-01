@@ -5,8 +5,6 @@ import SideBar from './SideBar';
 
 const Layout = ({
   children,
-  isLoggedIn,
-  setIsLoggedIn,
 }) => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -14,7 +12,7 @@ const Layout = ({
   return (
 
     <div>
-      <NavBar isLoggedIn={isLoggedIn} setIsDrawerOpen={setIsDrawerOpen} setIsLoggedIn={setIsLoggedIn} />
+      <NavBar setIsDrawerOpen={setIsDrawerOpen} />
       <SideBar isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}></SideBar>
       <main>{children}</main>
     </div>

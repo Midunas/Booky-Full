@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookyPage from './pages/BookyPage';
@@ -11,14 +11,12 @@ import Layout from './components/layout/Layout';
 
 const App = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
   return (
     <BrowserRouter>
-      <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}
+      <Layout
       >
         <Routes>
-          <Route path='/login' element={<LoginPage isLoggedI={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>
+          <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/Booky' element={<BookyPage />}></Route>
           <Route path='/create-booky' element={<CreateBookyPage />}></Route>
           <Route path='/join-booky' element={<JoinBookyPage />}></Route>

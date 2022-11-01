@@ -4,7 +4,7 @@ import Login from "../components/auth/Login/Login";
 import { get } from "../plugins/http";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
+const LoginPage = () => {
 
   const nav = useNavigate()
 
@@ -16,7 +16,7 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
         if (res.error) return
         console.log(res)
         nav("/Booky")
-        setIsLoggedIn(true)
+        localStorage.setItem("logedIn", true)
       })
     }
 
@@ -24,7 +24,7 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
 
   return (
     <div>
-      <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Login />
     </div>
   );
 };

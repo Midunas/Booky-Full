@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { post } from '../../../plugins/http';
 import Header from '../Header';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
 
   const emailRef = useRef()
   const passRef = useRef()
@@ -24,7 +24,7 @@ const Login = ({ setIsLoggedIn }) => {
       localStorage.setItem("secret", res.data.secret)
       localStorage.setItem("bookyName", res.data.sessions.bookyName)
       localStorage.setItem("email", res.data.sessions.email)
-      setIsLoggedIn(true)
+      localStorage.setItem("logedIn", true)
     }
     setError(res.message)
   }

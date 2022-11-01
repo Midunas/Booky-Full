@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const Welcome = () => {
 
   const navigate = useNavigate()
+  const isLoggedIn = localStorage.getItem("logedIn")
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/Booky')
+    }
+  })
   const createNewBooky = () => {
     navigate('/create-booky')
   }

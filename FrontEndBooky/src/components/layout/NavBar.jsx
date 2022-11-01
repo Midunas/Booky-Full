@@ -9,27 +9,32 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { get } from '../../plugins/http';
 
-const NavBar = ({ isLoggedIn, setIsLoggedIn, setIsDrawerOpen }) => {
+const NavBar = ({ setIsDrawerOpen }) => {
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
+  const isLoggedIn = localStorage.getItem("logedIn")
 
   const logInOrOut = () => {
 
     if (localEmail) {
       get("logout").then(res => {
-        localStorage.setItem("autologin", false)
         localStorage.clear()
+        localStorage.setItem('logedIn', false)
+        localStorage.setItem("autologin", false)
         navigate('/')
-        setIsLoggedIn(false)
       })
     } else {
       navigate('/login')
-      setIsLoggedIn(false)
+      localStorage.setItem('logedIn', false)
     }
   }
   function goToWelcome() {
-    navigate("/")
+    if (isLoggedIn) {
+      navigate('/Booky')
+    } else {
+      navigate("/")
+    }
   }
 
   return (
