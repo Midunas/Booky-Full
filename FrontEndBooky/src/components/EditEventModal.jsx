@@ -47,7 +47,7 @@ const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, even
             }}
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
-          >{eventToEdit.eventName}</div>
+          >{eventToEdit.eventName ? eventToEdit.eventName : 'Add event name?'}</div>
           {isShown && (
             <div className='ml-5 text-gray-400'>Edit event name</div>
           )}
