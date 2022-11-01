@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
-import { post } from '../plugins/http'
+import { post } from '../../plugins/http'
 import { useNavigate } from "react-router-dom";
-import Header from '../components/Header';
+import Header from '../Header';
 
 const CreateBooky = () => {
 

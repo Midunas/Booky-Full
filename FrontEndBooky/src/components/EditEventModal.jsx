@@ -13,6 +13,7 @@ import {
 const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit }) => {
 
   const [isActive, setIsActive] = useState(true)
+  const [isShown, setIsShown] = useState(false)
   const newEventNameRef = useRef()
 
   const editEventName = () => {
@@ -35,10 +36,21 @@ const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, even
       <ModalContent>
         <ModalHeader>{eventToEdit.username} 13:00 - 15:40</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <div onClick={editEventName}
-            style={{ display: isActive ? 'block' : 'none' }}
+        <ModalBody style={{ display: 'flex' }}>
+          <div
+            onClick={editEventName}
+            style={{
+              display: isActive ? 'block' : 'none',
+              cursor: 'pointer',
+              textDecoration: isShown ? 'underline' : '',
+              fontSize: '20px'
+            }}
+            onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)}
           >{eventToEdit.eventName}</div>
+          {isShown && (
+            <div className='ml-5 text-gray-400'>Edit event name</div>
+          )}
           <input
             type="text"
             placeholder='new event name'

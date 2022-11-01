@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateBooky from '../components/CreateBooky'
+import CreateBooky from '../components/Register/CreateBooky'
 
 const CreateBookyPage = () => {
 

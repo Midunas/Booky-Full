@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import Header from '../components/Header';
-import { post } from '../plugins/http';
+import Header from '../Header';
+import { post } from '../../plugins/http';
 
 const JoinBooky = () => {
 
