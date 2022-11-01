@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { post } from '../../plugins/http';
+import { post } from '../../../plugins/http';
 import Header from '../Header';
 
 const Login = ({ setIsLoggedIn }) => {
