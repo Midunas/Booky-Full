@@ -1,36 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import DaySelect from './components/DaySelect'
 import { useRef } from 'react'
 import TimeSelect from './components/TimeSelect'
 import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
-import { get } from '../../plugins/http'
+import MainContext from '../../context/MainContext'
 
-const BookTime = ({
-  user,
-  setUser,
-  bookyName }) => {
+const BookTime = () => {
 
   const eventStartRef = useRef();
   const eventEndRef = useRef();
   const eventNameRef = useRef();
+  const user = useContext(MainContext)
 
   const [currentColor, setCurrentColor] = useState([])
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [error, setError] = useState('')
   const [isActive, setIsActive] = useState(false)
-
-  async function getUser() {
-    const secret = localStorage.getItem("secret")
-    if (secret) {
-      const res = await get("getUser/" + secret)
-      setUser(res.userExists[0].username)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
 
   const addReservation = async () => {
     const newBooking = {
@@ -39,8 +26,8 @@ const BookTime = ({
       eventName: eventNameRef.current.value,
       color: currentColor,
       eventDay: selectedDay,
-      username: user,
-      bookyName: bookyName
+      username: user.username,
+      bookyName: user.bookyName
     }
     const data = await post("addReservation", newBooking)
     setError(data.message)
@@ -55,7 +42,7 @@ const BookTime = ({
   return (
     <div className='flex flex-col w-[280px] mb-20'>
       <div className='text-red-500'>{error}</div>
-      <div className="bigInp dark:bg-zinc-700 dark:text-white" >{user}</div>
+      <div className="bigInp dark:bg-zinc-700 dark:text-white" >{user && user.username}</div>
       <input className="bigInp dark:bg-zinc-700 dark:text-white" ref={eventNameRef} placeholder='event name'></input>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>

@@ -1,22 +1,24 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Tooltip, useDisclosure } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
+import MainContext from '../context/MainContext'
 import { get, post } from '../plugins/http'
 import EditEventModal from './EditEventModal'
 
 
-const TimeBar = ({ id, bookyName, user }) => {
+const TimeBar = ({ id }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
   const [eventToEdit, setEventToEdit] = useState([])
   const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const user = useContext(MainContext)
 
   const getEventByDay = async () => {
-    const res = await get(`getEventByDay/${id}/${bookyName}`)
+    const res = await get(`getEventByDay/${id}/${user && user.bookyName}`)
     setEvents(res.eventsByDay)
   }
 
@@ -31,9 +33,8 @@ const TimeBar = ({ id, bookyName, user }) => {
   }
 
   const deleteBooky = async () => {
-
     const bookyToDelete = {
-      username: user,
+      username: user.username,
       id: eventToEdit._id
     }
     const data = await post("delete", bookyToDelete)
@@ -41,7 +42,6 @@ const TimeBar = ({ id, bookyName, user }) => {
   }
 
   const updateBooky = async (newEventName, id) => {
-
     const bookyToUpdate = {
       id,
       eventName: newEventName
@@ -78,7 +78,7 @@ const TimeBar = ({ id, bookyName, user }) => {
             id={id}>
             {events.map((event, i) => {
               return (
-                <Tooltip label="View or edit booky" >
+                <Tooltip key={i} label="View or edit booky" >
                   <div
                     className='absolute h-18 rounded align-center overflow-hidden cursor-pointer'
                     key={i}

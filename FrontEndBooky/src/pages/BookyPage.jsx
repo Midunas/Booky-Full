@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BookTime from '../components/booktime'
 import TimeBar from '../components/TimeBar';
+import MainContext from '../context/MainContext';
 
 const BookyPage = () => {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-  const [user, setUser] = useState()
+
   const navigate = useNavigate()
+  const user = useContext(MainContext)
 
   useEffect(() => {
     const localEmail = localStorage.getItem("email")
@@ -18,18 +20,17 @@ const BookyPage = () => {
     }
   },)
 
-  const bookyName = localStorage.getItem("bookyName")
 
   return (
     <div className='max-w-[1980px] mx-auto'>
       <div className='mt-16 flex flex-wrap items-center justify-around'>
         <div className='overflow-x-auto w-[980px] mb-20'>
-          <h1 className="text-3xl dark:text-white">{bookyName}</h1>
+          <h1 className="text-3xl dark:text-white mb-2">{user && user.bookyName}</h1>
           {days.length > 0 && days.map((x, i) =>
-            <TimeBar user={user} key={i} id={x} bookyName={bookyName} />
+            <TimeBar key={i} id={x} />
           )}
         </div>
-        <BookTime bookyName={bookyName} setUser={setUser} user={user} ></BookTime>
+        <BookTime></BookTime>
       </div>
     </div>
   )
