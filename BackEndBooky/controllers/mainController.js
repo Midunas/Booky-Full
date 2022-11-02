@@ -155,5 +155,15 @@ module.exports = {
     }
 
   },
+  updateProfile: async (req, res) => {
+    const { id, username, photo } = req.body
+    const updatedUser = await userSchema.findOneAndUpdate({ _id: id }, { $set: { username, photo } }, { new: true })
+    if (updatedUser) {
+      return sendRes(res, false, 'User updated', null)
+    } else {
+      return sendRes(res, true, 'Something went wrong', null)
+    }
+
+  }
 
 }

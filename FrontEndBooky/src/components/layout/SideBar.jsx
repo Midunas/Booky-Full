@@ -1,7 +1,6 @@
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -9,26 +8,41 @@ import {
   Button,
   Input,
 } from '@chakra-ui/react'
-import React from 'react'
-import useDarkMode from "../../hook/useDarkMode";
+import React, { useEffect, useRef, useState } from 'react'
+import { get, post } from '../../plugins/http';
+import UserCard from '../UserCard';
 
 const SideBar = ({ isOpen, onClose }) => {
 
-  // const [colorTheme, setTheme] = useDarkMode()
+  const [user, setUser] = useState([])
+  const [isShown, setIsShown] = useState(false)
 
-  // const theme = extendTheme({
-  //   styles: {
-  //     global: () => ({
-  //       body: {
-  //         bg: ""
-  //       }
-  //     })
-  //   }
-  // });
+  const newNameRef = useRef()
+  const newPhotoRef = useRef()
 
+  async function getUser() {
+    const secret = localStorage.getItem("secret")
+    if (secret) {
+      const res = await get("getUser/" + secret)
+      setUser(res.userExists)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [user])
+
+  async function updateProfile() {
+    const newUser = {
+      id: user[0]._id,
+      username: newNameRef.current.value,
+      photo: newPhotoRef.current.value
+    }
+    const data = await post('updateProfile', newUser)
+    console.log(data)
+    setIsShown(false)
+  }
   return (
     <>
-      {/* <ChakraProvider theme={theme}> */}
       <Drawer
         isOpen={isOpen}
         placement='left'
@@ -37,21 +51,20 @@ const SideBar = ({ isOpen, onClose }) => {
         <DrawerOverlay />
         <DrawerContent className='dark:bg-zinc-700' >
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
-
+          <DrawerHeader>Your profile</DrawerHeader>
           <DrawerBody>
-            <Input placeholder='Type here...' />
+            {user.map((x, i) => <UserCard key={i} setIsShown={setIsShown} item={x} />)}
+            {isShown &&
+              <div
+                className='flex flex-col gap-2' >
+                <h1 className='text-2xl dark:text-white'>Edit profile</h1>
+                <Input className='dark:text-white' placeholder='New username' ref={newNameRef} />
+                <Input className='dark:text-white' placeholder='New profile picture url' ref={newPhotoRef} />
+                <Button onClick={updateProfile} colorScheme='blue'>Save</Button>
+              </div>}
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='blue'>Save</Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      {/* </ChakraProvider> */}
     </>
   )
 

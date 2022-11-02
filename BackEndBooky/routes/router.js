@@ -12,6 +12,7 @@ const {
   autoLogin,
   registerAdmin,
   registerUser,
+  updateProfile,
   logout } = require("../controllers/mainController")
 
 router.post("/addReservation", addReservation)
@@ -24,6 +25,7 @@ router.post("/registerUser", middle, registerUser)
 router.post("/delete", deleteBooky)
 router.post("/login", login)
 router.post("/update", update)
+router.post("/updateProfile", updateProfile)
 router.get("/autologin", autoLogin)
 router.get("/logout", logout)
 

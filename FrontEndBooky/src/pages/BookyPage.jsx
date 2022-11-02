@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import BookTime from '../components/BookTime'
+import BookTime from '../components/booktime'
 import TimeBar from '../components/TimeBar';
 
 const BookyPage = () => {

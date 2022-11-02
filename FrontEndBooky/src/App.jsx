@@ -10,12 +10,9 @@ import Layout from './components/layout/Layout';
 
 const App = () => {
 
-  // const body = document.getElementsByTagName('body')
-
   return (
     <BrowserRouter>
-      <Layout
-      >
+      <Layout>
         <Routes>
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/Booky' element={<BookyPage />}></Route>

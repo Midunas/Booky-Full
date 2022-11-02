@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useDisclosure } from '@chakra-ui/react'
+import { Tooltip, useDisclosure } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { get, post } from '../plugins/http'
@@ -68,32 +68,33 @@ const TimeBar = ({ id, bookyName, user }) => {
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}
-        isOpen={isOpen}></EditEventModal>
+        isOpen={isOpen} />
       <div className=' flex'>
-        <div className='w-1/6 flex justify-center items-center rounded bg-white border-solid border border-black dark:bg-zinc-700 dark:text-white'>{id}</div>
+        <div className='dayName'>{id}</div>
         <div className='w-5/6'>
           <div
-            className='relative h-20 border-solid border border-black bg-white flex justify-center items-center rounded dark:bg-zinc-700 dark:text-white'
+            className='timeBar'
             style={{ width: w }}
             id={id}>
             {events.map((event, i) => {
               return (
-                <div
-                  className='absolute h-18 rounded align-center'
-                  key={i}
-                  style={{
-                    backgroundColor: event.color,
-                    width: ((event.eventEnd - event.eventStart) / 14) * w,
-                    left: ((event.eventStart - 8) / 14) * w
-                  }}
-                  onClick={() => updateOrDelete(event)}
+                <Tooltip label="View or edit booky" >
+                  <div
+                    className='absolute h-18 rounded align-center overflow-hidden cursor-pointer'
+                    key={i}
+                    style={{
+                      backgroundColor: event.color,
+                      width: ((event.eventEnd - event.eventStart) / 14) * w,
+                      left: ((event.eventStart - 8) / 14) * w
+                    }}
+                    onClick={() => updateOrDelete(event)}
 
-                >{event.username}<br />
-                  {convertNumbersToTime(event.eventStart)}
-                  - {convertNumbersToTime(event.eventEnd)}
-                  <br />
-                  {event.eventName}
-                </div>
+                  >{event.username}<br />
+                    {convertNumbersToTime(event.eventStart)}
+                    - {convertNumbersToTime(event.eventEnd)}
+                    {event.eventName}
+                  </div>
+                </Tooltip>
               )
             })}
           </div>
