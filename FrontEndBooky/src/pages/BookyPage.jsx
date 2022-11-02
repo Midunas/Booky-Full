@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BookTime from '../components/booktime'
 import TimeBar from '../components/TimeBar';
@@ -8,7 +8,6 @@ import MainContext from '../context/MainContext';
 const BookyPage = () => {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
   const navigate = useNavigate()
   const user = useContext(MainContext)
 
@@ -19,7 +18,6 @@ const BookyPage = () => {
       navigate('/')
     }
   },)
-
 
   return (
     <div className='max-w-[1980px] mx-auto'>

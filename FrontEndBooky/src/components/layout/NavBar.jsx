@@ -10,11 +10,11 @@ import {
   MenuDivider,
   Switch,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MainContext from '../../context/MainContext';
 import useDarkMode from '../../hook/useDarkMode';
 import { get } from '../../plugins/http';
-
 
 const NavBar = ({ onOpen }) => {
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ const NavBar = ({ onOpen }) => {
   const isLoggedIn = localStorage.getItem("logedIn")
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
-
+  const user = useContext(MainContext)
   const logInOrOut = () => {
 
     if (localEmail) {
@@ -73,9 +73,7 @@ const NavBar = ({ onOpen }) => {
                   cursor={'pointer'}>
                   <Avatar
                     size={'sm'}
-                    src={
-                      'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                    }
+                    src={user.photo}
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>

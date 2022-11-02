@@ -29,7 +29,6 @@ const TimeBar = ({ id }) => {
   const updateOrDelete = (event) => {
     setEventToEdit(event)
     onOpen()
-
   }
 
   const deleteBooky = async () => {

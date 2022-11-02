@@ -23,7 +23,7 @@ const App = () => {
   }
   useEffect(() => {
     getUser()
-  }, [])
+  }, [user])
 
   return (
     <MainContext.Provider value={user}>
