@@ -67,7 +67,12 @@ const BookTime = ({
         />
       </div>
       <button
-        style={{ padding: 20, backgroundColor: currentColor.length > 0 ? currentColor : '#e9d5ff', color: 'white' }}
+        style={{
+          padding: 20,
+          backgroundColor: currentColor.length > 0 ? currentColor : '#41384b',
+          color: 'white',
+          borderRadius: '4px'
+        }}
         onClick={addReservation}
         disabled={isActive ? false : true}
       >Reserve</button>

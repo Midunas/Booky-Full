@@ -42,7 +42,7 @@ const Login = () => {
   }, [])
   return (
     <div className='container mt-80'>
-      <div className='flex flex-col bg-white p-10 text-center rounded'>
+      <div className='flex flex-col bg-white dark:bg-zinc-800  p-10 text-center rounded'>
         <Header
           heading="Login to your account"
           paragraph="Don't have an account yet? "
@@ -50,8 +50,8 @@ const Login = () => {
           linkUrl="/join-booky"
         />
         <div className='text-red-500'>{error}</div>
-        <input className='p-4 text-2xl' type="text" placeholder='email' ref={emailRef} />
-        <input className='p-4 text-2xl' type="password" placeholder='password' ref={passRef} />
+        <input className='input' type="text" placeholder='email' ref={emailRef} />
+        <input className='input' type="password" placeholder='password' ref={passRef} />
         <div className="flex items-center justify-between ">
           <div className="flex items-center mt-6">
             <input
@@ -61,7 +61,7 @@ const Login = () => {
               type="checkbox"
               className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
             />
-            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-white">
               Remember me
             </label>
           </div>
@@ -73,7 +73,7 @@ const Login = () => {
           </div>
         </div>
         <button
-          className="w-full flex justify-center p-4 text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-purple-500 mt-10"
+          className='button'
           onClick={login}>
           Login
         </button>

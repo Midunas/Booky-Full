@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -20,8 +21,8 @@ const Welcome = () => {
   }
   return (
     <div>
-      <div className='container flex flex-col mt-52 bg-white p-20 rounded w-[900px]'>
-        <h1 className="text-6xl font-normal leading-normal mb-2 text-gray-800">
+      <div className='container flex flex-col mt-52 bg-white dark:bg-zinc-700 p-20 rounded w-[900px]'>
+        <h1 className="text-6xl font-normal leading-normal mb-2 dark:text-white text-gray-800">
           Welcome To Booky!
         </h1>
         <div className=' w-full flex justify-around mt-20'>

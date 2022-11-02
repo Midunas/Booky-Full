@@ -8,7 +8,7 @@ const Header = ({
   linkUrl }) => {
 
   return (
-    <div className="mb-10 text-gray-800">
+    <div className="mb-10 text-gray-800 dark:text-white">
       <div className="flex justify-center">
         <img
           alt=""

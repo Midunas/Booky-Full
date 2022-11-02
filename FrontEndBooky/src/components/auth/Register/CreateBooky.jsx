@@ -31,20 +31,20 @@ const CreateBooky = () => {
 
   return (
     <div className='container mt-80'>
-      <div className='flex flex-col bg-white p-10 text-center rounded'>
+      <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
         <Header
           heading="Create a Booky"
           paragraph="Already have an account?"
           linkName="Login"
           linkUrl="/login"
         />
-        <input className='p-4 text-2xl' type="text" placeholder='email' ref={emailRef} />
-        <input className='p-4 text-2xl' type="text" placeholder='username' ref={usernameRef} />
-        <input className='p-4 text-2xl' type="password" placeholder='password' ref={passRef} />
-        <input className='p-4 text-2xl' type="password" placeholder='repeat password' ref={repeatPass} />
-        <input className='p-4 text-2xl' type="text" placeholder='Booky name' ref={bookyNameRef} />
+        <input className='input' type="text" placeholder='email' ref={emailRef} />
+        <input className='input' type="text" placeholder='username' ref={usernameRef} />
+        <input className='input' type="password" placeholder='password' ref={passRef} />
+        <input className='input' type="password" placeholder='repeat password' ref={repeatPass} />
+        <input className='input' type="text" placeholder='Booky name' ref={bookyNameRef} />
         <button
-          className="w-full flex justify-center p-4 text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-purple-500 mt-10"
+          className="button"
           onClick={createBooky}>
           Create Booky
         </button>
