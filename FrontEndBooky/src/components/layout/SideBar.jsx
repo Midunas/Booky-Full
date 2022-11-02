@@ -1,28 +1,58 @@
-import { Box, Drawer, Typography } from "@mui/material";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Button,
+  Input,
+} from '@chakra-ui/react'
 import React from 'react'
 import useDarkMode from "../../hook/useDarkMode";
 
-const SideBar = ({ isDrawerOpen, setIsDrawerOpen }) => {
+const SideBar = ({ isOpen, onClose }) => {
 
-  const [colorTheme, setTheme] = useDarkMode()
+  // const [colorTheme, setTheme] = useDarkMode()
+
+  // const theme = extendTheme({
+  //   styles: {
+  //     global: () => ({
+  //       body: {
+  //         bg: ""
+  //       }
+  //     })
+  //   }
+  // });
 
   return (
-    <div className='dark:bg-zinc-800'>
+    <>
+      {/* <ChakraProvider theme={theme}> */}
       <Drawer
-        anchor='left'
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        isOpen={isOpen}
+        placement='left'
+        onClose={onClose}
       >
-        <Box p={2} width='250px' textAlign='center' role='presentation' >
-          <Typography variant='h6' component='div'>
-            Menu
-          </Typography>
-          <Box>Profile</Box>
-          <Box>BookyName members</Box>
-          <button onClick={() => setTheme(colorTheme)}>Mode: {colorTheme}</button>
-        </Box>
-      </Drawer >
-    </div>
+        <DrawerOverlay />
+        <DrawerContent className='dark:bg-zinc-700' >
+          <DrawerCloseButton />
+          <DrawerHeader>Create your account</DrawerHeader>
+
+          <DrawerBody>
+            <Input placeholder='Type here...' />
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='blue'>Save</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+      {/* </ChakraProvider> */}
+    </>
   )
 
 }

@@ -22,7 +22,7 @@ const BookyPage = () => {
 
   return (
     <div className='max-w-[1980px] mx-auto'>
-      <div className='mt-44 flex flex-wrap items-center justify-around'>
+      <div className='mt-16 flex flex-wrap items-center justify-around'>
         <div className='overflow-x-auto w-[980px] mb-20'>
           <h1 className="text-3xl dark:text-white">{bookyName}</h1>
           {days.length > 0 && days.map((x, i) =>

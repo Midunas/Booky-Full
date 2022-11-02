@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import { useDisclosure } from '@chakra-ui/react';
+import React from 'react'
 import NavBar from './NavBar'
 import SideBar from './SideBar';
-
 
 const Layout = ({
   children,
 }) => {
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
 
     <div>
-      <NavBar setIsDrawerOpen={setIsDrawerOpen} />
-      <SideBar isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}></SideBar>
+      <NavBar onOpen={onOpen} />
+      <SideBar onClose={onClose} isOpen={isOpen}></SideBar>
       <main>{children}</main>
     </div>
 

@@ -1,20 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ChakraProvider, extendTheme, useDisclosure } from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { get, post } from '../plugins/http'
 import EditEventModal from './EditEventModal'
 
-const theme = extendTheme({
-  styles: {
-    global: () => ({
-      body: {
-        bg: ""
-      }
-    })
-  }
-});
 
 const TimeBar = ({ id, bookyName, user }) => {
 
@@ -69,7 +60,8 @@ const TimeBar = ({ id, bookyName, user }) => {
   }
 
   return (
-    <ChakraProvider theme={theme}>
+
+    <div>
       <EditEventModal
         error={error}
         eventToEdit={eventToEdit}
@@ -107,11 +99,9 @@ const TimeBar = ({ id, bookyName, user }) => {
           </div>
         </div>
       </div>
-    </ChakraProvider>
+    </div>
+
   )
 }
 
 export default TimeBar;
-
-// {event.eventStart.toString().replace('.5', ':30')}
-// - {event.eventEnd.toString().replace('.5', ':30')}
