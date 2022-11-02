@@ -21,15 +21,14 @@ const SideBar = ({ isOpen, onClose }) => {
   const newNameRef = useRef()
   const newPhotoRef = useRef()
 
-
   async function updateProfile() {
     const newUser = {
       id: user._id,
       username: newNameRef.current.value,
-      photo: newPhotoRef.current.value
+      photo: newPhotoRef.current.value,
+      email: user.email,
     }
-    const data = await post('updateProfile', newUser)
-    console.log(data)
+    await post('updateProfile', newUser)
     setIsShown(false)
   }
   return (

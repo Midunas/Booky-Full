@@ -27,7 +27,9 @@ const BookTime = () => {
       color: currentColor,
       eventDay: selectedDay,
       username: user.username,
-      bookyName: user.bookyName
+      bookyName: user.bookyName,
+      photo: user.photo,
+      email: user.email,
     }
     const data = await post("addReservation", newBooking)
     setError(data.message)

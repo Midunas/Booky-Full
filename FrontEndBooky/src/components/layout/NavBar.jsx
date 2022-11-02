@@ -23,6 +23,7 @@ const NavBar = ({ onOpen }) => {
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
   const user = useContext(MainContext)
+
   const logInOrOut = () => {
 
     if (localEmail) {
@@ -73,7 +74,7 @@ const NavBar = ({ onOpen }) => {
                   cursor={'pointer'}>
                   <Avatar
                     size={'sm'}
-                    src={user.photo}
+                    src={user && user.photo}
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>

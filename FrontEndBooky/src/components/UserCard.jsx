@@ -14,9 +14,6 @@ import {
 
 const UserCard = ({ item, setIsShown }) => {
 
-  const changePhoto = () => {
-    setIsShown(true)
-  }
   return (
     <Center py={6}>
       <Box
@@ -45,7 +42,7 @@ const UserCard = ({ item, setIsShown }) => {
               css={{
                 border: '2px solid white', cursor: 'pointer'
               }}
-              onClick={changePhoto}
+              onClick={() => setIsShown(current => !current)}
             />
           </Tooltip>
         </Flex>
@@ -56,7 +53,8 @@ const UserCard = ({ item, setIsShown }) => {
                 css={{ cursor: 'pointer' }}
                 fontSize={'2xl'}
                 fontWeight={500}
-                fontFamily={'body'}>
+                fontFamily={'body'}
+                onClick={() => setIsShown(current => !current)}>
                 {item.username}
               </Heading>
             </Tooltip>

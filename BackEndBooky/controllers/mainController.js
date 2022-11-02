@@ -144,8 +144,8 @@ module.exports = {
   },
   deleteBooky: async (req, res) => {
 
-    const { id, username } = req.body
-    const userMadeTheBooky = await bookingSchema.findOne({ _id: id, username })
+    const { id, email } = req.body
+    const userMadeTheBooky = await bookingSchema.findOne({ _id: id, email })
 
     if (userMadeTheBooky) {
       await bookingSchema.deleteOne({ _id: id })
@@ -156,12 +156,28 @@ module.exports = {
 
   },
   updateProfile: async (req, res) => {
-    const { id, username, photo } = req.body
+    const { id, username, photo, email } = req.body
+
     const updatedUser = await userSchema.findOneAndUpdate({ _id: id }, { $set: { username, photo } }, { new: true })
+    await bookingSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
+
     if (updatedUser) {
       return sendRes(res, false, 'User updated', null)
     } else {
       return sendRes(res, true, 'Something went wrong', null)
+    }
+
+  },
+  getPhoto: async (req, res) => {
+    const username = req.params.username
+
+    const user = await userSchema.find({ username })
+    if (user) {
+      console.log(user.map((x) => x.photo))
+      return sendRes(res, false, 'photo found', null)
+
+    } else {
+      return sendRes(res, true, 'no user', null)
     }
 
   }
