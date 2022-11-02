@@ -33,7 +33,7 @@ const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, even
       size="lg"
     >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent className='dark:bg-zinc-800 dark:text-white'>
         <ModalHeader>{eventToEdit.username} 13:00 - 15:40</ModalHeader>
         <ModalCloseButton />
         <ModalBody style={{ display: 'flex' }}>
@@ -54,6 +54,7 @@ const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, even
           <input
             type="text"
             placeholder='new event name'
+            className='input'
             style={{ display: isActive ? 'none' : 'block', padding: '5px' }}
             ref={newEventNameRef}
           />
