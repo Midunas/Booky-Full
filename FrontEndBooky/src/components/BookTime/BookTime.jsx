@@ -34,6 +34,7 @@ const BookTime = () => {
     const data = await post("addReservation", newBooking)
     setError(data.message)
     setIsActive(false)
+    setCurrentColor('')
   }
 
   const handleOnChange = (color) => {

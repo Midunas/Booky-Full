@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const mainRouter = require("./routes/router")
 const session = require("express-session")
 
+
 mongoose.connect("mongodb+srv://Admin:Admin@cluster0.gcmxjec.mongodb.net/?retryWrites=true&w=majority")
     .then(() => {
         console.log('CONNECTED OK')
@@ -28,5 +29,4 @@ app.use(express.json())
 app.listen(4000)
 
 app.use("/", mainRouter)
-
 

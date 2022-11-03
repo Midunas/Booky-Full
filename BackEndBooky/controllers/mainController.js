@@ -61,7 +61,7 @@ module.exports = {
         req.session.bookyName = userExists.bookyName
         req.session.email = userExists.email
 
-        return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
+        return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session, user: userExists })
       } else {
         return sendRes(res, true, "bad credentials", null)
       }

@@ -12,6 +12,8 @@ import MainContext from './context/MainContext';
 
 const App = () => {
 
+  //TODO: Useris nepersikrauna kai padarai log in ir log out 
+
   const [user, setUser] = useState()
 
   async function getUser() {

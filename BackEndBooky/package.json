@@ -20,6 +20,7 @@
     "mongoose": "^6.6.5",
     "nodemon": "^2.0.20",
     "number-to-words": "^1.2.4",
+    "socket.io": "^4.5.3",
     "uid": "^2.0.1"
   }
 }

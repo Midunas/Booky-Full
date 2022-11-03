@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
   Box,
   Flex,
@@ -23,11 +25,13 @@ const NavBar = ({ onOpen }) => {
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
   const user = useContext(MainContext)
+  const currentTheme = localStorage.getItem("theme")
+
+  //TODO: currentTheme is undefined on first load, fix it . 
 
   const logInOrOut = () => {
-
     if (localEmail) {
-      get("logout").then(res => {
+      get("logout").then(() => {
         localStorage.clear()
         localStorage.setItem('logedIn', false)
         localStorage.setItem("autologin", false)
@@ -64,7 +68,7 @@ const NavBar = ({ onOpen }) => {
               onClick={goToWelcome}>Booky</h1>
           </HStack>
           <Flex alignItems={'center'}>
-            <button className='text-2xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
+            <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
             {localEmail &&
               <Menu>
                 <MenuButton
@@ -78,13 +82,17 @@ const NavBar = ({ onOpen }) => {
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
+                  <button className='ml-2' onClick={onOpen}>Profile</button>
+                  <MenuDivider />
                   <Switch
+                    className='ml-2'
                     checked={checked}
                     onChange={handleChange}
-                  >Mode</Switch>
-                  <MenuDivider />
-                  <button onClick={onOpen}>Profile</button>
-                  <MenuDivider />
+                  >Mode: {currentTheme}
+                  </Switch>
+                  {currentTheme === "light" ?
+                    <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
+                  }
                 </MenuList>
               </Menu>}
           </Flex>

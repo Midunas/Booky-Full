@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import BookTime from '../components/booktime'
+import BookTime from '../components/booktime/BookTime'
 import TimeBar from '../components/TimeBar';
 import MainContext from '../context/MainContext';
 

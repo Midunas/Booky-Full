@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { post } from '../../../plugins/http';
 import Header from '../Header';
@@ -9,7 +9,6 @@ const Login = () => {
   const passRef = useRef()
   const checkRef = useRef()
   const navigate = useNavigate()
-
   const [error, setError] = useState()
 
   const login = async () => {
@@ -20,11 +19,11 @@ const Login = () => {
     const res = await post("login", user)
 
     if (!res.error) {
-      navigate(`/Booky`)
       localStorage.setItem("secret", res.data.secret)
       localStorage.setItem("bookyName", res.data.sessions.bookyName)
       localStorage.setItem("email", res.data.sessions.email)
       localStorage.setItem("logedIn", true)
+      navigate(`/Booky`)
     }
     setError(res.message)
   }

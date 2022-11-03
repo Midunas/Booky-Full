@@ -14,7 +14,6 @@ const LoginPage = () => {
     if (autoLogin === "true") {
       get("autologin").then(res => {
         if (res.error) return
-        console.log(res)
         nav("/Booky")
         localStorage.setItem("logedIn", true)
       })

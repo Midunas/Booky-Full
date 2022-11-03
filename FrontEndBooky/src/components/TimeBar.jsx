@@ -22,12 +22,6 @@ const TimeBar = ({ id }) => {
     setEvents(res.eventsByDay)
   }
 
-  const getPhoto = async (username) => {
-    // const res = await get('getPhoto/' + username)
-    const photo = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-    return photo
-  }
-
   useEffect(() => {
     getEventByDay();
   }, [events])
@@ -83,7 +77,6 @@ const TimeBar = ({ id }) => {
             style={{ width: w }}
             id={id}>
             {events.map((event, i) => {
-              // const userPhoto = getPhoto(event.username)
               return (
                 <Tooltip key={i} label="View or edit booky" >
                   <div
