@@ -9,7 +9,7 @@ const BookyPage = () => {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   const navigate = useNavigate()
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
   const [count, setCount] = useState(1)
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const BookyPage = () => {
         <div className='overflow-x-auto w-[980px] mb-20'>
           <h1 className="text-3xl dark:text-white mb-2">{user && user.bookyName}</h1>
           {days.length > 0 && days.map((x, i) =>
-            <TimeBar count={count} key={i} id={x} />
+            <TimeBar setCount={setCount} count={count} key={i} id={x} />
           )}
         </div>
         <BookTime count={count} setCount={setCount}></BookTime>

@@ -12,27 +12,26 @@ import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
 
-  //TODO: Useris nepersikrauna kai padarai log in ir log out 
+  //TODO: Ask Andrius: Update booky modal re-fetch (count, setCount) nonsense.
 
   const [user, setUser] = useState()
-  const secret = localStorage.getItem("secret")
+  const userSecret = localStorage.getItem("secret")
 
-  const getUser = async () => {
-    if (secret) {
-      const res = await get("getUser/" + secret)
-      setUser(res.userExists[0])
-      console.log('im reloading')
-    }
+  const getUser = async (secret) => {
+    const res = await get("getUser/" + secret)
+    setUser(res.userExists[0])
+    console.log('im reloading')
   }
 
+  //Kad galėtum reloadint page
   useEffect(() => {
-    if (!user) {
-      getUser()
+    if (userSecret) {
+      getUser(userSecret)
     }
   }, [])
 
   return (
-    <MainContext.Provider value={user}>
+    <MainContext.Provider value={{ user, setUser, getUser }}>
       <BrowserRouter  >
         <Layout getUser={getUser}>
           <Routes>

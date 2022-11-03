@@ -16,7 +16,7 @@ import MainContext from '../context/MainContext'
 const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies }) => {
 
   const bookyNameRef = useRef()
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
 
   const createOrJoinBooky = async () => {
 

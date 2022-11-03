@@ -7,14 +7,14 @@ import MainContext from '../context/MainContext'
 import { get, post } from '../plugins/http'
 import EditEventModal from './EditEventModal'
 
-const TimeBar = ({ id, count }) => {
+const TimeBar = ({ id, count, setCount }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
   const [eventToEdit, setEventToEdit] = useState([])
   const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
 
   const getEventByDay = async () => {
     const res = await get(`getEventByDay/${id}/${user && user.bookyName}`)
@@ -23,7 +23,9 @@ const TimeBar = ({ id, count }) => {
   }
 
   useEffect(() => {
-    getEventByDay()
+    if (user) {
+      getEventByDay()
+    }
   }, [user, count])
 
   const updateOrDelete = (event) => {
@@ -39,6 +41,7 @@ const TimeBar = ({ id, count }) => {
     }
     const data = await post("delete", bookyToDelete)
     setError(data.message)
+    getEventByDay()
   }
 
   const updateBooky = async (newEventName, id) => {
@@ -68,7 +71,9 @@ const TimeBar = ({ id, count }) => {
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}
-        isOpen={isOpen} />
+        isOpen={isOpen}
+        setCount={setCount}
+        count={count} />
       <div className=' flex'>
         <div className='dayName'>{id}</div>
         <div className='w-5/6'>

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import MainContext from '../../../context/MainContext';
 import { post } from '../../../plugins/http';
 import Header from '../Header';
 
@@ -10,6 +12,7 @@ const Login = () => {
   const checkRef = useRef()
   const navigate = useNavigate()
   const [error, setError] = useState()
+  const { getUser } = useContext(MainContext)
 
   const login = async () => {
     const user = {
@@ -23,6 +26,7 @@ const Login = () => {
       localStorage.setItem("bookyName", res.data.sessions.bookyName)
       localStorage.setItem("email", res.data.sessions.email)
       localStorage.setItem("logedIn", true)
+      getUser(res.data.secret)
       navigate(`/`)
     }
     setError(res.message)

@@ -12,7 +12,7 @@ const BookTime = ({ setCount, count }) => {
   const eventStartRef = useRef();
   const eventEndRef = useRef();
   const eventNameRef = useRef();
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
 
   const [currentColor, setCurrentColor] = useState([])
   const [selectedDay, setSelectedDay] = useState('Monday');

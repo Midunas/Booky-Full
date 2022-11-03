@@ -11,7 +11,7 @@ import { get } from '../plugins/http'
 
 const Profile = () => {
 
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [createOrJoin, setCreateOrJoin] = useState()
   const [createdBookies, setCreatedBookies] = useState([])

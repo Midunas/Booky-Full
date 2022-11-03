@@ -14,14 +14,17 @@ import MainContext from '../../context/MainContext';
 import { post } from '../../plugins/http';
 import UserCard from '../UserCard';
 
-const SideBar = ({ isOpen, onClose, getUser }) => {
+const SideBar = ({ isOpen, onClose }) => {
 
   //TODO: Make the edit user block pard of UserCard component
 
   const [isShown, setIsShown] = useState(false)
-  const user = useContext(MainContext)
+  const { user, getUser } = useContext(MainContext)
+  const userSecret = localStorage.getItem("secret")
+
   const newNameRef = useRef()
   const newPhotoRef = useRef()
+
 
   async function updateProfile() {
     const newUser = {
@@ -32,7 +35,7 @@ const SideBar = ({ isOpen, onClose, getUser }) => {
     }
     await post('updateProfile', newUser)
     setIsShown(false)
-    getUser()
+    getUser(userSecret)
   }
 
   return (

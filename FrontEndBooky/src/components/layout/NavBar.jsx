@@ -19,12 +19,13 @@ import useDarkMode from '../../hook/useDarkMode';
 import { get } from '../../plugins/http';
 
 const NavBar = ({ onOpen }) => {
+
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
-  const user = useContext(MainContext)
+  const { user, setUser } = useContext(MainContext)
   const currentTheme = localStorage.getItem("theme")
 
   //TODO: currentTheme is undefined on first load, fix it . 
@@ -35,6 +36,7 @@ const NavBar = ({ onOpen }) => {
         localStorage.clear()
         localStorage.setItem('logedIn', false)
         localStorage.setItem("autologin", false)
+        setUser('')
         navigate('/')
       })
     } else {
