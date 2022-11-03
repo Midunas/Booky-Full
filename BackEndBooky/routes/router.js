@@ -15,12 +15,17 @@ const {
   getPhoto,
   createBooky,
   getAllCreated,
+  getAllJoined,
+  joinBooky,
   logout } = require("../controllers/mainController")
 
 router.post("/addReservation", addReservation)
 router.get("/getUser/:secret", getUser)
 router.get("/getEventByDay/:id/:bookyName", getEventByDay)
 router.get("/getAllCreated/:email", getAllCreated)
+router.get("/getAllJoined/:id/:email", getAllJoined)
+router.post("/joinBooky", joinBooky)
+
 router.post("/register", middle, register)
 router.post("/createBooky", createBooky)
 router.post("/delete", deleteBooky)

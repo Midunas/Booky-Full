@@ -68,8 +68,8 @@ const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin }) =>
         </Box>
         {isInProfile &&
           <div>
-            <Button onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
-            <Button onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
+            <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
+            <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
           </div>
         }
 

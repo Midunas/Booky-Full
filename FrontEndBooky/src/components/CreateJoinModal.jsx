@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -13,24 +13,32 @@ import { post } from '../plugins/http'
 import { useContext } from 'react'
 import MainContext from '../context/MainContext'
 
-const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies }) => {
+const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, getJoinedBookies }) => {
+
+  //TODO: Make getjoined and getcreated bookies run on one function
 
   const bookyNameRef = useRef()
   const { user } = useContext(MainContext)
 
   const createOrJoinBooky = async () => {
-
     const info = {
       bookyName: bookyNameRef.current.value,
-      createdBy: user.email,
+      email: user.email,
       id: user._id,
     }
-    // if (createOrJoin === 'Create') {
-    const data = await post('createBooky', info)
-    console.log(data.message)
-    // } 
-    getCreatedBookies()
-    onClose()
+
+    if (createOrJoin === 'Create') {
+      const data = await post('createBooky', info)
+      console.log(data.message)
+      getCreatedBookies()
+      onClose()
+    } else {
+      const data = await post('joinBooky', info)
+      console.log(data.message)
+      getJoinedBookies()
+      onClose()
+    }
+
   }
 
   return (

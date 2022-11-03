@@ -4,6 +4,7 @@ const bookySchema = require("../schemas/bookySchema")
 const sendRes = require("../middleware/modules/universalRes")
 const { uid } = require("uid")
 const bcrypt = require("bcrypt")
+const e = require("express")
 
 module.exports = {
   register: async (req, res) => {
@@ -60,13 +61,12 @@ module.exports = {
   },
   createBooky: async (req, res) => {
 
-    const { bookyName, id, createdBy } = req.body
+    const { bookyName, id, email } = req.body
     // const bookyNameIsAvailable = bookySchema.find({ bookyName })
-
     // if (!bookyNameIsAvailable) {
     new bookySchema({
       bookyName,
-      createdBy,
+      createdBy: email,
       secret: uid(),
       members: id,
     }).save()
@@ -74,6 +74,24 @@ module.exports = {
     return sendRes(res, false, "Booky Created", null)
 
     // }
+  },
+  joinBooky: async (req, res) => {
+
+    const { id, email, bookyName } = req.body
+
+    const bookyExists = await bookySchema.find({ bookyName })
+
+    if (bookyExists) {
+      if (email !== bookyExists.createdBy) {
+        await bookySchema.updateOne({ bookyName }, { $push: { members: id } })
+        return sendRes(res, false, "Joined Booky", null)
+      } else {
+        return sendRes(res, true, "Booky not found", null)
+      }
+    } else {
+      return sendRes(res, true, "Something went wrong", null)
+
+    }
   },
   getAllCreated: async (req, res) => {
 
@@ -84,6 +102,21 @@ module.exports = {
       res.send({ success: true, bookiesExist })
     } else {
       return sendRes(res, true, "User hasn't created a booky", null)
+    }
+
+  },
+  getAllJoined: async (req, res) => {
+
+    const id = req.params.id
+    const email = req.params.email
+
+    const bookiesExist = await bookySchema.find({ members: id })
+    if (bookiesExist) {
+      const result = bookiesExist.filter((x) => x.createdBy !== email)
+      return sendRes(res, false, "all good", result)
+    } else {
+      return sendRes(res, true, "Booky not found", null)
+
     }
 
   },
@@ -152,9 +185,8 @@ module.exports = {
   update: async (req, res) => {
 
     const { id, eventName } = req.body
+    await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
 
-    const updatedBooking = await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
-    console.log(updatedBooking)
     return sendRes(res, false, 'Booky Updated', null)
 
   },
@@ -184,18 +216,17 @@ module.exports = {
     }
 
   },
+  //TODO:DELETE THIS
   getPhoto: async (req, res) => {
     const username = req.params.username
 
     const user = await userSchema.find({ username })
     if (user) {
-      console.log(user.map((x) => x.photo))
       return sendRes(res, false, 'photo found', null)
 
     } else {
       return sendRes(res, true, 'no user', null)
     }
-
   }
 
 }

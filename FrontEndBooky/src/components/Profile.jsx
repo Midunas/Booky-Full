@@ -15,28 +15,36 @@ const Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [createOrJoin, setCreateOrJoin] = useState()
   const [createdBookies, setCreatedBookies] = useState([])
+  const [joinedBookies, setJoinedBookies] = useState([])
 
   const getCreatedBookies = async () => {
     const res = await get(`getAllCreated/${user && user.email}`)
     setCreatedBookies(res.bookiesExist)
     console.log('aaa')
   }
-
+  const getJoinedBookies = async () => {
+    if (user) {
+      const res = await get(`getAllJoined/${user._id}/${user.email}`)
+      setJoinedBookies(res.data)
+      console.log(res.data)
+    }
+  }
   useEffect(() => {
     getCreatedBookies()
+    getJoinedBookies()
   }, [user])
 
-  //TODO: fetch createdBy bookies
+
   //TODO: fetch !createdBy but _id includes in array bookies
   //TODO: add join booky, create new Booky form 
 
   return (
     <div className='mt-10'>
-      <CreateJoinModal getCreatedBookies={getCreatedBookies} createOrJoin={createOrJoin} isOpen={isOpen} onClose={onClose} />
+      <CreateJoinModal getJoinedBookies={getJoinedBookies} getCreatedBookies={getCreatedBookies} createOrJoin={createOrJoin} isOpen={isOpen} onClose={onClose} />
       <UserCard setCreateOrJoin={setCreateOrJoin} item={user} onOpen={onOpen} isInProfile={true}></UserCard>
       <div className='flex justify-around' >
         <UserBookies bookies={createdBookies} heading='Your bookies'></UserBookies>
-        <UserBookies heading='Joined bookies'></UserBookies>
+        <UserBookies bookies={joinedBookies} heading='Joined bookies'></UserBookies>
       </div>
     </div>
   )
