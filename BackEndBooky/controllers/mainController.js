@@ -21,29 +21,7 @@ module.exports = {
       secret: uid(),
     }).save().then(() => {
     })
-    // bookyName: {
-    //   type: String,
-    //   required: true
-    // },
-    // createdBy: {
-    //   type: String,
-    //   required: false,
-    // },
-    // secret: {
-    //   type: String,
-    //   required: true,
-    // },
-    // members: {
-    //   type: [],
-    //   required: false,
-    // }
-    if (bookyName) {
-      new bookySchema({
-        bookyName,
-        createdBy: email,
-        secret: uid(),
-      })
-    }
+
     const userExists = await userSchema.findOne({ email })
 
     if (userExists) {
@@ -77,6 +55,35 @@ module.exports = {
 
     } else {
       return sendRes(res, true, "user doesn't exist", null)
+    }
+
+  },
+  createBooky: async (req, res) => {
+
+    const { bookyName, id, createdBy } = req.body
+    // const bookyNameIsAvailable = bookySchema.find({ bookyName })
+
+    // if (!bookyNameIsAvailable) {
+    new bookySchema({
+      bookyName,
+      createdBy,
+      secret: uid(),
+      members: id,
+    }).save()
+    // bookySchema.findOneAndUpdate({ bookyName }, { $push: { members: id } }, { new: true })
+    return sendRes(res, false, "Booky Created", null)
+
+    // }
+  },
+  getAllCreated: async (req, res) => {
+
+    const email = req.params.email
+    const bookiesExist = await bookySchema.find({ createdBy: email })
+
+    if (bookiesExist) {
+      res.send({ success: true, bookiesExist })
+    } else {
+      return sendRes(res, true, "User hasn't created a booky", null)
     }
 
   },

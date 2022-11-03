@@ -7,7 +7,7 @@ import MainContext from '../context/MainContext'
 import { get, post } from '../plugins/http'
 import EditEventModal from './EditEventModal'
 
-const TimeBar = ({ id }) => {
+const TimeBar = ({ id, count }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
@@ -19,11 +19,12 @@ const TimeBar = ({ id }) => {
   const getEventByDay = async () => {
     const res = await get(`getEventByDay/${id}/${user && user.bookyName}`)
     setEvents(res.eventsByDay)
+    console.log('im reloadin')
   }
 
   useEffect(() => {
-    getEventByDay();
-  }, [events])
+    getEventByDay()
+  }, [user, count])
 
   const updateOrDelete = (event) => {
     setEventToEdit(event)

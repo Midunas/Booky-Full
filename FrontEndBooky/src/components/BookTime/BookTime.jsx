@@ -7,7 +7,7 @@ import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
 import MainContext from '../../context/MainContext'
 
-const BookTime = () => {
+const BookTime = ({ setCount, count }) => {
 
   const eventStartRef = useRef();
   const eventEndRef = useRef();
@@ -35,6 +35,8 @@ const BookTime = () => {
     setError(data.message)
     setIsActive(false)
     setCurrentColor('')
+    setCount(count + 1)
+
   }
 
   const handleOnChange = (color) => {

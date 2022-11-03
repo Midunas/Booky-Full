@@ -5,6 +5,7 @@ import SideBar from './SideBar';
 
 const Layout = ({
   children,
+  getUser
 }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -12,7 +13,7 @@ const Layout = ({
 
     <div>
       <NavBar onOpen={onOpen} />
-      <SideBar onClose={onClose} isOpen={isOpen}></SideBar>
+      <SideBar getUser={getUser} onClose={onClose} isOpen={isOpen}></SideBar>
       <main>{children}</main>
     </div>
 

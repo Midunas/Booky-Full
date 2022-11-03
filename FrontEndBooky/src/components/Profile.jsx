@@ -1,15 +1,30 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react'
 import MainContext from '../context/MainContext'
 import UserCard from './UserCard'
 import UserBookies from './UserBookies'
 import CreateJoinModal from './CreateJoinModal'
 import { useDisclosure } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import { get } from '../plugins/http'
 
 const Profile = () => {
 
   const user = useContext(MainContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [createOrJoin, setCreateOrJoin] = useState()
+  const [createdBookies, setCreatedBookies] = useState([])
+
+  const getCreatedBookies = async () => {
+    const res = await get(`getAllCreated/${user && user.email}`)
+    setCreatedBookies(res.bookiesExist)
+    console.log('aaa')
+  }
+
+  useEffect(() => {
+    getCreatedBookies()
+  }, [user])
 
   //TODO: fetch createdBy bookies
   //TODO: fetch !createdBy but _id includes in array bookies
@@ -17,10 +32,10 @@ const Profile = () => {
 
   return (
     <div className='mt-10'>
-      <CreateJoinModal createOrJoin={createOrJoin} isOpen={isOpen} onClose={onClose} />
+      <CreateJoinModal getCreatedBookies={getCreatedBookies} createOrJoin={createOrJoin} isOpen={isOpen} onClose={onClose} />
       <UserCard setCreateOrJoin={setCreateOrJoin} item={user} onOpen={onOpen} isInProfile={true}></UserCard>
       <div className='flex justify-around' >
-        <UserBookies heading='Your bookies'></UserBookies>
+        <UserBookies bookies={createdBookies} heading='Your bookies'></UserBookies>
         <UserBookies heading='Joined bookies'></UserBookies>
       </div>
     </div>

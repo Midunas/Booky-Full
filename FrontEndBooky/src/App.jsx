@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -14,22 +15,26 @@ const App = () => {
   //TODO: Useris nepersikrauna kai padarai log in ir log out 
 
   const [user, setUser] = useState()
+  const secret = localStorage.getItem("secret")
 
-  async function getUser() {
-    const secret = localStorage.getItem("secret")
+  const getUser = async () => {
     if (secret) {
       const res = await get("getUser/" + secret)
       setUser(res.userExists[0])
+      console.log('im reloading')
     }
   }
+
   useEffect(() => {
-    getUser()
-  }, [user])
+    if (!user) {
+      getUser()
+    }
+  }, [])
 
   return (
     <MainContext.Provider value={user}>
       <BrowserRouter  >
-        <Layout>
+        <Layout getUser={getUser}>
           <Routes>
             <Route path='/login' element={<LoginPage />}></Route>
             <Route path='/' element={<BookyPage />}></Route>

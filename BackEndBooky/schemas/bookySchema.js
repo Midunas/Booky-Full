@@ -8,7 +8,7 @@ const bookySchema = new Schema({
   },
   createdBy: {
     type: String,
-    required: false,
+    required: true,
   },
   secret: {
     type: String,

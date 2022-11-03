@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BookTime from '../components/booktime/BookTime'
 import TimeBar from '../components/TimeBar';
@@ -10,6 +10,7 @@ const BookyPage = () => {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   const navigate = useNavigate()
   const user = useContext(MainContext)
+  const [count, setCount] = useState(1)
 
   useEffect(() => {
     const localEmail = localStorage.getItem("email")
@@ -25,10 +26,10 @@ const BookyPage = () => {
         <div className='overflow-x-auto w-[980px] mb-20'>
           <h1 className="text-3xl dark:text-white mb-2">{user && user.bookyName}</h1>
           {days.length > 0 && days.map((x, i) =>
-            <TimeBar key={i} id={x} />
+            <TimeBar count={count} key={i} id={x} />
           )}
         </div>
-        <BookTime></BookTime>
+        <BookTime count={count} setCount={setCount}></BookTime>
       </div>
     </div>
   )

@@ -14,7 +14,7 @@ import MainContext from '../../context/MainContext';
 import { post } from '../../plugins/http';
 import UserCard from '../UserCard';
 
-const SideBar = ({ isOpen, onClose }) => {
+const SideBar = ({ isOpen, onClose, getUser }) => {
 
   //TODO: Make the edit user block pard of UserCard component
 
@@ -32,6 +32,7 @@ const SideBar = ({ isOpen, onClose }) => {
     }
     await post('updateProfile', newUser)
     setIsShown(false)
+    getUser()
   }
 
   return (
