@@ -44,9 +44,9 @@ const NavBar = ({ onOpen }) => {
   }
   function goToWelcome() {
     if (isLoggedIn === "true") {
-      navigate('/Booky')
+      navigate('/')
     } else {
-      navigate("/")
+      navigate("/login")
     }
   }
   const handleChange = (event) => {
@@ -56,7 +56,10 @@ const NavBar = ({ onOpen }) => {
     } else {
       setTheme('light')
     }
-  };
+  }
+  const goToProfile = () => {
+    navigate('/profile')
+  }
   return (
     <>
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
@@ -82,7 +85,9 @@ const NavBar = ({ onOpen }) => {
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
-                  <button className='ml-2' onClick={onOpen}>Profile</button>
+                  <button className='ml-2' onClick={onOpen}>Profile Sidebar</button>
+                  <MenuDivider />
+                  <button className='ml-2' onClick={goToProfile}>Profile Page</button>
                   <MenuDivider />
                   <Switch
                     className='ml-2'

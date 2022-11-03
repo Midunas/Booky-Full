@@ -16,6 +16,8 @@ import UserCard from '../UserCard';
 
 const SideBar = ({ isOpen, onClose }) => {
 
+  //TODO: Make the edit user block pard of UserCard component
+
   const [isShown, setIsShown] = useState(false)
   const user = useContext(MainContext)
   const newNameRef = useRef()
@@ -31,6 +33,7 @@ const SideBar = ({ isOpen, onClose }) => {
     await post('updateProfile', newUser)
     setIsShown(false)
   }
+
   return (
     <>
       <Drawer
@@ -43,6 +46,7 @@ const SideBar = ({ isOpen, onClose }) => {
           <DrawerCloseButton onClick={() => setIsShown(false)} />
           <DrawerHeader>Your profile</DrawerHeader>
           <DrawerBody>
+
             <UserCard setIsShown={setIsShown} item={user} />
             {isShown &&
               <div

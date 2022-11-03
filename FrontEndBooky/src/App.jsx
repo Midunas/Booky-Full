@@ -7,6 +7,7 @@ import CreateBookyPage from './pages/CreateBookyPage';
 import Layout from './components/layout/Layout';
 import { get } from './plugins/http';
 import MainContext from './context/MainContext';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
 
@@ -33,6 +34,7 @@ const App = () => {
             <Route path='/login' element={<LoginPage />}></Route>
             <Route path='/' element={<BookyPage />}></Route>
             <Route path='/signUp' element={<CreateBookyPage />}></Route>
+            <Route path='/profile' element={<ProfilePage />}></Route>
           </Routes>
         </Layout>
       </BrowserRouter >

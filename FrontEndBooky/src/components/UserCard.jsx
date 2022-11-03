@@ -10,10 +10,15 @@ import {
   Stack,
   useColorModeValue,
   Tooltip,
+  Button,
 } from '@chakra-ui/react';
 
-const UserCard = ({ item, setIsShown }) => {
+const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin }) => {
 
+  const openCreateOrJoinModal = (creatOrJoin) => {
+    setCreateOrJoin(creatOrJoin)
+    onOpen()
+  }
   return (
     <Center py={6}>
       <Box
@@ -37,7 +42,7 @@ const UserCard = ({ item, setIsShown }) => {
           <Tooltip label="Change profile picture" aria-label='A tooltip'>
             <Avatar
               size={'xl'}
-              src={item.photo}
+              src={item && item.photo}
               alt={'Author'}
               css={{
                 border: '2px solid white', cursor: 'pointer'
@@ -55,12 +60,19 @@ const UserCard = ({ item, setIsShown }) => {
                 fontWeight={500}
                 fontFamily={'body'}
                 onClick={() => setIsShown(current => !current)}>
-                {item.username}
+                {item && item.username}
               </Heading>
             </Tooltip>
-            <Text color={'gray.500'}>{item.email}</Text>
+            <Text color={'gray.500'}>{item && item.email}</Text>
           </Stack>
         </Box>
+        {isInProfile &&
+          <div>
+            <Button onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
+            <Button onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
+          </div>
+        }
+
       </Box>
     </Center>
   )

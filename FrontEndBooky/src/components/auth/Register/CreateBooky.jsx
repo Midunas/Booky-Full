@@ -23,7 +23,7 @@ const CreateBooky = () => {
       bookyName: bookyNameRef.current.value,
       admin: true,
     }
-    const res = await post("registerAdmin", adminUser)
+    const res = await post("register", adminUser)
     if (!res.error) {
       localStorage.setItem("secret", res.data.secret)
       localStorage.setItem("bookyName", res.data.sessions.bookyName)

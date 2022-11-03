@@ -7,7 +7,6 @@ import MainContext from '../context/MainContext'
 import { get, post } from '../plugins/http'
 import EditEventModal from './EditEventModal'
 
-
 const TimeBar = ({ id }) => {
 
   const [events, setEvents] = useState([])

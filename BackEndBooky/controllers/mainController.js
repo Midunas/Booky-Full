@@ -1,11 +1,12 @@
-const bookingSchema = require("../schemas/bookingSchema")
+const eventSchema = require("../schemas/eventSchema")
 const userSchema = require("../schemas/userSchema")
+const bookySchema = require("../schemas/bookySchema")
 const sendRes = require("../middleware/modules/universalRes")
 const { uid } = require("uid")
 const bcrypt = require("bcrypt")
 
 module.exports = {
-  registerAdmin: async (req, res) => {
+  register: async (req, res) => {
 
     const { email, password, bookyName, admin, username } = req.body
 
@@ -20,7 +21,29 @@ module.exports = {
       secret: uid(),
     }).save().then(() => {
     })
-
+    // bookyName: {
+    //   type: String,
+    //   required: true
+    // },
+    // createdBy: {
+    //   type: String,
+    //   required: false,
+    // },
+    // secret: {
+    //   type: String,
+    //   required: true,
+    // },
+    // members: {
+    //   type: [],
+    //   required: false,
+    // }
+    if (bookyName) {
+      new bookySchema({
+        bookyName,
+        createdBy: email,
+        secret: uid(),
+      })
+    }
     const userExists = await userSchema.findOne({ email })
 
     if (userExists) {
@@ -60,7 +83,7 @@ module.exports = {
   addReservation: async (req, res) => {
 
     const { eventStart, eventEnd, bookyName, eventDay } = req.body
-    const existingBookies = await bookingSchema.find({ eventDay, bookyName })
+    const existingBookies = await eventSchema.find({ eventDay, bookyName })
 
     if (existingBookies.length > 0) {
       const overlap = existingBookies.map((booky) => {
@@ -76,12 +99,12 @@ module.exports = {
         return sendRes(res, true, "times overlap", null)
       } else {
         console.log('book it ')
-        const newReservation = new bookingSchema(req.body)
+        const newReservation = new eventSchema(req.body)
         const post = await newReservation.save()
         res.send({ success: 'Ok', post })
       }
     } else {
-      const newReservation = new bookingSchema(req.body)
+      const newReservation = new eventSchema(req.body)
       const post = await newReservation.save()
       res.send({ success: 'Ok', post })
     }
@@ -91,7 +114,7 @@ module.exports = {
 
     const booky = req.params.bookyName
     const day = req.params.id
-    const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
+    const eventsByDay = await eventSchema.find({ eventDay: day, bookyName: booky })
 
     res.send({ success: true, eventsByDay })
 
@@ -123,7 +146,7 @@ module.exports = {
 
     const { id, eventName } = req.body
 
-    const updatedBooking = await bookingSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
+    const updatedBooking = await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
     console.log(updatedBooking)
     return sendRes(res, false, 'Booky Updated', null)
 
@@ -131,10 +154,10 @@ module.exports = {
   deleteBooky: async (req, res) => {
 
     const { id, email } = req.body
-    const userMadeTheBooky = await bookingSchema.findOne({ _id: id, email })
+    const userMadeTheBooky = await eventSchema.findOne({ _id: id, email })
 
     if (userMadeTheBooky) {
-      await bookingSchema.deleteOne({ _id: id })
+      await eventSchema.deleteOne({ _id: id })
       res.send({ success: true })
     } else {
       return sendRes(res, true, 'You can only remove your own Bookies.', null)
@@ -145,7 +168,7 @@ module.exports = {
     const { id, username, photo, email } = req.body
 
     const updatedUser = await userSchema.findOneAndUpdate({ _id: id }, { $set: { username, photo } }, { new: true })
-    await bookingSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
+    await eventSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
 
     if (updatedUser) {
       return sendRes(res, false, 'User updated', null)
