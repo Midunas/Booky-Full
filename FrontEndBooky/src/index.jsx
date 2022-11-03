@@ -1,6 +1,4 @@
-
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-// import { StyledEngineProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -18,11 +16,11 @@ const theme = extendTheme({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
-  </React.StrictMode >
+
+  <ChakraProvider theme={theme}>
+    <App />
+  </ChakraProvider>
+
 
 )
 

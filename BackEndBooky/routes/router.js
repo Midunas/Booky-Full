@@ -11,7 +11,6 @@ const {
   deleteBooky,
   autoLogin,
   registerAdmin,
-  registerUser,
   updateProfile,
   getPhoto,
   logout } = require("../controllers/mainController")
@@ -21,7 +20,6 @@ router.get("/getUser/:secret", getUser)
 router.get("/getEventByDay/:id/:bookyName", getEventByDay)
 
 router.post("/registerAdmin", middle, registerAdmin)
-router.post("/registerUser", middle, registerUser)
 
 router.post("/delete", deleteBooky)
 router.post("/login", login)

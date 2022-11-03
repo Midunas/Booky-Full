@@ -19,33 +19,19 @@ module.exports = {
       admin,
       secret: uid(),
     }).save().then(() => {
-      sendRes(res, false, "all good", null)
     })
 
-  },
-  registerUser: async (req, res) => {
+    const userExists = await userSchema.findOne({ email })
 
-    const { email, password, bookyName, admin, username } = req.body
+    if (userExists) {
 
-    const bookyExists = await userSchema.findOne({ bookyName })
+      req.session.bookyName = userExists.bookyName
+      req.session.email = userExists.email
 
-    if (bookyExists) {
-      const hashPass = await bcrypt.hash(password, 10)
-
-      new userSchema({
-        email,
-        username,
-        password: hashPass,
-        bookyName,
-        admin,
-        secret: uid(),
-      }).save().then(() => {
-        sendRes(res, false, "all good", null)
-      })
+      return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
     } else {
-      sendRes(res, true, "Booky doesn't exists", null)
+      return sendRes(res, true, "bad credentials", null)
     }
-
   },
   login: async (req, res) => {
 
@@ -61,7 +47,7 @@ module.exports = {
         req.session.bookyName = userExists.bookyName
         req.session.email = userExists.email
 
-        return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session, user: userExists })
+        return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
       } else {
         return sendRes(res, true, "bad credentials", null)
       }

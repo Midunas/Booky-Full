@@ -15,7 +15,7 @@ const BookyPage = () => {
     const localEmail = localStorage.getItem("email")
     if (!localEmail) {
       alert('You are not Logged in')
-      navigate('/')
+      navigate('/login')
     }
   },)
 

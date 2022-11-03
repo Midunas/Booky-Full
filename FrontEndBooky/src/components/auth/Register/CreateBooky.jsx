@@ -23,17 +23,21 @@ const CreateBooky = () => {
       bookyName: bookyNameRef.current.value,
       admin: true,
     }
-    const data = await post("registerAdmin", adminUser)
-    if (!data.error) {
-      navigate("/login")
+    const res = await post("registerAdmin", adminUser)
+    if (!res.error) {
+      localStorage.setItem("secret", res.data.secret)
+      localStorage.setItem("bookyName", res.data.sessions.bookyName)
+      localStorage.setItem("email", res.data.sessions.email)
+      localStorage.setItem("logedIn", true)
+      navigate(`/`)
     }
   }
 
   return (
-    <div className='container mt-80'>
+    <div className='container mt-52'>
       <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
         <Header
-          heading="Create a Booky"
+          heading="Sign up"
           paragraph="Already have an account?"
           linkName="Login"
           linkUrl="/login"
@@ -46,7 +50,7 @@ const CreateBooky = () => {
         <button
           className="button"
           onClick={createBooky}>
-          Create Booky
+          Sign up
         </button>
       </div>
     </div>

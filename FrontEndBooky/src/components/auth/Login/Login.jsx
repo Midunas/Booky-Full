@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { post } from '../../../plugins/http';
 import Header from '../Header';
 
@@ -23,7 +23,7 @@ const Login = () => {
       localStorage.setItem("bookyName", res.data.sessions.bookyName)
       localStorage.setItem("email", res.data.sessions.email)
       localStorage.setItem("logedIn", true)
-      navigate(`/Booky`)
+      navigate(`/`)
     }
     setError(res.message)
   }
@@ -40,13 +40,13 @@ const Login = () => {
 
   }, [])
   return (
-    <div className='container mt-80'>
+    <div className='container mt-52'>
       <div className='flex flex-col bg-white dark:bg-zinc-800  p-10 text-center rounded'>
         <Header
           heading="Login to your account"
           paragraph="Don't have an account yet? "
           linkName="Signup"
-          linkUrl="/join-booky"
+          linkUrl="/signUp"
         />
         <div className='text-red-500'>{error}</div>
         <input className='input' type="text" placeholder='email' ref={emailRef} />
@@ -63,12 +63,6 @@ const Login = () => {
             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-white">
               Remember me
             </label>
-          </div>
-
-          <div className="text-sm mt-6">
-            <Link to='/create-booky' className="font-medium text-purple-600 hover:text-purple-500">
-              Create a new booky?
-            </Link>
           </div>
         </div>
         <button
