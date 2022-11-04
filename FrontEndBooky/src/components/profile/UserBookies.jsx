@@ -17,11 +17,11 @@ const UserBookies = ({ heading, bookies }) => {
   }
   return (
     <div className='w-2/5 dark:text-white'>
-      <h1 className='text-2xl text-center mb-5'>{heading}</h1>
+      <h1 className='text-3xl text-center mb-5'>{heading}</h1>
       <Grid templateColumns='repeat(2, 1fr)' w='100%' gap={6}>
         {bookies && bookies.map((x, i) =>
           <div key={i}>
-            <h1>{x.bookyName}</h1>
+            <h1 className='text-xl'>{x.bookyName}</h1>
             {theme === 'light'
               ? <img onClick={() => goToBookyPage(x.bookyName)} className='rounded cursor-pointer' src={darkBooky} alt="calendar" />
               : <img onClick={() => goToBookyPage(x.bookyName)} className='rounded cursor-pointer' src={lightBooky} alt="calendar" />}

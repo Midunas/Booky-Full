@@ -12,17 +12,23 @@ import {
   Tooltip,
   Button,
 } from '@chakra-ui/react';
+import EditProfileCard from './EditProfileCard';
 
-const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin }) => {
+
+const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin, openSidebar }) => {
 
   const openCreateOrJoinModal = (creatOrJoin) => {
     setCreateOrJoin(creatOrJoin)
     onOpen()
   }
 
+  const openSideBar = () => {
+    if (!isInProfile) {
 
+    }
+  }
   return (
-    <Center py={6}>
+    <Box className='flex gap-x-8 align-center justify-center mt-20 mb-10'>
       <Box
         maxW={'270px'}
         w={'full'}
@@ -74,10 +80,11 @@ const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin }) =>
             <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
           </div>
         }
-
       </Box>
-    </Center>
+      <EditProfileCard />
+    </Box>
   )
+
 }
 
 export default UserCard

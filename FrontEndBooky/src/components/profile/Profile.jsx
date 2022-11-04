@@ -33,7 +33,6 @@ const Profile = () => {
     getJoinedBookies()
   }, [user])
 
-
   return (
     <div className='mt-10'>
       <CreateJoinModal
@@ -42,7 +41,12 @@ const Profile = () => {
         createOrJoin={createOrJoin}
         isOpen={isOpen}
         onClose={onClose} />
-      <UserCard setCreateOrJoin={setCreateOrJoin} item={user} onOpen={onOpen} isInProfile={true}></UserCard>
+      <UserCard
+        setCreateOrJoin={setCreateOrJoin}
+        item={user}
+        onOpen={onOpen}
+        isInProfile={true}
+      />
       <div className='flex justify-around' >
         <UserBookies bookies={createdBookies} heading='Your bookies'></UserBookies>
         <UserBookies bookies={joinedBookies} heading='Joined bookies'></UserBookies>
