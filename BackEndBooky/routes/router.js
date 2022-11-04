@@ -12,7 +12,6 @@ const {
   autoLogin,
   register,
   updateProfile,
-  getPhoto,
   createBooky,
   getAllCreated,
   getAllJoined,
@@ -34,6 +33,5 @@ router.post("/update", update)
 router.post("/updateProfile", updateProfile)
 router.get("/autologin", autoLogin)
 router.get("/logout", logout)
-router.get('/getPhoto/:username', getPhoto)
 
 module.exports = router

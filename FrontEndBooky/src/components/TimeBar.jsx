@@ -17,7 +17,7 @@ const TimeBar = ({ id, count, setCount }) => {
   const { user } = useContext(MainContext)
 
   const getEventByDay = async () => {
-    const res = await get(`getEventByDay/${id}/${user && user.bookyName}`)
+    const res = await get(`getEventByDay/${id}/${user.bookyName}`)
     setEvents(res.eventsByDay)
     console.log('im reloadin')
   }

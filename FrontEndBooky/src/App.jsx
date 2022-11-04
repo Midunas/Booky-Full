@@ -13,8 +13,12 @@ import ProfilePage from './pages/ProfilePage';
 const App = () => {
 
   //TODO: Ask Andrius: Update booky modal re-fetch (count, setCount) nonsense.
+  //TODO: Make blank images for booky display
 
   const [user, setUser] = useState()
+  const [theme, setTheme] = useState()
+
+  //TODO: this is bad cause it's not dynamic 
   const userSecret = localStorage.getItem("secret")
 
   const getUser = async (secret) => {
@@ -23,15 +27,18 @@ const App = () => {
     console.log('im reloading')
   }
 
-  //Kad galėtum reloadint page
   useEffect(() => {
     if (userSecret) {
       getUser(userSecret)
     }
   }, [])
 
+  const getCurrentTheme = () => {
+    setTheme(localStorage.getItem('theme'))
+  }
+
   return (
-    <MainContext.Provider value={{ user, setUser, getUser }}>
+    <MainContext.Provider value={{ user, setUser, getUser, getCurrentTheme, theme }}>
       <BrowserRouter  >
         <Layout getUser={getUser}>
           <Routes>

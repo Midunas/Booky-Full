@@ -19,6 +19,8 @@ const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin }) =>
     setCreateOrJoin(creatOrJoin)
     onOpen()
   }
+
+
   return (
     <Center py={6}>
       <Box

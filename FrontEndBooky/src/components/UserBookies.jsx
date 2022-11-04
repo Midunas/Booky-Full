@@ -1,8 +1,13 @@
 import React from 'react'
 import { Grid } from '@chakra-ui/react'
 import darkBooky from '../images/darkBooky.JPG'
+import lightBooky from '../images/lightBooky.JPG'
+import { useContext } from 'react'
+import MainContext from '../context/MainContext'
 
 const UserBookies = ({ heading, bookies }) => {
+
+  const { theme } = useContext(MainContext)
 
   return (
     <div className='w-2/5 dark:text-white'>
@@ -11,7 +16,9 @@ const UserBookies = ({ heading, bookies }) => {
         {bookies && bookies.map((x, i) =>
           <div key={i}>
             <h1>{x.bookyName}</h1>
-            <img className='rounded' src={darkBooky} alt="" />
+            {theme === 'light'
+              ? <img className='rounded cursor-pointer' src={darkBooky} alt="calendar" />
+              : <img className='rounded cursor-pointer' src={lightBooky} alt="calendar" />}
           </div>)}
       </Grid>
     </div>

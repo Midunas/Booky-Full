@@ -216,17 +216,5 @@ module.exports = {
     }
 
   },
-  //TODO:DELETE THIS
-  getPhoto: async (req, res) => {
-    const username = req.params.username
-
-    const user = await userSchema.find({ username })
-    if (user) {
-      return sendRes(res, false, 'photo found', null)
-
-    } else {
-      return sendRes(res, true, 'no user', null)
-    }
-  }
 
 }

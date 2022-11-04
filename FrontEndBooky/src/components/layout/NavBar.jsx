@@ -25,11 +25,11 @@ const NavBar = ({ onOpen }) => {
   const isLoggedIn = localStorage.getItem("logedIn")
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
-  const { user, setUser } = useContext(MainContext)
-  const currentTheme = localStorage.getItem("theme")
+  const { user, setUser, getCurrentTheme } = useContext(MainContext)
+
 
   //TODO: currentTheme is undefined on first load, fix it . 
-
+  //TODO: light, dark theme works backwards
   const logInOrOut = () => {
     if (localEmail) {
       get("logout").then(() => {
@@ -53,7 +53,8 @@ const NavBar = ({ onOpen }) => {
   }
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    if (event.target.checked === true) {
+    getCurrentTheme()
+    if (event.target.checked) {
       setTheme('dark')
     } else {
       setTheme('light')
@@ -95,9 +96,9 @@ const NavBar = ({ onOpen }) => {
                     className='ml-2'
                     checked={checked}
                     onChange={handleChange}
-                  >Mode: {currentTheme}
+                  >Mode:
                   </Switch>
-                  {currentTheme === "light" ?
+                  {colorTheme === "dark" ?
                     <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
                   }
                 </MenuList>
