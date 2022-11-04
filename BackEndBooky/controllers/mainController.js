@@ -1,11 +1,13 @@
-const bookingSchema = require("../schemas/bookingSchema")
+const eventSchema = require("../schemas/eventSchema")
 const userSchema = require("../schemas/userSchema")
+const bookySchema = require("../schemas/bookySchema")
 const sendRes = require("../middleware/modules/universalRes")
 const { uid } = require("uid")
 const bcrypt = require("bcrypt")
+const e = require("express")
 
 module.exports = {
-  registerAdmin: async (req, res) => {
+  register: async (req, res) => {
 
     const { email, password, bookyName, admin, username } = req.body
 
@@ -19,33 +21,19 @@ module.exports = {
       admin,
       secret: uid(),
     }).save().then(() => {
-      sendRes(res, false, "all good", null)
     })
 
-  },
-  registerUser: async (req, res) => {
+    const userExists = await userSchema.findOne({ email })
 
-    const { email, password, bookyName, admin, username } = req.body
+    if (userExists) {
 
-    const bookyExists = await userSchema.findOne({ bookyName })
+      req.session.bookyName = userExists.bookyName
+      req.session.email = userExists.email
 
-    if (bookyExists) {
-      const hashPass = await bcrypt.hash(password, 10)
-
-      new userSchema({
-        email,
-        username,
-        password: hashPass,
-        bookyName,
-        admin,
-        secret: uid(),
-      }).save().then(() => {
-        sendRes(res, false, "all good", null)
-      })
+      return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
     } else {
-      sendRes(res, true, "Booky doesn't exists", null)
+      return sendRes(res, true, "bad credentials", null)
     }
-
   },
   login: async (req, res) => {
 
@@ -61,7 +49,7 @@ module.exports = {
         req.session.bookyName = userExists.bookyName
         req.session.email = userExists.email
 
-        return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session, user: userExists })
+        return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
       } else {
         return sendRes(res, true, "bad credentials", null)
       }
@@ -71,10 +59,71 @@ module.exports = {
     }
 
   },
+  createBooky: async (req, res) => {
+
+    const { bookyName, id, email } = req.body
+    // const bookyNameIsAvailable = bookySchema.find({ bookyName })
+    // if (!bookyNameIsAvailable) {
+    new bookySchema({
+      bookyName,
+      createdBy: email,
+      secret: uid(),
+      members: id,
+    }).save()
+    // bookySchema.findOneAndUpdate({ bookyName }, { $push: { members: id } }, { new: true })
+    return sendRes(res, false, "Booky Created", null)
+
+    // }
+  },
+  joinBooky: async (req, res) => {
+
+    const { id, email, bookyName } = req.body
+
+    const bookyExists = await bookySchema.find({ bookyName })
+
+    if (bookyExists) {
+      if (email !== bookyExists.createdBy) {
+        await bookySchema.updateOne({ bookyName }, { $push: { members: id } })
+        return sendRes(res, false, "Joined Booky", null)
+      } else {
+        return sendRes(res, true, "Booky not found", null)
+      }
+    } else {
+      return sendRes(res, true, "Something went wrong", null)
+
+    }
+  },
+  getAllCreated: async (req, res) => {
+
+    const email = req.params.email
+    const bookiesExist = await bookySchema.find({ createdBy: email })
+
+    if (bookiesExist) {
+      res.send({ success: true, bookiesExist })
+    } else {
+      return sendRes(res, true, "User hasn't created a booky", null)
+    }
+
+  },
+  getAllJoined: async (req, res) => {
+
+    const id = req.params.id
+    const email = req.params.email
+
+    const bookiesExist = await bookySchema.find({ members: id })
+    if (bookiesExist) {
+      const result = bookiesExist.filter((x) => x.createdBy !== email)
+      return sendRes(res, false, "all good", result)
+    } else {
+      return sendRes(res, true, "Booky not found", null)
+
+    }
+
+  },
   addReservation: async (req, res) => {
 
     const { eventStart, eventEnd, bookyName, eventDay } = req.body
-    const existingBookies = await bookingSchema.find({ eventDay, bookyName })
+    const existingBookies = await eventSchema.find({ eventDay, bookyName })
 
     if (existingBookies.length > 0) {
       const overlap = existingBookies.map((booky) => {
@@ -90,12 +139,12 @@ module.exports = {
         return sendRes(res, true, "times overlap", null)
       } else {
         console.log('book it ')
-        const newReservation = new bookingSchema(req.body)
+        const newReservation = new eventSchema(req.body)
         const post = await newReservation.save()
         res.send({ success: 'Ok', post })
       }
     } else {
-      const newReservation = new bookingSchema(req.body)
+      const newReservation = new eventSchema(req.body)
       const post = await newReservation.save()
       res.send({ success: 'Ok', post })
     }
@@ -105,7 +154,7 @@ module.exports = {
 
     const booky = req.params.bookyName
     const day = req.params.id
-    const eventsByDay = await bookingSchema.find({ eventDay: day, bookyName: booky })
+    const eventsByDay = await eventSchema.find({ eventDay: day, bookyName: booky })
 
     res.send({ success: true, eventsByDay })
 
@@ -136,19 +185,18 @@ module.exports = {
   update: async (req, res) => {
 
     const { id, eventName } = req.body
+    await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
 
-    const updatedBooking = await bookingSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
-    console.log(updatedBooking)
     return sendRes(res, false, 'Booky Updated', null)
 
   },
   deleteBooky: async (req, res) => {
 
     const { id, email } = req.body
-    const userMadeTheBooky = await bookingSchema.findOne({ _id: id, email })
+    const userMadeTheBooky = await eventSchema.findOne({ _id: id, email })
 
     if (userMadeTheBooky) {
-      await bookingSchema.deleteOne({ _id: id })
+      await eventSchema.deleteOne({ _id: id })
       res.send({ success: true })
     } else {
       return sendRes(res, true, 'You can only remove your own Bookies.', null)
@@ -159,7 +207,7 @@ module.exports = {
     const { id, username, photo, email } = req.body
 
     const updatedUser = await userSchema.findOneAndUpdate({ _id: id }, { $set: { username, photo } }, { new: true })
-    await bookingSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
+    await eventSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
 
     if (updatedUser) {
       return sendRes(res, false, 'User updated', null)
@@ -168,18 +216,5 @@ module.exports = {
     }
 
   },
-  getPhoto: async (req, res) => {
-    const username = req.params.username
-
-    const user = await userSchema.find({ username })
-    if (user) {
-      console.log(user.map((x) => x.photo))
-      return sendRes(res, false, 'photo found', null)
-
-    } else {
-      return sendRes(res, true, 'no user', null)
-    }
-
-  }
 
 }

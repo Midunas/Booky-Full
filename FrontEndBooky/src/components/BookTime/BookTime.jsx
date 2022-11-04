@@ -7,17 +7,18 @@ import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
 import MainContext from '../../context/MainContext'
 
-const BookTime = () => {
+const BookTime = ({ setCount, count }) => {
 
   const eventStartRef = useRef();
   const eventEndRef = useRef();
   const eventNameRef = useRef();
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
 
   const [currentColor, setCurrentColor] = useState([])
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [error, setError] = useState('')
   const [isActive, setIsActive] = useState(false)
+  const bookyName = localStorage.getItem('bookyName')
 
   const addReservation = async () => {
     const newBooking = {
@@ -27,7 +28,7 @@ const BookTime = () => {
       color: currentColor,
       eventDay: selectedDay,
       username: user.username,
-      bookyName: user.bookyName,
+      bookyName: bookyName,
       photo: user.photo,
       email: user.email,
     }
@@ -35,6 +36,7 @@ const BookTime = () => {
     setError(data.message)
     setIsActive(false)
     setCurrentColor('')
+    setCount(count + 1)
   }
 
   const handleOnChange = (color) => {

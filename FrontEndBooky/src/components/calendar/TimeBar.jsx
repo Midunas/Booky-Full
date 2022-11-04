@@ -3,28 +3,31 @@
 import { Tooltip, useDisclosure } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
-import MainContext from '../context/MainContext'
-import { get, post } from '../plugins/http'
+import MainContext from '../../context/MainContext'
+import { get, post } from '../../plugins/http'
 import EditEventModal from './EditEventModal'
 
-
-const TimeBar = ({ id }) => {
+const TimeBar = ({ id, count, setCount }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
   const [eventToEdit, setEventToEdit] = useState([])
   const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const user = useContext(MainContext)
+  const { user } = useContext(MainContext)
 
   const getEventByDay = async () => {
-    const res = await get(`getEventByDay/${id}/${user && user.bookyName}`)
+    const bookyName = localStorage.getItem("bookyName")
+    const res = await get(`getEventByDay/${id}/${bookyName}`)
     setEvents(res.eventsByDay)
+    console.log('im reloadin')
   }
 
   useEffect(() => {
-    getEventByDay();
-  }, [events])
+    if (user) {
+      getEventByDay()
+    }
+  }, [user, count])
 
   const updateOrDelete = (event) => {
     setEventToEdit(event)
@@ -39,6 +42,7 @@ const TimeBar = ({ id }) => {
     }
     const data = await post("delete", bookyToDelete)
     setError(data.message)
+    getEventByDay()
   }
 
   const updateBooky = async (newEventName, id) => {
@@ -68,7 +72,9 @@ const TimeBar = ({ id }) => {
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}
-        isOpen={isOpen} />
+        isOpen={isOpen}
+        setCount={setCount}
+        count={count} />
       <div className=' flex'>
         <div className='dayName'>{id}</div>
         <div className='w-5/6'>

@@ -1,42 +1,57 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookyPage from './pages/BookyPage';
 import LoginPage from './pages/LoginPage';
-import WelcomePage from './pages/WelcomePage';
 import CreateBookyPage from './pages/CreateBookyPage';
-import JoinBookyPage from './pages/JoinBookyPage';
 import Layout from './components/layout/Layout';
 import { get } from './plugins/http';
 import MainContext from './context/MainContext';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
 
-  //TODO: Useris nepersikrauna kai padarai log in ir log out 
+  //TODO: Ask Andrius: Update booky modal re-fetch (count, setCount) nonsense.
+  //TODO: Make blank images for booky display
 
   const [user, setUser] = useState()
+  const [theme, setTheme] = useState()
 
-  async function getUser() {
-    const secret = localStorage.getItem("secret")
-    if (secret) {
-      const res = await get("getUser/" + secret)
-      setUser(res.userExists[0])
-    }
+  //TODO: this is bad cause it's not dynamic 
+  const userSecret = localStorage.getItem("secret")
+
+  const getUser = async (secret) => {
+    const res = await get("getUser/" + secret)
+    setUser(res.userExists[0])
+    console.log('im reloading')
   }
+
   useEffect(() => {
-    getUser()
-  }, [user])
+    if (userSecret) {
+      getUser(userSecret)
+    }
+  }, [])
+
+  const getCurrentTheme = () => {
+    setTheme(localStorage.getItem('theme'))
+  }
 
   return (
-    <MainContext.Provider value={user}>
+    <MainContext.Provider value={{
+      user,
+      setUser,
+      getUser,
+      getCurrentTheme,
+      theme,
+    }}>
       <BrowserRouter  >
-        <Layout>
+        <Layout getUser={getUser}>
           <Routes>
             <Route path='/login' element={<LoginPage />}></Route>
-            <Route path='/Booky' element={<BookyPage />}></Route>
-            <Route path='/create-booky' element={<CreateBookyPage />}></Route>
-            <Route path='/join-booky' element={<JoinBookyPage />}></Route>
-            <Route path='/' element={<WelcomePage />}></Route>
+            <Route path='/' element={<BookyPage />}></Route>
+            <Route path='/signUp' element={<CreateBookyPage />}></Route>
+            <Route path='/profile' element={<ProfilePage />}></Route>
           </Routes>
         </Layout>
       </BrowserRouter >

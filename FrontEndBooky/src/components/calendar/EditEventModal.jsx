@@ -10,7 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit }) => {
+const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit, setCount, count }) => {
 
   const [isActive, setIsActive] = useState(true)
   const [isShown, setIsShown] = useState(false)
@@ -22,6 +22,7 @@ const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, even
 
   const updateBookyAndCloseModal = () => {
     updateBooky(newEventNameRef.current.value, eventToEdit._id)
+    setCount(count + 1)
     onClose()
   }
 

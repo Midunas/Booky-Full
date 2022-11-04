@@ -12,12 +12,16 @@ import React, { useRef, useState } from 'react'
 import { useContext } from 'react';
 import MainContext from '../../context/MainContext';
 import { post } from '../../plugins/http';
-import UserCard from '../UserCard';
+import UserCard from '../profile/UserCard';
 
 const SideBar = ({ isOpen, onClose }) => {
 
+  //TODO: Make the edit user block pard of UserCard component
+
   const [isShown, setIsShown] = useState(false)
-  const user = useContext(MainContext)
+  const { user, getUser } = useContext(MainContext)
+  const userSecret = localStorage.getItem("secret")
+
   const newNameRef = useRef()
   const newPhotoRef = useRef()
 
@@ -30,7 +34,9 @@ const SideBar = ({ isOpen, onClose }) => {
     }
     await post('updateProfile', newUser)
     setIsShown(false)
+    getUser(userSecret)
   }
+
   return (
     <>
       <Drawer
@@ -43,6 +49,7 @@ const SideBar = ({ isOpen, onClose }) => {
           <DrawerCloseButton onClick={() => setIsShown(false)} />
           <DrawerHeader>Your profile</DrawerHeader>
           <DrawerBody>
+
             <UserCard setIsShown={setIsShown} item={user} />
             {isShown &&
               <div

@@ -19,22 +19,24 @@ import useDarkMode from '../../hook/useDarkMode';
 import { get } from '../../plugins/http';
 
 const NavBar = ({ onOpen }) => {
+
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
-  const user = useContext(MainContext)
-  const currentTheme = localStorage.getItem("theme")
+  const { user, setUser, getCurrentTheme } = useContext(MainContext)
+
 
   //TODO: currentTheme is undefined on first load, fix it . 
-
+  //TODO: light, dark theme works backwards
   const logInOrOut = () => {
     if (localEmail) {
       get("logout").then(() => {
         localStorage.clear()
         localStorage.setItem('logedIn', false)
         localStorage.setItem("autologin", false)
+        setUser('')
         navigate('/')
       })
     } else {
@@ -44,19 +46,23 @@ const NavBar = ({ onOpen }) => {
   }
   function goToWelcome() {
     if (isLoggedIn === "true") {
-      navigate('/Booky')
+      navigate('/')
     } else {
-      navigate("/")
+      navigate("/login")
     }
   }
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    if (event.target.checked === true) {
+    getCurrentTheme()
+    if (event.target.checked) {
       setTheme('dark')
     } else {
       setTheme('light')
     }
-  };
+  }
+  const goToProfile = () => {
+    navigate('/profile')
+  }
   return (
     <>
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
@@ -82,15 +88,17 @@ const NavBar = ({ onOpen }) => {
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
-                  <button className='ml-2' onClick={onOpen}>Profile</button>
+                  <button className='ml-2' onClick={onOpen}>Profile Sidebar</button>
+                  <MenuDivider />
+                  <button className='ml-2' onClick={goToProfile}>Profile Page</button>
                   <MenuDivider />
                   <Switch
                     className='ml-2'
                     checked={checked}
                     onChange={handleChange}
-                  >Mode: {currentTheme}
+                  >Mode:
                   </Switch>
-                  {currentTheme === "light" ?
+                  {colorTheme === "dark" ?
                     <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
                   }
                 </MenuList>

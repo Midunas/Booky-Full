@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const bookingSchema = new Schema({
+const eventSchema = new Schema({
   eventStart: {
     type: Number,
     required: true,
@@ -41,6 +41,6 @@ const bookingSchema = new Schema({
   }
 })
 
-const exportPost = mongoose.model("BookyBookings", bookingSchema)
+const exportPost = mongoose.model("BookyEvents", eventSchema)
 
 module.exports = exportPost

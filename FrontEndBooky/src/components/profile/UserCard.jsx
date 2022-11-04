@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Heading,
   Avatar,
@@ -10,12 +10,23 @@ import {
   Stack,
   useColorModeValue,
   Tooltip,
+  Button,
+  useDisclosure,
 } from '@chakra-ui/react';
+import EditProfileCard from './EditProfileCard';
 
-const UserCard = ({ item, setIsShown }) => {
+
+const UserCard = ({ item, isInProfile, onOpen, setCreateOrJoin }) => {
+
+  const openCreateOrJoinModal = (creatOrJoin) => {
+    setCreateOrJoin(creatOrJoin)
+    onOpen()
+  }
+
+  const [isShown, setIsShown] = useState(false)
 
   return (
-    <Center py={6}>
+    <Box className='flex gap-x-8 align-center justify-center mt-20 mb-10'>
       <Box
         maxW={'270px'}
         w={'full'}
@@ -37,7 +48,7 @@ const UserCard = ({ item, setIsShown }) => {
           <Tooltip label="Change profile picture" aria-label='A tooltip'>
             <Avatar
               size={'xl'}
-              src={item.photo}
+              src={item && item.photo}
               alt={'Author'}
               css={{
                 border: '2px solid white', cursor: 'pointer'
@@ -55,15 +66,25 @@ const UserCard = ({ item, setIsShown }) => {
                 fontWeight={500}
                 fontFamily={'body'}
                 onClick={() => setIsShown(current => !current)}>
-                {item.username}
+                {item && item.username}
               </Heading>
             </Tooltip>
-            <Text color={'gray.500'}>{item.email}</Text>
+            <Text color={'gray.500'}>{item && item.email}</Text>
           </Stack>
         </Box>
+        {isInProfile &&
+          <div className='flex justify-between'>
+            <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
+            <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
+          </div>
+        }
       </Box>
-    </Center>
+      {isInProfile && isShown &&
+        <EditProfileCard setIsShown={setIsShown} />
+      }
+    </Box>
   )
+
 }
 
 export default UserCard
