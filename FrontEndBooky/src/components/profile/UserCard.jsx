@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Heading,
   Avatar,
@@ -11,22 +11,20 @@ import {
   useColorModeValue,
   Tooltip,
   Button,
+  useDisclosure,
 } from '@chakra-ui/react';
 import EditProfileCard from './EditProfileCard';
 
 
-const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin, openSidebar }) => {
+const UserCard = ({ item, isInProfile, onOpen, setCreateOrJoin }) => {
 
   const openCreateOrJoinModal = (creatOrJoin) => {
     setCreateOrJoin(creatOrJoin)
     onOpen()
   }
 
-  const openSideBar = () => {
-    if (!isInProfile) {
+  const [isShown, setIsShown] = useState(false)
 
-    }
-  }
   return (
     <Box className='flex gap-x-8 align-center justify-center mt-20 mb-10'>
       <Box
@@ -75,13 +73,15 @@ const UserCard = ({ item, setIsShown, isInProfile, onOpen, setCreateOrJoin, open
           </Stack>
         </Box>
         {isInProfile &&
-          <div>
+          <div className='flex justify-between'>
             <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
             <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
           </div>
         }
       </Box>
-      <EditProfileCard />
+      {isInProfile && isShown &&
+        <EditProfileCard setIsShown={setIsShown} />
+      }
     </Box>
   )
 

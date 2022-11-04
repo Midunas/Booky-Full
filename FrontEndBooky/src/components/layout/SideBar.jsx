@@ -25,7 +25,6 @@ const SideBar = ({ isOpen, onClose }) => {
   const newNameRef = useRef()
   const newPhotoRef = useRef()
 
-
   async function updateProfile() {
     const newUser = {
       id: user._id,
