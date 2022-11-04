@@ -27,7 +27,7 @@ const Login = () => {
       localStorage.setItem("email", res.data.sessions.email)
       localStorage.setItem("logedIn", true)
       getUser(res.data.secret)
-      navigate(`/`)
+      navigate(`/profile`)
     }
     setError(res.message)
   }

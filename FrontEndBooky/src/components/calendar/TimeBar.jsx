@@ -3,8 +3,8 @@
 import { Tooltip, useDisclosure } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
-import MainContext from '../context/MainContext'
-import { get, post } from '../plugins/http'
+import MainContext from '../../context/MainContext'
+import { get, post } from '../../plugins/http'
 import EditEventModal from './EditEventModal'
 
 const TimeBar = ({ id, count, setCount }) => {
@@ -17,7 +17,8 @@ const TimeBar = ({ id, count, setCount }) => {
   const { user } = useContext(MainContext)
 
   const getEventByDay = async () => {
-    const res = await get(`getEventByDay/${id}/${user.bookyName}`)
+    const bookyName = localStorage.getItem("bookyName")
+    const res = await get(`getEventByDay/${id}/${bookyName}`)
     setEvents(res.eventsByDay)
     console.log('im reloadin')
   }

@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react'
-import MainContext from '../context/MainContext'
+import MainContext from '../../context/MainContext'
 import UserCard from './UserCard'
 import UserBookies from './UserBookies'
 import CreateJoinModal from './CreateJoinModal'
 import { useDisclosure } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { get } from '../plugins/http'
+import { get } from '../../plugins/http'
 
 const Profile = () => {
 

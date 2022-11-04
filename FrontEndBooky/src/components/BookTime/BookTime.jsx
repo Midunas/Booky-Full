@@ -18,6 +18,7 @@ const BookTime = ({ setCount, count }) => {
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [error, setError] = useState('')
   const [isActive, setIsActive] = useState(false)
+  const bookyName = localStorage.getItem('bookyName')
 
   const addReservation = async () => {
     const newBooking = {
@@ -27,7 +28,7 @@ const BookTime = ({ setCount, count }) => {
       color: currentColor,
       eventDay: selectedDay,
       username: user.username,
-      bookyName: user.bookyName,
+      bookyName: bookyName,
       photo: user.photo,
       email: user.email,
     }
@@ -36,7 +37,6 @@ const BookTime = ({ setCount, count }) => {
     setIsActive(false)
     setCurrentColor('')
     setCount(count + 1)
-
   }
 
   const handleOnChange = (color) => {

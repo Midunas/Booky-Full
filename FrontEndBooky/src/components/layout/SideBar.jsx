@@ -12,7 +12,7 @@ import React, { useRef, useState } from 'react'
 import { useContext } from 'react';
 import MainContext from '../../context/MainContext';
 import { post } from '../../plugins/http';
-import UserCard from '../UserCard';
+import UserCard from '../profile/UserCard';
 
 const SideBar = ({ isOpen, onClose }) => {
 

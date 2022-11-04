@@ -9,9 +9,9 @@ import {
   ModalCloseButton,
   Button,
 } from '@chakra-ui/react'
-import { post } from '../plugins/http'
+import { post } from '../../plugins/http'
 import { useContext } from 'react'
-import MainContext from '../context/MainContext'
+import MainContext from '../../context/MainContext'
 
 const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, getJoinedBookies }) => {
 

@@ -38,7 +38,13 @@ const App = () => {
   }
 
   return (
-    <MainContext.Provider value={{ user, setUser, getUser, getCurrentTheme, theme }}>
+    <MainContext.Provider value={{
+      user,
+      setUser,
+      getUser,
+      getCurrentTheme,
+      theme,
+    }}>
       <BrowserRouter  >
         <Layout getUser={getUser}>
           <Routes>
