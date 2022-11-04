@@ -16,7 +16,7 @@ import MainContext from '../../context/MainContext'
 const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, getJoinedBookies }) => {
 
   //TODO: Make getjoined and getcreated bookies run on one function
-
+  //TODO: Errors 
   const bookyNameRef = useRef()
   const { user } = useContext(MainContext)
 

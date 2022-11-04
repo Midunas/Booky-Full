@@ -17,8 +17,6 @@ const App = () => {
 
   const [user, setUser] = useState()
   const [theme, setTheme] = useState()
-
-  //TODO: this is bad cause it's not dynamic 
   const userSecret = localStorage.getItem("secret")
 
   const getUser = async (secret) => {

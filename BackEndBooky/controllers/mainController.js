@@ -4,12 +4,11 @@ const bookySchema = require("../schemas/bookySchema")
 const sendRes = require("../middleware/modules/universalRes")
 const { uid } = require("uid")
 const bcrypt = require("bcrypt")
-const e = require("express")
 
 module.exports = {
   register: async (req, res) => {
 
-    const { email, password, bookyName, admin, username } = req.body
+    const { email, password, username } = req.body
 
     const hashPass = await bcrypt.hash(password, 10)
 
@@ -17,8 +16,6 @@ module.exports = {
       email,
       username,
       password: hashPass,
-      bookyName,
-      admin,
       secret: uid(),
     }).save().then(() => {
     })
@@ -40,7 +37,6 @@ module.exports = {
     const { email, password } = req.body
     const userExists = await userSchema.findOne({ email })
 
-
     if (userExists) {
       const passwordsMatch = await bcrypt.compare(password, userExists.password)
 
@@ -51,11 +47,11 @@ module.exports = {
 
         return sendRes(res, false, "all good", { secret: userExists.secret, sessions: req.session })
       } else {
-        return sendRes(res, true, "bad credentials", null)
+        return sendRes(res, true, "Invalid credentials", null)
       }
 
     } else {
-      return sendRes(res, true, "user doesn't exist", null)
+      return sendRes(res, true, "Invalid credentials", null)
     }
 
   },

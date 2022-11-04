@@ -45,7 +45,6 @@ const Profile = () => {
         setCreateOrJoin={setCreateOrJoin}
         item={user}
         onOpen={onOpen}
-        isInProfile={true}
       />
       <div className='flex justify-around' >
         <UserBookies bookies={createdBookies} heading='Your bookies'></UserBookies>

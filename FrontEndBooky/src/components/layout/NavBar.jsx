@@ -23,13 +23,11 @@ const NavBar = ({ onOpen }) => {
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
+
   const [colorTheme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
   const { user, setUser, getCurrentTheme } = useContext(MainContext)
 
-
-  //TODO: currentTheme is undefined on first load, fix it . 
-  //TODO: light, dark theme works backwards
   const logInOrOut = () => {
     if (localEmail) {
       get("logout").then(() => {
@@ -88,9 +86,9 @@ const NavBar = ({ onOpen }) => {
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
-                  <button className='ml-2' onClick={onOpen}>Profile Sidebar</button>
+                  <button className='ml-2' onClick={goToProfile}>Profile</button>
                   <MenuDivider />
-                  <button className='ml-2' onClick={goToProfile}>Profile Page</button>
+                  <button className='ml-2' onClick={onOpen}>Sidebar</button>
                   <MenuDivider />
                   <Switch
                     className='ml-2'

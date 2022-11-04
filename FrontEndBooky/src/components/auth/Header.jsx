@@ -5,7 +5,8 @@ const Header = ({
   heading,
   paragraph,
   linkName,
-  linkUrl }) => {
+  linkUrl,
+  error }) => {
 
   return (
     <div className="mb-10 text-gray-800 dark:text-white">
@@ -24,6 +25,7 @@ const Header = ({
           {linkName}
         </Link>
       </p>
+      <div className='text-md text-red-500 h-2 mt-2 -mb-4 '>{error}</div>
     </div>
   )
 }

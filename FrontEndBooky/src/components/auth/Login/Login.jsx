@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import MainContext from '../../../context/MainContext';
+import useDarkMode from '../../../hook/useDarkMode';
 import { post } from '../../../plugins/http';
 import Header from '../Header';
 
@@ -13,6 +14,8 @@ const Login = () => {
   const navigate = useNavigate()
   const [error, setError] = useState()
   const { getUser } = useContext(MainContext)
+  const autoLogin = localStorage.getItem("autologin")
+  const [colorTheme, setTheme] = useDarkMode()
 
   const login = async () => {
     const user = {
@@ -25,6 +28,7 @@ const Login = () => {
       localStorage.setItem("secret", res.data.secret)
       localStorage.setItem("bookyName", res.data.sessions.bookyName)
       localStorage.setItem("email", res.data.sessions.email)
+      setTheme('light')
       localStorage.setItem("logedIn", true)
       getUser(res.data.secret)
       navigate(`/profile`)
@@ -36,13 +40,12 @@ const Login = () => {
     localStorage.setItem("autologin", e.target.checked)
   }
   useEffect(() => {
-    const autoLogin = localStorage.getItem("autologin")
 
     if (autoLogin === "true") {
       checkRef.current.checked = true
     }
-
   }, [])
+
   return (
     <div className='container mt-52'>
       <div className='flex flex-col bg-white dark:bg-zinc-800  p-10 text-center rounded'>
@@ -51,8 +54,8 @@ const Login = () => {
           paragraph="Don't have an account yet? "
           linkName="Signup"
           linkUrl="/signUp"
+          error={error}
         />
-        <div className='text-red-500'>{error}</div>
         <input className='input' type="text" placeholder='email' ref={emailRef} />
         <input className='input' type="password" placeholder='password' ref={passRef} />
         <div className="flex items-center justify-between ">

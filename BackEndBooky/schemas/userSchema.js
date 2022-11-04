@@ -23,14 +23,6 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  bookyName: {
-    type: String,
-    required: true
-  },
-  admin: {
-    type: Boolean,
-    required: false
-  }
 
 })
 
