@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -17,8 +17,11 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
 
   //TODO: Make getjoined and getcreated bookies run on one function
   //TODO: Errors 
+  //TODO: Kai kuri pirmą booky, jis neatsiranda be refresh.
+
   const bookyNameRef = useRef()
   const { user } = useContext(MainContext)
+  const [error, setError] = useState()
 
   const createOrJoinBooky = async () => {
     const info = {
@@ -28,17 +31,25 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
     }
 
     if (createOrJoin === 'Create') {
-      const data = await post('createBooky', info)
-      console.log(data.message)
-      getCreatedBookies()
-      onClose()
-    } else {
-      const data = await post('joinBooky', info)
-      console.log(data.message)
-      getJoinedBookies()
-      onClose()
-    }
+      const res = await post('createBooky', info)
+      const data = await res.json();
+      if (res.status === 200) {
+        getCreatedBookies()
+        onClose()
+      } else {
+        setError(data.message)
+      }
 
+    } else {
+      const res = await post('joinBooky', info)
+      const data = await res.json()
+      if (res.status === 200) {
+        getJoinedBookies()
+        onClose()
+      } else {
+        setError(data.message)
+      }
+    }
   }
 
   return (
@@ -69,7 +80,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
           </div>
         </ModalBody>
         <ModalFooter>
-          {/* <div className='text-red-500'>{error}</div> */}
+          <div className='text-md text-red-500 h-2 mt-2 -mb-4 '>{error}</div>
           <Button
             variant='ghost' onClick={createOrJoinBooky}>{createOrJoin}</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>

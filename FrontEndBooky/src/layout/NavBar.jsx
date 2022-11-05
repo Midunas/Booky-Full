@@ -14,9 +14,9 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MainContext from '../../context/MainContext';
-import useDarkMode from '../../hook/useDarkMode';
-import { get } from '../../plugins/http';
+import MainContext from '../context/MainContext';
+import useDarkMode from '../hook/useDarkMode';
+import { get } from '../plugins/http';
 
 const NavBar = ({ onOpen }) => {
 

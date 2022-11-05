@@ -19,7 +19,9 @@ const TimeBar = ({ id, count, setCount }) => {
   const getEventByDay = async () => {
     const bookyName = localStorage.getItem("bookyName")
     const res = await get(`getEventByDay/${id}/${bookyName}`)
-    setEvents(res.eventsByDay)
+    const data = await res.json()
+
+    setEvents(data.eventsByDay)
     console.log('im reloadin')
   }
 
@@ -40,7 +42,9 @@ const TimeBar = ({ id, count, setCount }) => {
       id: eventToEdit._id,
       email: user.email,
     }
-    const data = await post("delete", bookyToDelete)
+    const res = await post("delete", bookyToDelete)
+    const data = await res.json()
+
     setError(data.message)
     getEventByDay()
   }
@@ -50,16 +54,17 @@ const TimeBar = ({ id, count, setCount }) => {
       id,
       eventName: newEventName
     }
-    const data = await post("update", bookyToUpdate)
+    const res = await post("update", bookyToUpdate)
+    const data = await res.json()
     console.log(data.message)
   }
 
   const convertNumbersToTime = (time) => {
     if (time.toString().length < 3) {
-      const minutes = ':00 '
+      const minutes = ':00'
       return time.toString() + minutes
     } else {
-      return time.toString().replace('.5', ':30 ')
+      return time.toString().replace('.5', ':30')
     }
   }
 
@@ -97,9 +102,9 @@ const TimeBar = ({ id, count, setCount }) => {
 
                   > <img className='w-10 h-10 rounded-full' src={event.photo} alt="user" />
                     {event.username}<br />
-                    {convertNumbersToTime(event.eventStart)}
-                    - {convertNumbersToTime(event.eventEnd)}
-                    {event.eventName}
+                    {convertNumbersToTime(event.eventStart)}-
+                    {convertNumbersToTime(event.eventEnd)}
+                    {` ${event.eventName}`}
                   </div>
                 </Tooltip>
               )

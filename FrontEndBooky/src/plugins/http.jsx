@@ -1,10 +1,10 @@
+import urlJoin from "url-join"
+
 const get = async (url) => {
-  const res = await fetch(`http://localhost:4000/` + url)
-  return await res.json()
+  return await fetch(urlJoin(`http://localhost:4000/`, url))
 }
 
 const post = async (url, data) => {
-
   const options = {
     method: "POST",
     headers: {
@@ -12,8 +12,7 @@ const post = async (url, data) => {
     },
     body: JSON.stringify(data)
   }
-  const res = await fetch(`http://localhost:4000/` + url, options)
-  return await res.json()
+  return await fetch(urlJoin(`http://localhost:4000`, url), options)
 }
 
 export { get, post }

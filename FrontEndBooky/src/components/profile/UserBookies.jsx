@@ -15,6 +15,7 @@ const UserBookies = ({ heading, bookies }) => {
     localStorage.setItem('bookyName', bookyName)
     navigate(`/`)
   }
+
   return (
     <div className='w-2/5 dark:text-white'>
       <h1 className='text-3xl text-center mb-5'>{heading}</h1>
@@ -22,9 +23,11 @@ const UserBookies = ({ heading, bookies }) => {
         {bookies && bookies.map((x, i) =>
           <div key={i}>
             <h1 className='text-xl'>{x.bookyName}</h1>
-            {theme === 'light'
-              ? <img onClick={() => goToBookyPage(x.bookyName)} className='rounded cursor-pointer' src={darkBooky} alt="calendar" />
-              : <img onClick={() => goToBookyPage(x.bookyName)} className='rounded cursor-pointer' src={lightBooky} alt="calendar" />}
+            <img
+              onClick={() => goToBookyPage(x.bookyName)}
+              className='rounded cursor-pointer'
+              src={theme === 'light' ? lightBooky : darkBooky}
+              alt="calendar" />
           </div>)}
       </Grid>
     </div>

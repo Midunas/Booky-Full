@@ -17,23 +17,25 @@ const Login = () => {
   const autoLogin = localStorage.getItem("autologin")
   const [colorTheme, setTheme] = useDarkMode()
 
+  //TODO: naudok theme ne colorTheme lmao 
+
   const login = async () => {
     const user = {
       email: emailRef.current.value,
       password: passRef.current.value,
     }
     const res = await post("login", user)
+    const data = await res.json()
 
-    if (!res.error) {
-      localStorage.setItem("secret", res.data.secret)
-      localStorage.setItem("bookyName", res.data.sessions.bookyName)
-      localStorage.setItem("email", res.data.sessions.email)
-      setTheme('light')
+    if (res.status === 200) {
+      localStorage.setItem("secret", data.secret)
+      localStorage.setItem("email", data.sessions.email)
+      setTheme(colorTheme)
       localStorage.setItem("logedIn", true)
-      getUser(res.data.secret)
+      getUser(data.secret)
       navigate(`/profile`)
     }
-    setError(res.message)
+    setError(data.message)
   }
 
   const autoLoginCheck = (e) => {
@@ -48,7 +50,7 @@ const Login = () => {
 
   return (
     <div className='container mt-52'>
-      <div className='flex flex-col bg-white dark:bg-zinc-800  p-10 text-center rounded'>
+      <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
         <Header
           heading="Login to your account"
           paragraph="Don't have an account yet? "

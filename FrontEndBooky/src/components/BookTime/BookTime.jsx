@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react'
 import DaySelect from './components/DaySelect'
 import { useRef } from 'react'
@@ -32,14 +31,15 @@ const BookTime = ({ setCount, count }) => {
       photo: user.photo,
       email: user.email,
     }
-    const data = await post("addReservation", newBooking)
+    const res = await post("addReservation", newBooking)
+    const data = await res.json()
     setError(data.message)
     setIsActive(false)
     setCurrentColor('')
     setCount(count + 1)
   }
 
-  const handleOnChange = (color) => {
+  const handleColorPickerChange = (color) => {
     setCurrentColor(color.hex)
     setIsActive(true)
   }
@@ -55,7 +55,7 @@ const BookTime = ({ setCount, count }) => {
       <div className='flex '>
         <TwitterPicker
           color={currentColor}
-          onChangeComplete={handleOnChange}
+          onChangeComplete={handleColorPickerChange}
         />
       </div>
       <button

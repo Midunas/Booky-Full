@@ -1,6 +1,6 @@
 const isEmail = require("is-email")
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { email, password, repeat } = req.body
 
   if (!isEmail(email)) return res.send({ error: true, message: "Email is invalid" })

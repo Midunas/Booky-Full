@@ -7,7 +7,7 @@ const {
   getEventByDay,
   login,
   getUser,
-  update,
+  updateBooky,
   deleteBooky,
   autoLogin,
   register,
@@ -18,19 +18,22 @@ const {
   joinBooky,
   logout } = require("../controllers/mainController")
 
-router.post("/addReservation", addReservation)
+router.post("/register", middle, register)
+router.post("/login", login)
 router.get("/getUser/:secret", getUser)
+router.post("/createBooky", createBooky)
+router.post("/joinBooky", joinBooky)
+router.post("/addReservation", addReservation)
+
 router.get("/getEventByDay/:id/:bookyName", getEventByDay)
 router.get("/getAllCreated/:email", getAllCreated)
 router.get("/getAllJoined/:id/:email", getAllJoined)
-router.post("/joinBooky", joinBooky)
 
-router.post("/register", middle, register)
-router.post("/createBooky", createBooky)
+
 router.post("/delete", deleteBooky)
-router.post("/login", login)
-router.post("/update", update)
+router.post("/update", updateBooky)
 router.post("/updateProfile", updateProfile)
+
 router.get("/autologin", autoLogin)
 router.get("/logout", logout)
 

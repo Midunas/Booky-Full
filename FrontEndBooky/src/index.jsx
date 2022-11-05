@@ -5,12 +5,14 @@ import App from './App';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+//TODO: return Strict.Mode
 
 root.render(
-  <React.StrictMode>
-    <ChakraProvider>
-      <App />
-    </ChakraProvider>
-  </React.StrictMode>
+
+  <ChakraProvider>
+    <App />
+  </ChakraProvider>
+
 )
 
+//TODO: hmmmmmmmmm

@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { post } from '../../../plugins/http'
 import { useNavigate } from "react-router-dom";
 import Header from '../Header';
+import MainContext from '../../../context/MainContext';
 
 const CreateBooky = () => {
+  const userContext = useContext(MainContext)
 
   const [error, setError] = useState('')
   const emailRef = useRef()
@@ -23,14 +25,17 @@ const CreateBooky = () => {
     }
 
     const res = await post("register", adminUser)
-    if (!res.error) {
-      localStorage.setItem("secret", res.data.secret)
-      localStorage.setItem("bookyName", res.data.sessions.bookyName)
-      localStorage.setItem("email", res.data.sessions.email)
+    const data = await res.json();
+
+    if (res.status === 200) {
+      localStorage.setItem("secret", data.secret)
+      localStorage.setItem("bookyName", data.sessions.bookyName)
+      localStorage.setItem("email", data.sessions.email)
       localStorage.setItem("logedIn", true)
+      userContext.setUser((userData) => ({ ...userData, secret: data.secret }));
       navigate(`/profile`)
     } else {
-      setError(res.message)
+      setError(data.message)
     }
   }
 
@@ -44,7 +49,6 @@ const CreateBooky = () => {
           linkUrl="/login"
           error={error}
         />
-
         <input className='input' type="text" placeholder='email' ref={emailRef} />
         <input className='input' type="text" placeholder='username' ref={usernameRef} />
         <input className='input' type="password" placeholder='password' ref={passRef} />
