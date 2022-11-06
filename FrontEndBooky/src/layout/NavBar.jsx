@@ -85,7 +85,7 @@ const NavBar = ({ onOpen }) => {
                     <button
                       className='ml-2 text-orange-400'
                       onClick={onOpen}
-                    >{bookyName} Users</button>
+                    >{bookyName}</button>
                   </div>
                   <MenuDivider />
                   <Switch

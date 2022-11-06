@@ -20,7 +20,8 @@ const EditEventModal = ({
   eventToEdit,
   setCount,
   setError,
-  count }) => {
+  count,
+  getEventByDay }) => {
 
   const [isActive, setIsActive] = useState(false)
   const newEventNameRef = useRef()
@@ -30,9 +31,10 @@ const EditEventModal = ({
   }
   const updateBookyAndCloseModal = () => {
     updateBooky(newEventNameRef.current.value, eventToEdit._id)
-    setCount(count + 1)
     setIsActive(false)
     onClose()
+    setCount(count + 1)
+    getEventByDay()
   }
   const closeModalAndReset = () => {
     setIsActive(false)

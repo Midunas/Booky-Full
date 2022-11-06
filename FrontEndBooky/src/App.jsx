@@ -39,7 +39,6 @@ const App = () => {
     }
   }, [])
 
-
   return (
     <MainContext.Provider value={{
       user,

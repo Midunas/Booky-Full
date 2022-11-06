@@ -9,6 +9,8 @@ import EditEventModal from './EditEventModal'
 import LongEventDisplay from './LongEventDisplay'
 import ShortEventDisplay from './ShortEventDisplay'
 
+//TODO: Fix the count fetch shinanigans
+
 const TimeBar = ({ id, count, setCount }) => {
 
   const [events, setEvents] = useState([])
@@ -29,7 +31,7 @@ const TimeBar = ({ id, count, setCount }) => {
     if (user) {
       getEventByDay()
     }
-  }, [user, count])
+  }, [count, user])
 
   const updateOrDelete = (event) => {
     setEventToEdit(event)
@@ -47,8 +49,8 @@ const TimeBar = ({ id, count, setCount }) => {
     if (!res.status === 200) {
       setError(data.message)
     }
-    onClose()
     getEventByDay()
+    onClose()
   }
 
   const updateBooky = async (newEventName, id) => {
@@ -74,7 +76,10 @@ const TimeBar = ({ id, count, setCount }) => {
         updateBooky={updateBooky}
         onClose={onClose}
         isOpen={isOpen}
-        setCount={setCount} />
+        getEventByDay={getEventByDay}
+        count={count}
+        setCount={setCount}
+      />
       <div className=' flex'>
         <div className='dayName'>{id}</div>
         <div className='w-5/6'>

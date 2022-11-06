@@ -23,12 +23,12 @@ const SideBar = ({ isOpen, onClose }) => {
       const res = await get('getBookyUsers/' + bookyName)
       const data = await res.json()
       setUsers(data.result)
-      console.log('im reloading')
     }
   }
   useEffect(() => {
     getAllUsers()
   }, [bookyName])
+
   return (
     <>
       <Drawer
@@ -39,7 +39,7 @@ const SideBar = ({ isOpen, onClose }) => {
         <DrawerOverlay />
         <DrawerContent className='dark:bg-zinc-700 dark:text-white' >
           <DrawerCloseButton />
-          <DrawerHeader>{bookyName} users:</DrawerHeader>
+          <DrawerHeader>{bookyName} members:</DrawerHeader>
           <DrawerBody>
             {users && users.map((x, i) => <UserBox id={x} key={i}></UserBox>)}
           </DrawerBody>
