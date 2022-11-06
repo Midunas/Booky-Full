@@ -13,7 +13,7 @@ import {
   Switch,
   Tooltip,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainContext from '../context/MainContext';
 import { get } from '../plugins/http';
@@ -80,8 +80,13 @@ const NavBar = ({ onOpen }) => {
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
                   <button className='ml-2' onClick={goToProfile}>Profile</button>
-                  <MenuDivider />
-                  <button className='ml-2 text-orange-400' onClick={onOpen}>{bookyName} Users</button>
+                  <div style={{ display: bookyName ? 'block' : 'none' }}>
+                    <MenuDivider />
+                    <button
+                      className='ml-2 text-orange-400'
+                      onClick={onOpen}
+                    >{bookyName} Users</button>
+                  </div>
                   <MenuDivider />
                   <Switch
                     className='ml-2'

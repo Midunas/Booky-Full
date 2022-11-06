@@ -14,8 +14,6 @@ import useDarkMode from './hook/useDarkMode';
 const App = () => {
 
   //TODO: Make blank images for booky display
-  //TODO: Remove message after error or success in creating booky/removing 
-
   const [user, setUser] = useState()
   const userSecret = localStorage.getItem('secret')
   const [colorTheme, setTheme] = useDarkMode()

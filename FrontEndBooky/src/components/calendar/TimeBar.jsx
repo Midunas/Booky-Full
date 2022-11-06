@@ -6,6 +6,8 @@ import { useEffect } from 'react'
 import MainContext from '../../context/MainContext'
 import { get, post } from '../../plugins/http'
 import EditEventModal from './EditEventModal'
+import LongEventDisplay from './LongEventDisplay'
+import ShortEventDisplay from './ShortEventDisplay'
 
 const TimeBar = ({ id, count, setCount }) => {
 
@@ -21,7 +23,6 @@ const TimeBar = ({ id, count, setCount }) => {
     const res = await get(`getEventByDay/${id}/${bookyName}`)
     const data = await res.json()
     setEvents(data.eventsByDay)
-
   }
 
   useEffect(() => {
@@ -61,7 +62,6 @@ const TimeBar = ({ id, count, setCount }) => {
     if (res.status !== 200) {
       setError(data.message)
     }
-    //TODO: can't edit not ur own booky!?
   }
 
   const convertNumbersToTime = (time) => {
@@ -74,7 +74,6 @@ const TimeBar = ({ id, count, setCount }) => {
   }
 
   return (
-
     <div>
       <EditEventModal
         error={error}
@@ -93,6 +92,7 @@ const TimeBar = ({ id, count, setCount }) => {
             style={{ width: w }}
             id={id}>
             {events.map((event, i) => {
+              const duration = event.eventEnd - event.eventStart
               return (
                 <Tooltip key={i} label="View or edit booky" >
                   <div
@@ -104,12 +104,9 @@ const TimeBar = ({ id, count, setCount }) => {
                       left: ((event.eventStart - 8) / 14) * w
                     }}
                     onClick={() => updateOrDelete(event)}
-
-                  > <img className='w-10 h-10 rounded-full' src={event.photo} alt="user" />
-                    {event.username}<br />
-                    {convertNumbersToTime(event.eventStart)}-
-                    {convertNumbersToTime(event.eventEnd)}
-                    {` ${event.eventName}`}
+                  >{duration > 2
+                    ? <LongEventDisplay event={event} convertNumbersToTime={convertNumbersToTime} />
+                    : <ShortEventDisplay event={event} />}
                   </div>
                 </Tooltip>
               )

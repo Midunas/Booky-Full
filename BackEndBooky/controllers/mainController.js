@@ -121,32 +121,34 @@ module.exports = {
   },
   addReservation: async (req, res) => {
 
-    const { eventStart, eventEnd, bookyName, eventDay } = req.body
-    const existingBookies = await eventSchema.find({ eventDay, bookyName })
+    // const { eventStart, eventEnd, bookyName, eventDay } = req.body
+    // const duration = eventEnd - eventStart
+    // if (duration < 1) {
+    //   return res.status(400).json({ message: "Cannot book less than an hour" })
+    // }
+    // const existingBookies = await eventSchema.find({ eventDay, bookyName })
 
-    if (existingBookies.length > 0) {
-      const overlap = existingBookies.map((booky) => {
-        if (booky.eventStart < eventEnd && booky.eventEnd > eventStart) {
-          return true;
-        }
-        return false;
-      })
+    // if (existingBookies.length > 0) {
+    //   const overlap = existingBookies.map((booky) => {
+    //     if (booky.eventStart < eventEnd && booky.eventEnd > eventStart) {
+    //       return true;
+    //     }
+    //     return false;
+    //   })
+    //   const atLeastOneOverlaps = overlap.reduce((current, next) => current || next, false)
 
-      const atLeastOneOverlaps = overlap.reduce((current, next) => current || next, false)
+    //   if (atLeastOneOverlaps) {
+    //     return res.status(400).json({ message: "Times overlap" })
+    //   } else {
+    //     const newReservation = new eventSchema(req.body)
+    //     const post = await newReservation.save()
+    //     return res.status(200).json({ post })
+    //   }
+    // } else {
+    const newReservation = new eventSchema(req.body)
+    const post = await newReservation.save()
+    return res.status(200).json({ post })
 
-      if (atLeastOneOverlaps) {
-        return res.status(400).json({ message: "Times overlap" })
-      } else {
-        const newReservation = new eventSchema(req.body)
-        const post = await newReservation.save()
-        return res.status(200).json({ post })
-
-      }
-    } else {
-      const newReservation = new eventSchema(req.body)
-      const post = await newReservation.save()
-      return res.status(200).json({ post })
-    }
 
   },
   getEventByDay: async (req, res) => {

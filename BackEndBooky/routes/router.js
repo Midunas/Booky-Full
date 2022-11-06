@@ -3,6 +3,7 @@ const router = express.Router()
 const middle = require("../middleware/middle")
 const createBookyMiddle = require('../middleware/createBookyMiddle')
 const joinBookyMiddle = require('../middleware/joinBookyMiddle')
+const reservationMiddle = require('../middleware/reservationMiddle')
 const {
   addReservation,
   getEventByDay,
@@ -28,7 +29,7 @@ router.get("/getUser/:secret", getUser)
 router.get("/getUsers/:id", getUsers)
 router.post("/createBooky", createBookyMiddle, createBooky)
 router.post("/joinBooky", joinBookyMiddle, joinBooky)
-router.post("/addReservation", addReservation)
+router.post("/addReservation", reservationMiddle, addReservation)
 
 router.get("/getEventByDay/:id/:bookyName", getEventByDay)
 router.get("/getAllCreated/:email", getAllCreated)

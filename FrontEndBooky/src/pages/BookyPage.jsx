@@ -14,7 +14,7 @@ const BookyPage = () => {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   const navigate = useNavigate()
-  const [count, setCount] = useState()
+  const [count, setCount] = useState(1)
   const [isShown, setIsShown] = useState()
   const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
