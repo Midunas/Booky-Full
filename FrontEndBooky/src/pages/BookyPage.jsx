@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookTime from '../components/booktime/BookTime'
+import BookyHeader from '../components/calendar/BookyHeader';
 import DeleteBookyModal from '../components/calendar/DeleteBookyModal';
 import TimeBar from '../components/calendar/TimeBar';
 import MainContext from '../context/MainContext';
@@ -15,6 +16,7 @@ const BookyPage = () => {
   const navigate = useNavigate()
   const [count, setCount] = useState()
   const [isShown, setIsShown] = useState()
+  const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useContext(MainContext)
 
@@ -26,14 +28,11 @@ const BookyPage = () => {
       alert('You are not Logged in')
       navigate('/login')
     }
-    //TODO: If no bookyName, maybe disable the Booky link in NavBar instead?
-
     if (!bookyName) {
       alert('No booky selected')
       navigate('/profile')
     }
   },)
-
 
   const deleteBooky = async () => {
     const bookyToDelete = {
@@ -42,9 +41,12 @@ const BookyPage = () => {
     }
     const res = await post("deleteBooky", bookyToDelete)
     const data = await res.json()
-    console.log(data)
-    navigate('/profile')
-    localStorage.removeItem('bookyName')
+    if (res.status === 200) {
+      navigate('/profile')
+      localStorage.removeItem('bookyName')
+    }
+    setError(data.message)
+
   }
   //TODO: MAKE IT A SEPERATE COMPONENT
 
@@ -54,27 +56,18 @@ const BookyPage = () => {
         deleteBooky={deleteBooky}
         onClose={onClose}
         isOpen={isOpen}
+        error={error}
+        setIsShown={setIsShown}
         warning='After deleting this Booky, you will no longer be able to access it, are you sure?'
       />
       <div className='mt-16 flex flex-wrap items-center justify-around'>
         <div className='overflow-x-auto w-[980px] mb-20'>
-          <div className='flex gap-x-3'>
-
-            <Tooltip label='Delete booky?'>
-              <h1
-                className="text-3xl dark:text-white mb-2 cursor-pointer"
-                onClick={() => setIsShown(prev => !prev)}
-              >{bookyName}
-              </h1>
-            </Tooltip>
-            {isShown &&
-              <div className='flex gap-x-1'>
-                <Button onClick={onOpen} colorScheme='red'>Delete</Button>
-                <Button colorScheme='blue'>Cancel</Button>
-              </div>
-            }
-          </div>
-
+          <BookyHeader
+            setIsShown={setIsShown}
+            bookyName={bookyName}
+            isShown={isShown}
+            onOpen={onOpen}
+          />
           {days && days.map((x, i) =>
             <TimeBar setCount={setCount} count={count} key={i} id={x} />
           )}

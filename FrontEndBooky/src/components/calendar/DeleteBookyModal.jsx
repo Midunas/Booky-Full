@@ -15,7 +15,8 @@ const DeleteBookyModal = ({
   onClose,
   deleteBooky,
   bookyName,
-  warning
+  warning,
+  error
 }) => {
 
   return (
@@ -36,6 +37,7 @@ const DeleteBookyModal = ({
           </span>
         </ModalBody>
         <ModalFooter className='flex gap-x-1'>
+          <div className='text-red-500'>{error}</div>
           <Button variant='ghost' color='red' onClick={deleteBooky}>I'm sure!</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
             Cancel
