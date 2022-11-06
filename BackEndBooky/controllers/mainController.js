@@ -4,6 +4,8 @@ const bookySchema = require("../schemas/bookySchema")
 const { uid } = require("uid")
 const bcrypt = require("bcrypt")
 const random = require('random-string-alphanumeric-generator')
+
+
 module.exports = {
   register: async (req, res) => {
 
@@ -221,8 +223,12 @@ module.exports = {
   getBookyUsers: async (req, res) => {
     const bookyName = req.params.bookyName
     const foundBooky = await bookySchema.find({ bookyName })
-    const result = foundBooky[0].members
-    return res.status(200).json({ result })
+    if (foundBooky.length > 0) {
+      const result = foundBooky[0].members
+      return res.status(200).json({ result })
+    }
+    return res.status(200).json({ message: "No bookies yet" })
+
   },
   getUsers: async (req, res) => {
     const id = req.params.id

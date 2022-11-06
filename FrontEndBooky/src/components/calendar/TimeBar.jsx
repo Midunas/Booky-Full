@@ -44,11 +44,11 @@ const TimeBar = ({ id, count, setCount }) => {
     }
     const res = await post("delete", bookyToDelete)
     const data = await res.json()
-    if (res.status === 200) {
-      onClose()
-      getEventByDay()
+    if (!res.status === 200) {
+      setError(data.message)
     }
-    setError(data.message)
+    onClose()
+    getEventByDay()
   }
 
   const updateBooky = async (newEventName, id) => {
@@ -64,26 +64,17 @@ const TimeBar = ({ id, count, setCount }) => {
     }
   }
 
-  const convertNumbersToTime = (time) => {
-    if (time.toString().length < 3) {
-      const minutes = ':00'
-      return time.toString() + minutes
-    } else {
-      return time.toString().replace('.5', ':30')
-    }
-  }
-
   return (
     <div>
       <EditEventModal
         error={error}
+        setError={setError}
         eventToEdit={eventToEdit}
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}
         isOpen={isOpen}
-        setCount={setCount}
-        count={count} />
+        setCount={setCount} />
       <div className=' flex'>
         <div className='dayName'>{id}</div>
         <div className='w-5/6'>
@@ -105,7 +96,7 @@ const TimeBar = ({ id, count, setCount }) => {
                     }}
                     onClick={() => updateOrDelete(event)}
                   >{duration > 2
-                    ? <LongEventDisplay event={event} convertNumbersToTime={convertNumbersToTime} />
+                    ? <LongEventDisplay event={event} />
                     : <ShortEventDisplay event={event} />}
                   </div>
                 </Tooltip>

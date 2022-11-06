@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import numbersToTime from '../../lib/numbersToTime'
 import {
   Modal,
   ModalOverlay,
@@ -10,7 +11,6 @@ import {
   Button,
   Tooltip,
 } from '@chakra-ui/react'
-
 const EditEventModal = ({
   isOpen,
   onClose,
@@ -19,6 +19,7 @@ const EditEventModal = ({
   error,
   eventToEdit,
   setCount,
+  setError,
   count }) => {
 
   const [isActive, setIsActive] = useState(false)
@@ -35,6 +36,7 @@ const EditEventModal = ({
   }
   const closeModalAndReset = () => {
     setIsActive(false)
+    setError('')
     onClose()
   }
 
@@ -47,7 +49,9 @@ const EditEventModal = ({
     >
       <ModalOverlay />
       <ModalContent className='dark:bg-zinc-800 dark:text-white'>
-        <ModalHeader>{eventToEdit.username} 13:00 - 15:40</ModalHeader>
+        <ModalHeader>
+          {eventToEdit.username} {numbersToTime(eventToEdit.eventStart)}
+          -{numbersToTime(eventToEdit.eventEnd)}</ModalHeader>
         <ModalCloseButton />
         <ModalBody style={{ display: 'flex' }}>
           <Tooltip
