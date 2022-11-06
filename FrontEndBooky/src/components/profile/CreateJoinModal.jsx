@@ -20,6 +20,8 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
   //TODO: Kai kuri pirmą booky, jis neatsiranda be refresh.
 
   const bookyNameRef = useRef()
+  const inviteCodeRef = useRef()
+
   const { user } = useContext(MainContext)
   const [error, setError] = useState()
 
@@ -28,6 +30,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
       bookyName: bookyNameRef.current.value,
       email: user.email,
       id: user._id,
+      code: inviteCodeRef.current.value,
     }
 
     if (createOrJoin === 'Create') {
@@ -75,15 +78,15 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
             {createOrJoin && createOrJoin === 'Join' &&
               <input
                 type="text"
-                placeholder='Code'
+                placeholder='Invite code'
                 className='input'
+                ref={inviteCodeRef}
               />}
           </div>
         </ModalBody>
         <ModalFooter>
           <div className='text-md text-red-500 h-2 mt-2 -mb-4 '>{error}</div>
-          <Button
-            variant='ghost' onClick={createOrJoinBooky}>{createOrJoin}</Button>
+          <Button variant='ghost' onClick={createOrJoinBooky}>{createOrJoin}</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
             Close
           </Button>

@@ -21,7 +21,7 @@ const bookySchema = new Schema({
   },
   inviteCode: {
     type: String,
-    required: false
+    required: true,
   }
 })
 

@@ -10,7 +10,6 @@ import { useEffect } from 'react'
 import { get } from '../../plugins/http'
 
 const Profile = () => {
-  //TODO: Test registration => picture change 
 
   const { user } = useContext(MainContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -27,14 +26,12 @@ const Profile = () => {
     if (user) {
       const res = await get(`getAllJoined/${user._id}/${user.email}`)
       const data = await res.json()
-      setJoinedBookies(data.bookiesExist)
+      setJoinedBookies(data.result)
     }
   }
   useEffect(() => {
     getCreatedBookies()
     getJoinedBookies()
-    //TODO: Work on the navigation in BookyPage and Profile page if user is not logged in. 
-    //TODO: Don't load on new account? Or create a first on registration.
   }, [user])
 
   return (

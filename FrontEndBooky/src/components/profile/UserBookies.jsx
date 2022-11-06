@@ -29,15 +29,15 @@ const UserBookies = ({ heading, bookies }) => {
       <Tooltip
         isOpen={isNowOpen}
         label="Code copied to clipboard!">
-        <h1 className='text-3xl text-center mb-5'>{heading}</h1>
+        <h1 className='text-3xl text-center mb-10'>{heading}</h1>
       </Tooltip>
-      <Grid templateColumns='repeat(2, 1fr)' w='100%' gap={6}>
+      <Grid templateColumns='repeat(2, 1fr)' w='100%' gap={6} >
         {bookies && bookies.map((x, i) =>
           <div key={i}>
             <div className='flex justify-between cursor-pointer '>
               <Tooltip label="See invite code" >
                 <h1
-                  className='text-xl'
+                  className='text-xl mb-2'
                   onClick={() => setIsShown(prev => !prev)}
                 >{x.bookyName}</h1>
               </Tooltip>

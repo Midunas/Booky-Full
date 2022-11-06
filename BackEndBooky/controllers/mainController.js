@@ -70,13 +70,12 @@ module.exports = {
       inviteCode
     }).save()
 
-
     return res.status(200).json({ message: "Booky Created" })
 
   },
   joinBooky: async (req, res) => {
 
-    const { id, email, bookyName } = req.body
+    const { id, email, bookyName, code } = req.body
 
     const bookyExists = await bookySchema.find({ bookyName })
 
