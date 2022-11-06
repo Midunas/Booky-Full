@@ -18,15 +18,15 @@ import MainContext from '../context/MainContext';
 import useDarkMode from '../hook/useDarkMode';
 import { get } from '../plugins/http';
 
-const NavBar = ({ onOpen }) => {
+const NavBar = () => {
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
 
-  const [colorTheme, setTheme] = useDarkMode()
+  const [theme, setTheme] = useDarkMode()
   const [checked, setChecked] = useState(false);
-  const { user, setUser, getCurrentTheme } = useContext(MainContext)
+  const { user, setUser } = useContext(MainContext)
 
   const logInOrOut = () => {
     if (localEmail) {
@@ -50,8 +50,6 @@ const NavBar = ({ onOpen }) => {
     }
   }
   const handleChange = (event) => {
-    setChecked(event.target.checked);
-    getCurrentTheme()
     if (event.target.checked) {
       setTheme('dark')
     } else {
@@ -88,15 +86,13 @@ const NavBar = ({ onOpen }) => {
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
                   <button className='ml-2' onClick={goToProfile}>Profile</button>
                   <MenuDivider />
-                  <button className='ml-2' onClick={onOpen}>Sidebar</button>
-                  <MenuDivider />
                   <Switch
                     className='ml-2'
                     checked={checked}
                     onChange={handleChange}
                   >Mode:
                   </Switch>
-                  {colorTheme === "dark" ?
+                  {theme === "dark" ?
                     <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
                   }
                 </MenuList>

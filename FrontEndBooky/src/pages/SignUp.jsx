@@ -1,10 +1,10 @@
 import React from 'react'
-import CreateBooky from '../components/auth/register/CreateBooky'
+import SignUp from '../components/auth/signUp/SignUp'
 
 const CreateBookyPage = () => {
 
   return (
-    <CreateBooky />
+    <SignUp />
   )
 }
 export default CreateBookyPage

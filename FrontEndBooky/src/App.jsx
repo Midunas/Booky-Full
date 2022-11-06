@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookyPage from './pages/BookyPage';
 import LoginPage from './pages/LoginPage';
-import CreateBookyPage from './pages/CreateBookyPage';
+import CreateBookyPage from './pages/SignUp';
 import Layout from './layout/Layout';
 import { get } from './plugins/http';
 import MainContext from './context/MainContext';
@@ -31,6 +31,7 @@ const App = () => {
   useEffect(() => {
     if (user?.secret) {
       getUser(user.secret)
+      setTheme('light')
     }
   }, [user?.secret])
 
@@ -40,16 +41,11 @@ const App = () => {
     }
   }, [])
 
-  const getCurrentTheme = () => {
-    setTheme(localStorage.getItem('theme'))
-  }
-
   return (
     <MainContext.Provider value={{
       user,
       setUser,
       getUser,
-      getCurrentTheme,
       theme,
     }}>
       <BrowserRouter  >

@@ -146,7 +146,6 @@ module.exports = {
       const newReservation = new eventSchema(req.body)
       const post = await newReservation.save()
       return res.status(200).json({ post })
-
     }
 
   },
@@ -158,14 +157,13 @@ module.exports = {
 
     return res.status(200).json({ eventsByDay })
 
-
   },
   autoLogin: async (req, res) => {
 
     const { email } = req.session
     if (email) {
+
       const user = await userSchema.findOne({ email })
-      // return sendRes(res, false, "all good", { secret: user.secret, email })
       return res.status(200).json({ secret: user.secret, email })
 
     }

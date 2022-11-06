@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from '../Header';
 import MainContext from '../../../context/MainContext';
 
-const CreateBooky = () => {
+const SignUp = () => {
   const userContext = useContext(MainContext)
 
   const [error, setError] = useState('')
@@ -62,4 +62,4 @@ const CreateBooky = () => {
     </div>
   )
 }
-export default CreateBooky;
+export default SignUp;
