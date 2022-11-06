@@ -186,10 +186,15 @@ module.exports = {
   },
   updateEvent: async (req, res) => {
 
-    const { id, eventName } = req.body
-    await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
+    const { id, eventName, email } = req.body
+    const userMadeTheEvent = await eventSchema.findOne({ _id: id, email })
+    if (userMadeTheEvent) {
+      await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
 
-    return res.status(200).json({ message: 'Event updated' })
+      return res.status(200).json({ message: 'Event updated' })
+    }
+    return res.status(400).json({ message: 'You can only edit your own bookies.' })
+
   },
   deleteEvent: async (req, res) => {
 
@@ -222,7 +227,6 @@ module.exports = {
     const { bookyName, email } = req.body
 
     const bookyExists = await bookySchema.find({ bookyName })
-    console.log(bookyExists)
     if (!bookyExists.length) {
       return res.status(400).json({ message: 'Something went wrong' })
     }
@@ -231,10 +235,6 @@ module.exports = {
     }
     await bookySchema.deleteOne({ bookyName })
     return res.status(200).json({ message: 'Booky deleted' })
-
-
-
-
   }
 
 }

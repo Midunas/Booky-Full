@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -28,10 +28,6 @@ const BookyPage = () => {
       alert('You are not Logged in')
       navigate('/login')
     }
-    if (!bookyName) {
-      alert('No booky selected')
-      navigate('/profile')
-    }
   },)
 
   const deleteBooky = async () => {
@@ -44,11 +40,11 @@ const BookyPage = () => {
     if (res.status === 200) {
       navigate('/profile')
       localStorage.removeItem('bookyName')
+      setError('')
     }
     setError(data.message)
 
   }
-  //TODO: MAKE IT A SEPERATE COMPONENT
 
   return (
     <div className='max-w-[1980px] mx-auto'>
@@ -57,6 +53,7 @@ const BookyPage = () => {
         onClose={onClose}
         isOpen={isOpen}
         error={error}
+        setError={setError}
         setIsShown={setIsShown}
         warning='After deleting this Booky, you will no longer be able to access it, are you sure?'
       />

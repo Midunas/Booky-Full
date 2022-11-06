@@ -16,13 +16,17 @@ const DeleteBookyModal = ({
   deleteBooky,
   bookyName,
   warning,
-  error
+  error,
+  setError
 }) => {
-
+  const closeAndReset = () => {
+    setError('')
+    onClose()
+  }
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={closeAndReset}
       motionPreset='slideInRight'
       size="lg"
     >

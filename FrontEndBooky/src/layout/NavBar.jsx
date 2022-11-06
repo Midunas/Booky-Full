@@ -11,8 +11,9 @@ import {
   MenuList,
   MenuDivider,
   Switch,
+  Tooltip,
 } from '@chakra-ui/react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainContext from '../context/MainContext';
 import { get } from '../plugins/http';
@@ -22,6 +23,8 @@ const NavBar = () => {
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
+  const bookyName = localStorage.getItem("bookyName")
+
   const { colorTheme, setTheme } = useContext(MainContext)
   const { user, setUser } = useContext(MainContext)
 
@@ -39,11 +42,9 @@ const NavBar = () => {
       localStorage.setItem('logedIn', false)
     }
   }
-  function goToWelcome() {
-    if (isLoggedIn === "true") {
+  function goToMainPage() {
+    if (isLoggedIn === "true" && bookyName) {
       navigate('/')
-    } else {
-      navigate("/login")
     }
   }
   const goToProfile = () => {
@@ -55,10 +56,13 @@ const NavBar = () => {
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
-            <h1
-              className='text-5xl'
-              style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
-              onClick={goToWelcome}>Booky</h1>
+            <Tooltip
+              label='Make sure to select a booky!'>
+              <h1
+                className='text-5xl'
+                style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
+                onClick={goToMainPage}>Booky</h1>
+            </Tooltip>
           </HStack>
           <Flex alignItems={'center'}>
             <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
