@@ -15,10 +15,6 @@ import MainContext from '../../context/MainContext'
 
 const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, getJoinedBookies }) => {
 
-  //TODO: Make getjoined and getcreated bookies run on one function
-  //TODO: Errors 
-  //TODO: Kai kuri pirmą booky, jis neatsiranda be refresh.
-
   const bookyNameRef = useRef()
   const inviteCodeRef = useRef()
 
@@ -30,7 +26,6 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
       bookyName: bookyNameRef.current.value,
       email: user.email,
       id: user._id,
-      code: inviteCodeRef.current.value,
     }
 
     if (createOrJoin === 'Create') {
@@ -45,6 +40,12 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
       }
 
     } else {
+      const info = {
+        bookyName: bookyNameRef.current.value,
+        email: user.email,
+        id: user._id,
+        code: inviteCodeRef.current.value
+      }
       const res = await post('joinBooky', info)
       const data = await res.json()
       if (res.status === 200) {

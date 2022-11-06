@@ -184,19 +184,19 @@ module.exports = {
     return res.status(200).json({ userExists })
 
   },
-  updateBooky: async (req, res) => {
+  updateEvent: async (req, res) => {
 
     const { id, eventName } = req.body
     await eventSchema.findOneAndUpdate({ _id: id }, { $set: { eventName } }, { new: true })
 
-    return res.status(200).json({ message: 'Booky updated' })
+    return res.status(200).json({ message: 'Event updated' })
   },
-  deleteBooky: async (req, res) => {
+  deleteEvent: async (req, res) => {
 
     const { id, email } = req.body
-    const userMadeTheBooky = await eventSchema.findOne({ _id: id, email })
+    const userMadeTheEvent = await eventSchema.findOne({ _id: id, email })
 
-    if (userMadeTheBooky) {
+    if (userMadeTheEvent) {
       await eventSchema.deleteOne({ _id: id })
       return res.status(200).json({ message: 'All good' })
 
@@ -217,7 +217,24 @@ module.exports = {
       return res.status(400).json({ message: 'Something went wrong' })
 
     }
-
   },
+  deleteBooky: async (req, res) => {
+    const { bookyName, email } = req.body
+
+    const bookyExists = await bookySchema.find({ bookyName })
+    console.log(bookyExists)
+    if (!bookyExists.length) {
+      return res.status(400).json({ message: 'Something went wrong' })
+    }
+    if (bookyExists[0].createdBy !== email) {
+      return res.status(400).json({ message: 'You don`t have permission to delete this Booky' })
+    }
+    await bookySchema.deleteOne({ bookyName })
+    return res.status(200).json({ message: 'Booky deleted' })
+
+
+
+
+  }
 
 }

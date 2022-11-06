@@ -8,7 +8,8 @@ const {
   getEventByDay,
   login,
   getUser,
-  updateBooky,
+  updateEvent,
+  deleteEvent,
   deleteBooky,
   autoLogin,
   register,
@@ -31,9 +32,10 @@ router.get("/getAllCreated/:email", getAllCreated)
 router.get("/getAllJoined/:id/:email", getAllJoined)
 
 
-router.post("/delete", deleteBooky)
-router.post("/update", updateBooky)
+router.post("/delete", deleteEvent)
+router.post("/update", updateEvent)
 router.post("/updateProfile", updateProfile)
+router.post("/deleteBooky", deleteBooky)
 
 router.get("/autologin", autoLogin)
 router.get("/logout", logout)

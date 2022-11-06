@@ -20,9 +20,8 @@ const TimeBar = ({ id, count, setCount }) => {
     const bookyName = localStorage.getItem("bookyName")
     const res = await get(`getEventByDay/${id}/${bookyName}`)
     const data = await res.json()
-
     setEvents(data.eventsByDay)
-    console.log('im reloadin')
+
   }
 
   useEffect(() => {
