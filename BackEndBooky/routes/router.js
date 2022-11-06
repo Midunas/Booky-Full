@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const middle = require("../middleware/middle")
-
+const createBookyMiddle = require('../middleware/createBookyMiddle')
 const {
   addReservation,
   getEventByDay,
@@ -21,7 +21,7 @@ const {
 router.post("/register", middle, register)
 router.post("/login", login)
 router.get("/getUser/:secret", getUser)
-router.post("/createBooky", createBooky)
+router.post("/createBooky", createBookyMiddle, createBooky)
 router.post("/joinBooky", joinBooky)
 router.post("/addReservation", addReservation)
 

@@ -1,10 +1,9 @@
 const eventSchema = require("../schemas/eventSchema")
 const userSchema = require("../schemas/userSchema")
 const bookySchema = require("../schemas/bookySchema")
-const sendRes = require("../middleware/modules/universalRes")
 const { uid } = require("uid")
 const bcrypt = require("bcrypt")
-
+const random = require('random-string-alphanumeric-generator')
 module.exports = {
   register: async (req, res) => {
 
@@ -60,18 +59,20 @@ module.exports = {
   createBooky: async (req, res) => {
 
     const { bookyName, id, email } = req.body
-    // const bookyNameIsAvailable = bookySchema.find({ bookyName })
-    // if (!bookyNameIsAvailable) {
+
+    const inviteCode = random.randomAlphanumeric(6, "uppercase")
+
     new bookySchema({
       bookyName,
       createdBy: email,
       secret: uid(),
       members: id,
+      inviteCode
     }).save()
-    // bookySchema.findOneAndUpdate({ bookyName }, { $push: { members: id } }, { new: true })
+
+
     return res.status(200).json({ message: "Booky Created" })
 
-    // }
   },
   joinBooky: async (req, res) => {
 

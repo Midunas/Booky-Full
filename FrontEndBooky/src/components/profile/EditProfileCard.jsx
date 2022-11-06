@@ -9,7 +9,6 @@ const EditProfileCard = ({ setIsShown }) => {
   const newPhotoRef = useRef()
   const { user, getUser } = useContext(MainContext)
 
-
   const updateBooky = async () => {
     const newInfo = {
       username: newNameRef.current.value,

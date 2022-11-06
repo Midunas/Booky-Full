@@ -33,6 +33,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
     if (createOrJoin === 'Create') {
       const res = await post('createBooky', info)
       const data = await res.json();
+
       if (res.status === 200) {
         getCreatedBookies()
         onClose()

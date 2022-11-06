@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import authHeaderLogo from '../../images/authHeaderLogo.webp'
-
+import { BiCalendar } from 'react-icons/bi'
 const Header = ({
   heading,
   paragraph,
@@ -12,17 +11,15 @@ const Header = ({
   return (
     <div className="mb-10 text-gray-800 dark:text-white">
       <div className="flex justify-center">
-        <img
-          alt=""
-          className="h-20 w-20"
-          src={authHeaderLogo} />
+
+        <BiCalendar className='w-20 h-20'></BiCalendar>
       </div>
       <h1 className="text-3xl">
         {heading}
       </h1>
       <p className=" mt-2 text-center">
         {paragraph}
-        <Link to={linkUrl} className="font-medium text-purple-600 hover:text-purple-500">
+        <Link to={linkUrl} className="font-medium text-amber-600 hover:text-amber-500">
           {linkName}
         </Link>
       </p>

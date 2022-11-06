@@ -44,7 +44,7 @@ const SignUp = () => {
       <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
         <Header
           heading="Sign up"
-          paragraph="Already have an account?"
+          paragraph="Already have an account? "
           linkName="Login"
           linkUrl="/login"
           error={error}

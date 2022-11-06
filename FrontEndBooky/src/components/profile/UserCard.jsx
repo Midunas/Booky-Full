@@ -70,7 +70,7 @@ const UserCard = ({ item, onOpen, setCreateOrJoin }) => {
             <Text color={'gray.500'}>{item && item.email}</Text>
           </Stack>
         </Box>
-        <div className='flex justify-between'>
+        <div className='flex justify-evenly'>
           <Button
             className='dark:bg-zinc-500'
             onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>

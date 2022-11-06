@@ -18,6 +18,10 @@ const bookySchema = new Schema({
     type: [],
     required: false,
     default: undefined,
+  },
+  inviteCode: {
+    type: String,
+    required: false
   }
 })
 
