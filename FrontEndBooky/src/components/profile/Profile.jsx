@@ -21,9 +21,7 @@ const Profile = () => {
   const getCreatedBookies = async () => {
     const res = await get(`getAllCreated/${user && user.email}`)
     const data = await res.json()
-    console.log(data)
     setCreatedBookies(data.bookiesExist)
-    console.log('im reloading')
   }
   const getJoinedBookies = async () => {
     if (user) {

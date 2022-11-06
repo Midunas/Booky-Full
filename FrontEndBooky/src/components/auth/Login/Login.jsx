@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import MainContext from '../../../context/MainContext';
-import useDarkMode from '../../../hook/useDarkMode';
 import { post } from '../../../plugins/http';
 import Header from '../Header';
 
@@ -15,9 +14,6 @@ const Login = () => {
   const [error, setError] = useState()
   const { getUser } = useContext(MainContext)
   const autoLogin = localStorage.getItem("autologin")
-  const [colorTheme, setTheme] = useDarkMode()
-
-  //TODO: naudok theme ne colorTheme lmao 
 
   const login = async () => {
     const user = {
@@ -30,7 +26,6 @@ const Login = () => {
     if (res.status === 200) {
       localStorage.setItem("secret", data.secret)
       localStorage.setItem("email", data.sessions.email)
-      setTheme(colorTheme)
       localStorage.setItem("logedIn", true)
       getUser(data.secret)
       navigate(`/profile`)
@@ -42,7 +37,6 @@ const Login = () => {
     localStorage.setItem("autologin", e.target.checked)
   }
   useEffect(() => {
-
     if (autoLogin === "true") {
       checkRef.current.checked = true
     }

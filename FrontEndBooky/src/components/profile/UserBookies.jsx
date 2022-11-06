@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Grid } from '@chakra-ui/react'
 import darkBooky from '../../images/darkBooky.JPG'
 import lightBooky from '../../images/lightBooky.JPG'
-import { useContext } from 'react'
-import MainContext from '../../context/MainContext'
 import { useNavigate } from 'react-router-dom'
+import MainContext from '../../context/MainContext'
 
 const UserBookies = ({ heading, bookies }) => {
 
-  const { theme } = useContext(MainContext)
   const navigate = useNavigate()
+  const { colorTheme } = useContext(MainContext)
 
   const goToBookyPage = (bookyName) => {
     localStorage.setItem('bookyName', bookyName)
@@ -26,7 +25,7 @@ const UserBookies = ({ heading, bookies }) => {
             <img
               onClick={() => goToBookyPage(x.bookyName)}
               className='rounded cursor-pointer'
-              src={theme === 'light' ? lightBooky : darkBooky}
+              src={colorTheme === 'dark' ? lightBooky : darkBooky}
               alt="calendar" />
           </div>)}
       </Grid>

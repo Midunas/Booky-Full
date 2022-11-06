@@ -9,29 +9,26 @@ import Layout from './layout/Layout';
 import { get } from './plugins/http';
 import MainContext from './context/MainContext';
 import ProfilePage from './pages/ProfilePage';
+import useDarkMode from './hook/useDarkMode';
 
 const App = () => {
 
   //TODO: Make blank images for booky display
   //TODO: Remove message after error or success in creating booky/removing 
+
   const [user, setUser] = useState()
-  const [theme, setTheme] = useState()
   const userSecret = localStorage.getItem('secret')
+  const [colorTheme, setTheme] = useDarkMode()
 
   const getUser = async (secret) => {
-
     const res = await get("getUser/" + secret)
     const data = await res.json()
-
     setUser((userData) => ({ ...userData, ...data.userExists[0] }))
-    console.log('im reloading')
   }
-  //TODO: just make this go on login click?
 
   useEffect(() => {
     if (user?.secret) {
       getUser(user.secret)
-      setTheme('light')
     }
   }, [user?.secret])
 
@@ -46,7 +43,8 @@ const App = () => {
       user,
       setUser,
       getUser,
-      theme,
+      setTheme,
+      colorTheme
     }}>
       <BrowserRouter  >
         <Layout >

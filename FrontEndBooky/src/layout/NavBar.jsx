@@ -12,10 +12,9 @@ import {
   MenuDivider,
   Switch,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainContext from '../context/MainContext';
-import useDarkMode from '../hook/useDarkMode';
 import { get } from '../plugins/http';
 
 const NavBar = () => {
@@ -23,9 +22,7 @@ const NavBar = () => {
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
-
-  const [theme, setTheme] = useDarkMode()
-  const [checked, setChecked] = useState(false);
+  const { colorTheme, setTheme } = useContext(MainContext)
   const { user, setUser } = useContext(MainContext)
 
   const logInOrOut = () => {
@@ -49,16 +46,10 @@ const NavBar = () => {
       navigate("/login")
     }
   }
-  const handleChange = (event) => {
-    if (event.target.checked) {
-      setTheme('dark')
-    } else {
-      setTheme('light')
-    }
-  }
   const goToProfile = () => {
     navigate('/profile')
   }
+
   return (
     <>
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
@@ -88,11 +79,10 @@ const NavBar = () => {
                   <MenuDivider />
                   <Switch
                     className='ml-2'
-                    checked={checked}
-                    onChange={handleChange}
+                    onChange={() => setTheme(colorTheme)}
                   >Mode:
                   </Switch>
-                  {theme === "dark" ?
+                  {colorTheme === "dark" ?
                     <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
                   }
                 </MenuList>
