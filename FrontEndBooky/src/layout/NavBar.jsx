@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import MainContext from '../context/MainContext';
 import { get } from '../plugins/http';
 
-const NavBar = () => {
+const NavBar = ({ onOpen }) => {
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
@@ -80,6 +80,8 @@ const NavBar = () => {
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
                   <button className='ml-2' onClick={goToProfile}>Profile</button>
+                  <MenuDivider />
+                  <button className='ml-2 text-orange-400' onClick={onOpen}>{bookyName} Users</button>
                   <MenuDivider />
                   <Switch
                     className='ml-2'

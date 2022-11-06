@@ -43,7 +43,6 @@ const BookyPage = () => {
       setError('')
     }
     setError(data.message)
-
   }
 
   return (

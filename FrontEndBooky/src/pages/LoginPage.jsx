@@ -18,7 +18,6 @@ const LoginPage = () => {
         localStorage.setItem("logedIn", true)
       })
     }
-
   }, [])
 
   return (

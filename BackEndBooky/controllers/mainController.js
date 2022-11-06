@@ -235,6 +235,17 @@ module.exports = {
     }
     await bookySchema.deleteOne({ bookyName })
     return res.status(200).json({ message: 'Booky deleted' })
+  },
+  getBookyUsers: async (req, res) => {
+    const bookyName = req.params.bookyName
+    const foundBooky = await bookySchema.find({ bookyName })
+    const result = foundBooky[0].members
+    return res.status(200).json({ result })
+  },
+  getUsers: async (req, res) => {
+    const id = req.params.id
+    const users = await userSchema.find({ _id: id })
+    return res.status(200).json({ users })
   }
 
 }
