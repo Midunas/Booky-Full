@@ -75,7 +75,7 @@ module.exports = {
   },
   joinBooky: async (req, res) => {
 
-    const { id, email, bookyName, code } = req.body
+    const { id, email, bookyName } = req.body
 
     const bookyExists = await bookySchema.find({ bookyName })
 
@@ -96,12 +96,9 @@ module.exports = {
     const bookiesExist = await bookySchema.find({ createdBy: email })
 
     if (bookiesExist) {
-      // res.send({ success: true, bookiesExist })
       return res.status(200).json({ bookiesExist })
-
     } else {
       return res.status(400).json({ message: "User hasn't created a booky" })
-
     }
 
   },
@@ -121,34 +118,9 @@ module.exports = {
   },
   addReservation: async (req, res) => {
 
-    // const { eventStart, eventEnd, bookyName, eventDay } = req.body
-    // const duration = eventEnd - eventStart
-    // if (duration < 1) {
-    //   return res.status(400).json({ message: "Cannot book less than an hour" })
-    // }
-    // const existingBookies = await eventSchema.find({ eventDay, bookyName })
-
-    // if (existingBookies.length > 0) {
-    //   const overlap = existingBookies.map((booky) => {
-    //     if (booky.eventStart < eventEnd && booky.eventEnd > eventStart) {
-    //       return true;
-    //     }
-    //     return false;
-    //   })
-    //   const atLeastOneOverlaps = overlap.reduce((current, next) => current || next, false)
-
-    //   if (atLeastOneOverlaps) {
-    //     return res.status(400).json({ message: "Times overlap" })
-    //   } else {
-    //     const newReservation = new eventSchema(req.body)
-    //     const post = await newReservation.save()
-    //     return res.status(200).json({ post })
-    //   }
-    // } else {
     const newReservation = new eventSchema(req.body)
     const post = await newReservation.save()
     return res.status(200).json({ post })
-
 
   },
   getEventByDay: async (req, res) => {
@@ -212,18 +184,26 @@ module.exports = {
     }
   },
   updateProfile: async (req, res) => {
+
     const { id, username, photo, email } = req.body
 
-    const updatedUser = await userSchema.findOneAndUpdate({ _id: id }, { $set: { username, photo } }, { new: true })
-    await eventSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
-
-    if (updatedUser) {
+    if (photo.length > 0 && username.length === 0) {
+      await userSchema.findOneAndUpdate({ _id: id }, { $set: { photo } }, { new: true })
+      await eventSchema.updateMany({ email }, { $set: { photo } }, { new: true })
       return res.status(200).json({ message: 'User updated' })
-
-    } else {
-      return res.status(400).json({ message: 'Something went wrong' })
-
     }
+    if (username.length > 0 && photo.length === 0) {
+      await userSchema.findOneAndUpdate({ _id: id }, { $set: { username } }, { new: true })
+      await eventSchema.updateMany({ email }, { $set: { username } }, { new: true })
+      return res.status(200).json({ message: 'User updated' })
+    }
+    if (username.length > 0 && photo.length > 0) {
+      await userSchema.findOneAndUpdate({ _id: id }, { $set: { username, photo } }, { new: true })
+      await eventSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
+      return res.status(200).json({ message: 'User updated' })
+    }
+    return res.status(400).json({ message: 'Something went wrong' })
+
   },
   deleteBooky: async (req, res) => {
     const { bookyName, email } = req.body
