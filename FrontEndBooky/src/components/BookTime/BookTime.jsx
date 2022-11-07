@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import TimeSelect from './components/TimeSelect'
 import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
-import MainContext from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 
 const BookTime = ({ setCount, count }) => {
 

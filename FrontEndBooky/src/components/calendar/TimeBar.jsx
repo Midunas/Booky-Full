@@ -3,7 +3,7 @@
 import { Tooltip, useDisclosure } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
-import MainContext from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 import { get, post } from '../../plugins/http'
 import EditEventModal from './EditEventModal'
 import LongEventDisplay from './LongEventDisplay'

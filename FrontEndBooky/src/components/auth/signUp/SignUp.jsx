@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react'
 import { post } from '../../../plugins/http'
 import { useNavigate } from "react-router-dom";
 import Header from '../Header';
-import MainContext from '../../../context/MainContext';
+import { MainContext } from '../../../context/MainContext';
 
 const SignUp = () => {
   const userContext = useContext(MainContext)

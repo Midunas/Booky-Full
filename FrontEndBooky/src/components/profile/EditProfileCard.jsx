@@ -1,6 +1,6 @@
 import { Button, Input } from '@chakra-ui/react'
 import React, { useContext, useRef } from 'react'
-import MainContext from '../../context/MainContext'
+import {MainContext} from '../../context/MainContext'
 import { post } from '../../plugins/http'
 
 const EditProfileCard = ({ setIsShown }) => {
