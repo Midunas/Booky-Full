@@ -89,7 +89,7 @@ module.exports = {
         return res.status(400).json({ message: "Booky not found" })
       }
     } else {
-      return res.status(400).json({ message: "Something went wrong" })
+      return res.status(404).json({ message: "Something went wrong" })
     }
   },
   getAllCreated: async (req, res) => {
@@ -143,7 +143,7 @@ module.exports = {
       return res.status(200).json({ secret: user.secret, email })
 
     }
-    return res.status(400).json({ message: 'no session data' })
+    return res.status(401).json({ message: 'no session data' })
 
   },
   logout: async (req, res) => {
@@ -169,7 +169,7 @@ module.exports = {
 
       return res.status(200).json({ message: 'Event updated' })
     }
-    return res.status(400).json({ message: 'You can only edit your own bookies.' })
+    return res.status(401).json({ message: 'You can only edit your own bookies.' })
 
   },
   deleteEvent: async (req, res) => {
@@ -182,7 +182,7 @@ module.exports = {
       return res.status(200).json({ message: 'All good' })
 
     } else {
-      return res.status(400).json({ message: 'You can only remove your own bookies.' })
+      return res.status(401).json({ message: 'You can only remove your own bookies.' })
     }
   },
   updateProfile: async (req, res) => {
@@ -204,7 +204,7 @@ module.exports = {
       await eventSchema.updateMany({ email }, { $set: { photo, username } }, { new: true })
       return res.status(200).json({ message: 'User updated' })
     }
-    return res.status(400).json({ message: 'Something went wrong' })
+    return res.status(404).json({ message: 'Something went wrong' })
 
   },
   deleteBooky: async (req, res) => {
@@ -212,10 +212,10 @@ module.exports = {
 
     const bookyExists = await bookySchema.find({ bookyName })
     if (!bookyExists.length) {
-      return res.status(400).json({ message: 'Something went wrong' })
+      return res.status(404).json({ message: 'Something went wrong' })
     }
     if (bookyExists[0].createdBy !== email) {
-      return res.status(400).json({ message: 'You don`t have permission to delete this Booky' })
+      return res.status(401).json({ message: 'You don`t have permission to delete this Booky' })
     }
     await bookySchema.deleteOne({ bookyName })
     return res.status(200).json({ message: 'Booky deleted' })
