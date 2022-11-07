@@ -11,17 +11,15 @@ import {
   Button,
   Tooltip,
 } from '@chakra-ui/react'
+
 const EditEventModal = ({
   isOpen,
   onClose,
-  deleteBooky,
-  updateBooky,
+  deleteEvent,
+  updateEvent,
   error,
   eventToEdit,
-  setCount,
-  setError,
-  count,
-  getEventByDay }) => {
+  setError }) => {
 
   const [isActive, setIsActive] = useState(false)
   const newEventNameRef = useRef()
@@ -30,11 +28,8 @@ const EditEventModal = ({
     setIsActive(true)
   }
   const updateBookyAndCloseModal = () => {
-    updateBooky(newEventNameRef.current.value, eventToEdit._id)
+    updateEvent(newEventNameRef.current.value, eventToEdit._id)
     setIsActive(false)
-    onClose()
-    setCount(count + 1)
-    getEventByDay()
   }
   const closeModalAndReset = () => {
     setIsActive(false)
@@ -80,7 +75,7 @@ const EditEventModal = ({
           <Button
             variant='ghost'
             onClick={updateBookyAndCloseModal}>Update</Button>
-          <Button variant='ghost' color='red' onClick={deleteBooky}>Delete</Button>
+          <Button variant='ghost' color='red' onClick={deleteEvent}>Delete</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
             Close
           </Button>

@@ -13,10 +13,6 @@ import useDarkMode from './hook/useDarkMode';
 
 const App = () => {
 
-  //TODO: Make blank images for booky display
-  //TODO: if !createdBy gal nerodyti invite code?
-  //TODO: Make user Context a seperate provider component bruh.
-
   const [user, setUser] = useState()
   const userSecret = localStorage.getItem('secret')
   const [colorTheme, setTheme] = useDarkMode()
