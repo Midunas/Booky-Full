@@ -4,28 +4,34 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookyPage from './pages/BookyPage';
 import LoginPage from './pages/LoginPage';
-import CreateBookyPage from './pages/CreateBookyPage';
-import Layout from './components/layout/Layout';
+import CreateBookyPage from './pages/SignUp';
+import Layout from './layout/Layout';
 import { get } from './plugins/http';
 import MainContext from './context/MainContext';
 import ProfilePage from './pages/ProfilePage';
+import useDarkMode from './hook/useDarkMode';
 
 const App = () => {
 
-  //TODO: Ask Andrius: Update booky modal re-fetch (count, setCount) nonsense.
   //TODO: Make blank images for booky display
+  //TODO: if !createdBy gal nerodyti invite code?
+  //TODO: Make user Context a seperate provider component bruh.
 
   const [user, setUser] = useState()
-  const [theme, setTheme] = useState()
-
-  //TODO: this is bad cause it's not dynamic 
-  const userSecret = localStorage.getItem("secret")
+  const userSecret = localStorage.getItem('secret')
+  const [colorTheme, setTheme] = useDarkMode()
 
   const getUser = async (secret) => {
     const res = await get("getUser/" + secret)
-    setUser(res.userExists[0])
-    console.log('im reloading')
+    const data = await res.json()
+    setUser((userData) => ({ ...userData, ...data.userExists[0] }))
   }
+
+  useEffect(() => {
+    if (user?.secret) {
+      getUser(user.secret)
+    }
+  }, [user?.secret])
 
   useEffect(() => {
     if (userSecret) {
@@ -33,20 +39,16 @@ const App = () => {
     }
   }, [])
 
-  const getCurrentTheme = () => {
-    setTheme(localStorage.getItem('theme'))
-  }
-
   return (
     <MainContext.Provider value={{
       user,
       setUser,
       getUser,
-      getCurrentTheme,
-      theme,
+      setTheme,
+      colorTheme,
     }}>
       <BrowserRouter  >
-        <Layout getUser={getUser}>
+        <Layout >
           <Routes>
             <Route path='/login' element={<LoginPage />}></Route>
             <Route path='/' element={<BookyPage />}></Route>

@@ -1,29 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { BiCalendar } from 'react-icons/bi'
 const Header = ({
   heading,
   paragraph,
   linkName,
-  linkUrl }) => {
+  linkUrl,
+  error }) => {
 
   return (
     <div className="mb-10 text-gray-800 dark:text-white">
       <div className="flex justify-center">
-        <img
-          alt=""
-          className="h-20 w-20"
-          src="https://ik.imagekit.io/pibjyepn7p9/Lilac_Navy_Simple_Line_Business_Logo_CGktk8RHK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1649962071315" />
+
+        <BiCalendar className='w-20 h-20'></BiCalendar>
       </div>
       <h1 className="text-3xl">
         {heading}
       </h1>
       <p className=" mt-2 text-center">
-        {paragraph} {' '}
-        <Link to={linkUrl} className="font-medium text-purple-600 hover:text-purple-500">
+        {paragraph}
+        <Link to={linkUrl} className="font-medium text-amber-600 hover:text-amber-500">
           {linkName}
         </Link>
       </p>
+      <div className='text-md text-red-500 h-2 mt-2 -mb-4 '>{error}</div>
     </div>
   )
 }

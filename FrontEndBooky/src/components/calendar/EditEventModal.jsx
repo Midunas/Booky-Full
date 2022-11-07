@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import numbersToTime from '../../lib/numbersToTime'
 import {
   Modal,
   ModalOverlay,
@@ -8,55 +9,69 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Tooltip,
 } from '@chakra-ui/react'
+const EditEventModal = ({
+  isOpen,
+  onClose,
+  deleteBooky,
+  updateBooky,
+  error,
+  eventToEdit,
+  setCount,
+  setError,
+  count,
+  getEventByDay }) => {
 
-const EditEventModal = ({ isOpen, onClose, deleteBooky, updateBooky, error, eventToEdit, setCount, count }) => {
-
-  const [isActive, setIsActive] = useState(true)
-  const [isShown, setIsShown] = useState(false)
+  const [isActive, setIsActive] = useState(false)
   const newEventNameRef = useRef()
 
   const editEventName = () => {
-    setIsActive(current => !current)
+    setIsActive(true)
   }
-
   const updateBookyAndCloseModal = () => {
     updateBooky(newEventNameRef.current.value, eventToEdit._id)
+    setIsActive(false)
+    onClose()
     setCount(count + 1)
+    getEventByDay()
+  }
+  const closeModalAndReset = () => {
+    setIsActive(false)
+    setError('')
     onClose()
   }
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={closeModalAndReset}
       motionPreset='slideInRight'
       size="lg"
     >
       <ModalOverlay />
       <ModalContent className='dark:bg-zinc-800 dark:text-white'>
-        <ModalHeader>{eventToEdit.username} 13:00 - 15:40</ModalHeader>
+        <ModalHeader>
+          {eventToEdit.username} {numbersToTime(eventToEdit.eventStart)}
+          -{numbersToTime(eventToEdit.eventEnd)}</ModalHeader>
         <ModalCloseButton />
         <ModalBody style={{ display: 'flex' }}>
-          <div
-            onClick={editEventName}
-            style={{
-              display: isActive ? 'block' : 'none',
-              cursor: 'pointer',
-              textDecoration: isShown ? 'underline' : '',
-              fontSize: '20px'
-            }}
-            onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-          >{eventToEdit.eventName ? eventToEdit.eventName : 'Add event name?'}</div>
-          {isShown && (
-            <div className='ml-5 text-gray-400'>Edit event name</div>
-          )}
+          <Tooltip
+            label={eventToEdit.eventName
+              ? 'Edit event name'
+              : 'Add event name'}
+            aria-label='A tooltip'>
+            <div
+              onClick={editEventName}
+              className='cursor-pointer'
+              style={{ display: isActive ? 'none' : 'block' }}
+            >{eventToEdit.eventName ? eventToEdit.eventName : 'Add event name?'}</div>
+          </Tooltip>
           <input
             type="text"
             placeholder='new event name'
             className='input'
-            style={{ display: isActive ? 'none' : 'block', padding: '5px' }}
+            style={{ display: isActive ? 'block' : 'none', padding: '5px' }}
             ref={newEventNameRef}
           />
         </ModalBody>

@@ -19,13 +19,14 @@ const Profile = () => {
 
   const getCreatedBookies = async () => {
     const res = await get(`getAllCreated/${user && user.email}`)
-    setCreatedBookies(res.bookiesExist)
-    console.log('im reloading')
+    const data = await res.json()
+    setCreatedBookies(data.bookiesExist)
   }
   const getJoinedBookies = async () => {
     if (user) {
       const res = await get(`getAllJoined/${user._id}/${user.email}`)
-      setJoinedBookies(res.data)
+      const data = await res.json()
+      setJoinedBookies(data.result)
     }
   }
   useEffect(() => {
@@ -45,7 +46,6 @@ const Profile = () => {
         setCreateOrJoin={setCreateOrJoin}
         item={user}
         onOpen={onOpen}
-        isInProfile={true}
       />
       <div className='flex justify-around' >
         <UserBookies bookies={createdBookies} heading='Your bookies'></UserBookies>

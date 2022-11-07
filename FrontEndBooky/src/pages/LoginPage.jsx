@@ -14,11 +14,10 @@ const LoginPage = () => {
     if (autoLogin === "true") {
       get("autologin").then(res => {
         if (res.error) return
-        nav("/Booky")
+        nav("/profile")
         localStorage.setItem("logedIn", true)
       })
     }
-
   }, [])
 
   return (

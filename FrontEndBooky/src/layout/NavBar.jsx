@@ -11,25 +11,23 @@ import {
   MenuList,
   MenuDivider,
   Switch,
+  Tooltip,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MainContext from '../../context/MainContext';
-import useDarkMode from '../../hook/useDarkMode';
-import { get } from '../../plugins/http';
+import MainContext from '../context/MainContext';
+import { get } from '../plugins/http';
 
 const NavBar = ({ onOpen }) => {
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
-  const [colorTheme, setTheme] = useDarkMode()
-  const [checked, setChecked] = useState(false);
-  const { user, setUser, getCurrentTheme } = useContext(MainContext)
+  const bookyName = localStorage.getItem("bookyName")
 
+  const { colorTheme, setTheme } = useContext(MainContext)
+  const { user, setUser } = useContext(MainContext)
 
-  //TODO: currentTheme is undefined on first load, fix it . 
-  //TODO: light, dark theme works backwards
   const logInOrOut = () => {
     if (localEmail) {
       get("logout").then(() => {
@@ -44,34 +42,27 @@ const NavBar = ({ onOpen }) => {
       localStorage.setItem('logedIn', false)
     }
   }
-  function goToWelcome() {
-    if (isLoggedIn === "true") {
+  function goToMainPage() {
+    if (isLoggedIn === "true" && bookyName) {
       navigate('/')
-    } else {
-      navigate("/login")
-    }
-  }
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-    getCurrentTheme()
-    if (event.target.checked) {
-      setTheme('dark')
-    } else {
-      setTheme('light')
     }
   }
   const goToProfile = () => {
     navigate('/profile')
   }
+
   return (
     <>
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
-            <h1
-              className='text-5xl'
-              style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
-              onClick={goToWelcome}>Booky</h1>
+            <Tooltip
+              label='Make sure to select a booky!'>
+              <h1
+                className='text-5xl'
+                style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
+                onClick={goToMainPage}>Booky</h1>
+            </Tooltip>
           </HStack>
           <Flex alignItems={'center'}>
             <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
@@ -88,14 +79,18 @@ const NavBar = ({ onOpen }) => {
                   />
                 </MenuButton>
                 <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
-                  <button className='ml-2' onClick={onOpen}>Profile Sidebar</button>
-                  <MenuDivider />
-                  <button className='ml-2' onClick={goToProfile}>Profile Page</button>
+                  <button className='ml-2' onClick={goToProfile}>Profile</button>
+                  <div style={{ display: bookyName === 'undefined' ? 'none' : 'block' }}>
+                    <MenuDivider />
+                    <button
+                      className='ml-2 text-orange-400'
+                      onClick={onOpen}
+                    >{bookyName}</button>
+                  </div>
                   <MenuDivider />
                   <Switch
                     className='ml-2'
-                    checked={checked}
-                    onChange={handleChange}
+                    onChange={() => setTheme(colorTheme)}
                   >Mode:
                   </Switch>
                   {colorTheme === "dark" ?

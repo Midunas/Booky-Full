@@ -1,13 +1,16 @@
 const express = require("express")
 const router = express.Router()
 const middle = require("../middleware/middle")
-
+const createBookyMiddle = require('../middleware/createBookyMiddle')
+const joinBookyMiddle = require('../middleware/joinBookyMiddle')
+const reservationMiddle = require('../middleware/reservationMiddle')
 const {
   addReservation,
   getEventByDay,
   login,
   getUser,
-  update,
+  updateEvent,
+  deleteEvent,
   deleteBooky,
   autoLogin,
   register,
@@ -16,21 +19,29 @@ const {
   getAllCreated,
   getAllJoined,
   joinBooky,
-  logout } = require("../controllers/mainController")
+  logout,
+  getUsers,
+  getBookyUsers } = require("../controllers/mainController")
 
-router.post("/addReservation", addReservation)
+router.post("/register", middle, register)
+router.post("/login", login)
 router.get("/getUser/:secret", getUser)
+router.get("/getUsers/:id", getUsers)
+router.post("/createBooky", createBookyMiddle, createBooky)
+router.post("/joinBooky", joinBookyMiddle, joinBooky)
+router.post("/addReservation", reservationMiddle, addReservation)
+
 router.get("/getEventByDay/:id/:bookyName", getEventByDay)
 router.get("/getAllCreated/:email", getAllCreated)
 router.get("/getAllJoined/:id/:email", getAllJoined)
-router.post("/joinBooky", joinBooky)
+router.get("/getBookyUsers/:bookyName", getBookyUsers)
 
-router.post("/register", middle, register)
-router.post("/createBooky", createBooky)
-router.post("/delete", deleteBooky)
-router.post("/login", login)
-router.post("/update", update)
+router.post("/delete", deleteEvent)
+router.post("/update", updateEvent)
 router.post("/updateProfile", updateProfile)
+router.post("/deleteBooky", deleteBooky)
+
+
 router.get("/autologin", autoLogin)
 router.get("/logout", logout)
 

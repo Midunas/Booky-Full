@@ -6,6 +6,10 @@ import { useEffect } from 'react'
 import MainContext from '../../context/MainContext'
 import { get, post } from '../../plugins/http'
 import EditEventModal from './EditEventModal'
+import LongEventDisplay from './LongEventDisplay'
+import ShortEventDisplay from './ShortEventDisplay'
+
+//TODO: Fix the count fetch shinanigans
 
 const TimeBar = ({ id, count, setCount }) => {
 
@@ -19,15 +23,15 @@ const TimeBar = ({ id, count, setCount }) => {
   const getEventByDay = async () => {
     const bookyName = localStorage.getItem("bookyName")
     const res = await get(`getEventByDay/${id}/${bookyName}`)
-    setEvents(res.eventsByDay)
-    console.log('im reloadin')
+    const data = await res.json()
+    setEvents(data.eventsByDay)
   }
 
   useEffect(() => {
     if (user) {
       getEventByDay()
     }
-  }, [user, count])
+  }, [count, user])
 
   const updateOrDelete = (event) => {
     setEventToEdit(event)
@@ -40,41 +44,42 @@ const TimeBar = ({ id, count, setCount }) => {
       id: eventToEdit._id,
       email: user.email,
     }
-    const data = await post("delete", bookyToDelete)
-    setError(data.message)
+    const res = await post("delete", bookyToDelete)
+    const data = await res.json()
+    if (!res.status === 200) {
+      setError(data.message)
+    }
     getEventByDay()
+    onClose()
   }
 
   const updateBooky = async (newEventName, id) => {
     const bookyToUpdate = {
       id,
-      eventName: newEventName
+      eventName: newEventName,
+      email: user.email,
     }
-    const data = await post("update", bookyToUpdate)
-    console.log(data.message)
-  }
-
-  const convertNumbersToTime = (time) => {
-    if (time.toString().length < 3) {
-      const minutes = ':00 '
-      return time.toString() + minutes
-    } else {
-      return time.toString().replace('.5', ':30 ')
+    const res = await post("update", bookyToUpdate)
+    const data = await res.json()
+    if (res.status !== 200) {
+      setError(data.message)
     }
   }
 
   return (
-
     <div>
       <EditEventModal
         error={error}
+        setError={setError}
         eventToEdit={eventToEdit}
         deleteBooky={deleteBooky}
         updateBooky={updateBooky}
         onClose={onClose}
         isOpen={isOpen}
+        getEventByDay={getEventByDay}
+        count={count}
         setCount={setCount}
-        count={count} />
+      />
       <div className=' flex'>
         <div className='dayName'>{id}</div>
         <div className='w-5/6'>
@@ -83,6 +88,7 @@ const TimeBar = ({ id, count, setCount }) => {
             style={{ width: w }}
             id={id}>
             {events.map((event, i) => {
+              const duration = event.eventEnd - event.eventStart
               return (
                 <Tooltip key={i} label="View or edit booky" >
                   <div
@@ -94,12 +100,9 @@ const TimeBar = ({ id, count, setCount }) => {
                       left: ((event.eventStart - 8) / 14) * w
                     }}
                     onClick={() => updateOrDelete(event)}
-
-                  > <img className='w-10 h-10 rounded-full' src={event.photo} alt="user" />
-                    {event.username}<br />
-                    {convertNumbersToTime(event.eventStart)}
-                    - {convertNumbersToTime(event.eventEnd)}
-                    {event.eventName}
+                  >{duration > 2
+                    ? <LongEventDisplay event={event} />
+                    : <ShortEventDisplay event={event} />}
                   </div>
                 </Tooltip>
               )

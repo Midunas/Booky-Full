@@ -3,7 +3,6 @@ import {
   Heading,
   Avatar,
   Box,
-  Center,
   Image,
   Flex,
   Text,
@@ -11,12 +10,11 @@ import {
   useColorModeValue,
   Tooltip,
   Button,
-  useDisclosure,
 } from '@chakra-ui/react';
 import EditProfileCard from './EditProfileCard';
 
 
-const UserCard = ({ item, isInProfile, onOpen, setCreateOrJoin }) => {
+const UserCard = ({ item, onOpen, setCreateOrJoin }) => {
 
   const openCreateOrJoinModal = (creatOrJoin) => {
     setCreateOrJoin(creatOrJoin)
@@ -72,14 +70,16 @@ const UserCard = ({ item, isInProfile, onOpen, setCreateOrJoin }) => {
             <Text color={'gray.500'}>{item && item.email}</Text>
           </Stack>
         </Box>
-        {isInProfile &&
-          <div className='flex justify-between'>
-            <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
-            <Button className='dark:bg-zinc-500' onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
-          </div>
-        }
+        <div className='flex justify-evenly'>
+          <Button
+            className='dark:bg-zinc-500'
+            onClick={() => openCreateOrJoinModal('Join')}>Join a booky</Button>
+          <Button
+            className='dark:bg-zinc-500'
+            onClick={() => openCreateOrJoinModal('Create')}>Create a booky</Button>
+        </div>
       </Box>
-      {isInProfile && isShown &&
+      {isShown &&
         <EditProfileCard setIsShown={setIsShown} />
       }
     </Box>
