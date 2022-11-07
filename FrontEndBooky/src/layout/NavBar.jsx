@@ -1,22 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuDivider,
-  Switch,
   Tooltip,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainContext from '../context/MainContext';
 import { get } from '../plugins/http';
+import MenuItems from './MenuItems';
 
 const NavBar = ({ onOpen }) => {
 
@@ -66,38 +59,15 @@ const NavBar = ({ onOpen }) => {
           </HStack>
           <Flex alignItems={'center'}>
             <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
-            {localEmail &&
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rounded={'full'}
-                  variant={'link'}
-                  cursor={'pointer'}>
-                  <Avatar
-                    size={'sm'}
-                    src={user && user.photo}
-                  />
-                </MenuButton>
-                <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
-                  <button className='ml-2' onClick={goToProfile}>Profile</button>
-                  <div style={{ display: bookyName === 'undefined' ? 'none' : 'block' }}>
-                    <MenuDivider />
-                    <button
-                      className='ml-2 text-orange-400'
-                      onClick={onOpen}
-                    >{bookyName}</button>
-                  </div>
-                  <MenuDivider />
-                  <Switch
-                    className='ml-2'
-                    onChange={() => setTheme(colorTheme)}
-                  >Mode:
-                  </Switch>
-                  {colorTheme === "dark" ?
-                    <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
-                  }
-                </MenuList>
-              </Menu>}
+            <MenuItems
+              setTheme={setTheme}
+              colorTheme={colorTheme}
+              localEmail={localEmail}
+              user={user}
+              goToProfile={goToProfile}
+              bookyName={bookyName}
+              onOpen={onOpen}
+            />
           </Flex>
         </Flex>
       </Box>

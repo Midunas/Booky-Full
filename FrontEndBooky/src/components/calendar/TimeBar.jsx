@@ -9,9 +9,8 @@ import EditEventModal from './EditEventModal'
 import LongEventDisplay from './LongEventDisplay'
 import ShortEventDisplay from './ShortEventDisplay'
 
-//TODO: Fix the count fetch shinanigans
 
-const TimeBar = ({ id, count, setCount }) => {
+const TimeBar = ({ id, count }) => {
 
   const [events, setEvents] = useState([])
   const [w, setW] = useState(760)
@@ -38,7 +37,7 @@ const TimeBar = ({ id, count, setCount }) => {
     onOpen()
   }
 
-  const deleteBooky = async () => {
+  const deleteEvent = async () => {
     const bookyToDelete = {
       username: user.username,
       id: eventToEdit._id,
@@ -46,14 +45,15 @@ const TimeBar = ({ id, count, setCount }) => {
     }
     const res = await post("delete", bookyToDelete)
     const data = await res.json()
-    if (!res.status === 200) {
+    if (res.status !== 200) {
       setError(data.message)
+    } else {
+      getEventByDay()
+      onClose()
     }
-    getEventByDay()
-    onClose()
   }
 
-  const updateBooky = async (newEventName, id) => {
+  const updateEvent = async (newEventName, id) => {
     const bookyToUpdate = {
       id,
       eventName: newEventName,
@@ -63,6 +63,9 @@ const TimeBar = ({ id, count, setCount }) => {
     const data = await res.json()
     if (res.status !== 200) {
       setError(data.message)
+    } else {
+      getEventByDay()
+      onClose()
     }
   }
 
@@ -72,13 +75,10 @@ const TimeBar = ({ id, count, setCount }) => {
         error={error}
         setError={setError}
         eventToEdit={eventToEdit}
-        deleteBooky={deleteBooky}
-        updateBooky={updateBooky}
+        deleteEvent={deleteEvent}
+        updateEvent={updateEvent}
         onClose={onClose}
         isOpen={isOpen}
-        getEventByDay={getEventByDay}
-        count={count}
-        setCount={setCount}
       />
       <div className=' flex'>
         <div className='dayName'>{id}</div>

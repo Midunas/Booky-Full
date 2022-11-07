@@ -1,12 +1,12 @@
 import { createContext } from "react";
 const MainContext = createContext()
 
-// const MainProvider = ({chilren}) => {
+// const MainProvider = ({children}) => {
 //   const [user, setUser] = useState;
 
-//   return <MainContext.Provider>
-//     {chilren}
-//   </MainContext.Provider>
+//   return (<MainContext.Provider>
+//     {children}
+//   </MainContext.Provider>)
 // }
 
 export default MainContext

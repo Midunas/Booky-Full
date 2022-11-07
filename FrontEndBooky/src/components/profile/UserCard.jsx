@@ -16,6 +16,8 @@ import EditProfileCard from './EditProfileCard';
 
 const UserCard = ({ item, onOpen, setCreateOrJoin }) => {
 
+  //TODO: Let user set background cover?
+
   const openCreateOrJoinModal = (creatOrJoin) => {
     setCreateOrJoin(creatOrJoin)
     onOpen()
