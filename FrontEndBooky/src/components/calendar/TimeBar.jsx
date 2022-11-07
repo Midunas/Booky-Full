@@ -87,7 +87,7 @@ const TimeBar = ({ id, count }) => {
             className='timeBar'
             style={{ width: w }}
             id={id}>
-            {events.map((event, i) => {
+            {events?.map((event, i) => {
               const duration = event.eventEnd - event.eventStart
               return (
                 <Tooltip key={i} label="View or edit booky" >

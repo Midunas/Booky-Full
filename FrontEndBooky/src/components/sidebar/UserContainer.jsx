@@ -19,7 +19,7 @@ const UserBox = ({ id }) => {
 
   return (
     <div className='flex flex-col'>
-      {data && data.map((x, i) => <UserCard key={i} item={x} />)}
+      {data?.map((x, i) => <UserCard key={i} item={x} />)}
     </div>
   )
 }

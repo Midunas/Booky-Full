@@ -64,7 +64,7 @@ const Booky = () => {
             isShown={isShown}
             onOpen={onOpen}
           />
-          {days && days.map((x, i) =>
+          {days?.map((x, i) =>
             <TimeBar setCount={setCount} count={count} key={i} id={x} />
           )}
         </div>

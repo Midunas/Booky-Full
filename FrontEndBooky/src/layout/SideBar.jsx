@@ -41,7 +41,7 @@ const SideBar = ({ isOpen, onClose }) => {
           <DrawerCloseButton />
           <DrawerHeader>{bookyName} members:</DrawerHeader>
           <DrawerBody>
-            {users && users.map((x, i) => <UserBox id={x} key={i}></UserBox>)}
+            {users?.map((x, i) => <UserBox id={x} key={i}></UserBox>)}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

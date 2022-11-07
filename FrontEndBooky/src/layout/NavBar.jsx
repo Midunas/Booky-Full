@@ -13,6 +13,8 @@ import MenuItems from './MenuItems';
 
 const NavBar = ({ onOpen }) => {
 
+  //TODO: Tooltip at Booky logo.
+
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")
   const isLoggedIn = localStorage.getItem("logedIn")
