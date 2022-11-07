@@ -28,7 +28,7 @@ const MenuItems = ({ setTheme, colorTheme, localEmail, user, goToProfile, bookyN
           </MenuButton>
           <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
             <button className='ml-2' onClick={goToProfile}>Profile</button>
-            <div style={{ display: bookyName === 'undefined' ? 'none' : 'block' }}>
+            <div style={{ display: bookyName ? 'block' : 'none' }}>
               <MenuDivider />
               <button
                 className='ml-2 text-orange-400'
