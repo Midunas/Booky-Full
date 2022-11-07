@@ -92,7 +92,7 @@ const TimeBar = ({ id, count }) => {
               return (
                 <Tooltip key={i} label="View or edit booky" >
                   <div
-                    className='absolute h-18 rounded align-center overflow-hidden cursor-pointer'
+                    className='eventBar'
                     key={i}
                     style={{
                       backgroundColor: event.color,

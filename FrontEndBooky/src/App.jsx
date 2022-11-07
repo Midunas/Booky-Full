@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookyPage from './pages/BookyPage';
 import LoginPage from './pages/LoginPage';

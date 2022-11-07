@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cannot CTRL+S, MUST CTRL+K => CTRL + SHIFT + S !! TO AVOID AUTOFORMATING, ADDS SPACE AFTER dark: */
+
 .input {
   @apply p-4 text-2xl dark:bg-zinc-700 dark:text-white rounded;
+}
+.bigInp{
+  @apply p-4 text-2xl rounded mb-[1px] bg-white dark:bg-zinc-700 dark:text-white
 }
 .button {
   @apply w-full flex justify-center p-4 text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-purple-500 mt-10;
@@ -13,4 +18,10 @@
 }
 .timeBar{
   @apply relative h-20 border-solid border border-black bg-white flex justify-center items-center rounded dark:bg-zinc-700
+}
+.eventBar{
+  @apply absolute text-white text-center flex justify-center items-center rounded h-89
+}
+.fromToTimeContainer{
+  @apply text-2xl rounded bg-white dark:bg-zinc-700 dark:text-white p-3.5 border-b border-black
 }
