@@ -8,6 +8,7 @@ import Layout from './layout/Layout';
 import ProfilePage from './pages/ProfilePage';
 import { MainProvider } from './context/MainContext';
 
+
 const App = () => {
 
   return (
