@@ -2,10 +2,11 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 require('dotenv').config()
+const serverAddress = process.env.REACT_APP_SERVER_ADDRESS
 const mongoose = require("mongoose")
 const mainRouter = require("./routes/router")
 const session = require("express-session")
-const serverAddress = process.env.REACT_APP_SERVER_ADDRESS
+
 
 mongoose.connect(serverAddress)
     .then(() => {
