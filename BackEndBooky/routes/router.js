@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const middle = require("../middleware/middle")
+const middle = require("../middleware/registrationMiddle")
 const createBookyMiddle = require('../middleware/createBookyMiddle')
 const joinBookyMiddle = require('../middleware/joinBookyMiddle')
 const reservationMiddle = require('../middleware/reservationMiddle')

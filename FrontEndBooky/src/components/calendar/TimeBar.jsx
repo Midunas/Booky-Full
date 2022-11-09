@@ -3,7 +3,7 @@
 import { Tooltip, useDisclosure } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
-import MainContext from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 import { get, post } from '../../plugins/http'
 import EditEventModal from './EditEventModal'
 import LongEventDisplay from './LongEventDisplay'
@@ -87,12 +87,12 @@ const TimeBar = ({ id, count }) => {
             className='timeBar'
             style={{ width: w }}
             id={id}>
-            {events.map((event, i) => {
+            {events?.map((event, i) => {
               const duration = event.eventEnd - event.eventStart
               return (
                 <Tooltip key={i} label="View or edit booky" >
                   <div
-                    className='absolute h-18 rounded align-center overflow-hidden cursor-pointer'
+                    className='eventBar'
                     key={i}
                     style={{
                       backgroundColor: event.color,

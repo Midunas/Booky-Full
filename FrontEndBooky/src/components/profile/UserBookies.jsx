@@ -3,7 +3,7 @@ import { Grid, Tooltip } from '@chakra-ui/react'
 import darkBooky from '../../images/darkBooky.JPG'
 import lightBooky from '../../images/lightBooky.JPG'
 import { useNavigate } from 'react-router-dom'
-import MainContext from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 
 const UserBookies = ({ heading, bookies }) => {
 

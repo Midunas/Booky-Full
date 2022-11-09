@@ -2,9 +2,9 @@ import React from 'react'
 
 const TimeSelect = ({ eventTimeRef, label }) => {
   return (
-    <div className='from-to-time-container rounded dark:bg-zinc-700 dark:text-white'>
+    <div className='fromToTimeContainer'>
       <span>{label}</span>
-      <select className="medInp dark:bg-zinc-700 dark:text-white" id="select" ref={eventTimeRef}>
+      <select className="dark:bg-zinc-700 dark:text-white" id="select" ref={eventTimeRef}>
         <option value="8">08:00</option>
         <option value="8.5">08:30</option>
         <option value="9">09:00</option>

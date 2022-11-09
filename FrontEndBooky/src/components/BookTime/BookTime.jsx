@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import TimeSelect from './components/TimeSelect'
 import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
-import MainContext from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 
 const BookTime = ({ setCount, count }) => {
 
@@ -47,8 +47,8 @@ const BookTime = ({ setCount, count }) => {
   return (
     <div className='flex flex-col w-[280px] mb-20'>
       <div className='text-red-500'>{error}</div>
-      <div className="bigInp dark:bg-zinc-700 dark:text-white" >{user && user.username}</div>
-      <input className="bigInp dark:bg-zinc-700 dark:text-white" ref={eventNameRef} placeholder='event name'></input>
+      <div className="bigInp" >{user && user.username}</div>
+      <input className="bigInp" ref={eventNameRef} placeholder='event name'></input>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
       <TimeSelect eventTimeRef={eventStartRef} label="From: "></TimeSelect>
       <TimeSelect eventTimeRef={eventEndRef} label="To: "></TimeSelect>

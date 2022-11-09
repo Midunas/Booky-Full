@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
-import MainContext from '../../../context/MainContext';
+import { MainContext } from '../../../context/MainContext';
 import { post } from '../../../plugins/http';
 import Header from '../Header';
 
@@ -40,7 +40,7 @@ const Login = () => {
     if (autoLogin === "true") {
       checkRef.current.checked = true
     }
-  }, [])
+  },)
 
   return (
     <div className='container mt-52'>

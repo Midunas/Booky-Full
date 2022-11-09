@@ -7,11 +7,13 @@ import {
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MainContext from '../context/MainContext';
+import { MainContext } from '../context/MainContext';
 import { get } from '../plugins/http';
 import MenuItems from './MenuItems';
 
 const NavBar = ({ onOpen }) => {
+
+  //TODO: Tooltip at Booky logo.
 
   const navigate = useNavigate()
   const localEmail = localStorage.getItem("email")

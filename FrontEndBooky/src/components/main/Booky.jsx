@@ -7,7 +7,7 @@ import BookTime from '../../components/booktime/BookTime'
 import BookyHeader from '../../components/calendar/BookyHeader';
 import DeleteBookyModal from '../../components/calendar/DeleteBookyModal';
 import TimeBar from '../../components/calendar/TimeBar';
-import MainContext from '../../context/MainContext';
+import { MainContext } from '../../context/MainContext';
 import { post } from '../../plugins/http';
 
 const Booky = () => {
@@ -64,7 +64,7 @@ const Booky = () => {
             isShown={isShown}
             onOpen={onOpen}
           />
-          {days && days.map((x, i) =>
+          {days?.map((x, i) =>
             <TimeBar setCount={setCount} count={count} key={i} id={x} />
           )}
         </div>
