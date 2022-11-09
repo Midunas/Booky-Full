@@ -29,7 +29,7 @@ const MainProvider = ({ children }) => {
   },)
 
   return (
-    <MainContext.Provider value={{ user, setTheme, colorTheme, getUser }}>
+    <MainContext.Provider value={{ user, setTheme, colorTheme, getUser, setUser }}>
       {children}
     </MainContext.Provider>
   )

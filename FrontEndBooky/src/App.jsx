@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookyPage from './pages/BookyPage';
@@ -7,7 +6,6 @@ import CreateBookyPage from './pages/SignUp';
 import Layout from './layout/Layout';
 import ProfilePage from './pages/ProfilePage';
 import { MainProvider } from './context/MainContext';
-
 
 const App = () => {
 

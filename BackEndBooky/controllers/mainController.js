@@ -5,7 +5,6 @@ const { uid } = require("uid")
 const bcrypt = require("bcrypt")
 const random = require('random-string-alphanumeric-generator')
 
-
 module.exports = {
   register: async (req, res) => {
 
