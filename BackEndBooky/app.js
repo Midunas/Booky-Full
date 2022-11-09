@@ -1,11 +1,12 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
+require('dotenv').config()
 const mongoose = require("mongoose")
 const mainRouter = require("./routes/router")
 const session = require("express-session")
 
-mongoose.connect("mongodb+srv://Admin:Admin@cluster0.gcmxjec.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect(process.env.REACT_APP_SERVER_ADDRESS)
     .then(() => {
         console.log('CONNECTED OK')
     }).catch(e => {

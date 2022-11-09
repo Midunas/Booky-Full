@@ -5,15 +5,15 @@ const createBookyMiddle = require('../middleware/createBookyMiddle')
 const joinBookyMiddle = require('../middleware/joinBookyMiddle')
 const reservationMiddle = require('../middleware/reservationMiddle')
 const {
+  register,
+  login,
   addReservation,
   getEventByDay,
-  login,
   getUser,
   updateEvent,
   deleteEvent,
   deleteBooky,
   autoLogin,
-  register,
   updateProfile,
   createBooky,
   getAllCreated,
