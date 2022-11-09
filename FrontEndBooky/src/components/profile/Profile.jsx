@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react'
-import {MainContext} from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 import UserCard from './UserCard'
 import UserBookies from './UserBookies'
 import CreateJoinModal from './CreateJoinModal'
