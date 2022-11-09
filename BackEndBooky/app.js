@@ -5,8 +5,9 @@ require('dotenv').config()
 const mongoose = require("mongoose")
 const mainRouter = require("./routes/router")
 const session = require("express-session")
+const serverAddress = process.env.REACT_APP_SERVER_ADDRESS
 
-mongoose.connect(process.env.REACT_APP_SERVER_ADDRESS)
+mongoose.connect(serverAddress)
     .then(() => {
         console.log('CONNECTED OK')
     }).catch(e => {
