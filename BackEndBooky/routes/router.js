@@ -7,6 +7,10 @@ const reservationMiddle = require('../middleware/reservationMiddle')
 const {
   register,
   login,
+  createBooky,
+  getAllCreated,
+  getAllJoined,
+  joinBooky,
   addReservation,
   getEventByDay,
   getUser,
@@ -15,10 +19,6 @@ const {
   deleteBooky,
   autoLogin,
   updateProfile,
-  createBooky,
-  getAllCreated,
-  getAllJoined,
-  joinBooky,
   logout,
   getUsers,
   getBookyUsers } = require("../controllers/mainController")

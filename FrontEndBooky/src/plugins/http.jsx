@@ -1,4 +1,5 @@
 import urlJoin from "url-join"
+const serverIp = '';
 
 const get = async (url) => {
   return await fetch(urlJoin(`http://localhost:4000/`, url))
