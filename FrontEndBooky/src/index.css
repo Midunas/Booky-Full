@@ -20,7 +20,7 @@
   @apply relative h-20 border-solid border border-black bg-white flex justify-center items-center rounded dark:bg-zinc-700
 }
 .eventBar {
-  @apply absolute text-white text-center flex justify-center items-center rounded h-89
+  @apply absolute text-white text-center flex justify-center items-center rounded h-89 cursor-pointer
 }
 .fromToTimeContainer {
   @apply text-2xl rounded bg-white dark:bg-zinc-700 dark:text-white p-3.5 border-b border-black
