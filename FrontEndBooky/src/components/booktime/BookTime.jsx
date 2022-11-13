@@ -25,7 +25,6 @@ const BookTime = ({ setCount, count }) => {
 
   }
 
-
   const addReservation = async () => {
     const newBooking = {
       eventStart: eventStartRef.current.value,
@@ -38,7 +37,7 @@ const BookTime = ({ setCount, count }) => {
       photo: user.photo,
       email: user.email,
     }
-    const res = await post("addReservation", newBooking)
+    const res = await post("/api/addReservation", newBooking)
     const data = await res.json()
     setError(data.message)
     setIsActive(false)

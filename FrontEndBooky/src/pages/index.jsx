@@ -25,17 +25,6 @@ const Booky = () => {
     bookyName = localStorage.getItem("bookyName")
   }
 
-  useEffect(() => {
-    let localEmail = ''
-    if (typeof window !== "undefined") {
-      localEmail = localStorage.getItem("email")
-    }
-    if (!localEmail) {
-      alert('You are not Logged in')
-      router.push('/Login')
-    }
-  },)
-
   const deleteBooky = async () => {
     const bookyToDelete = {
       email: user.email,

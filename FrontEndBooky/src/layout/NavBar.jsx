@@ -78,7 +78,9 @@ const NavBar = ({ onOpen }) => {
       },
       body: JSON.stringify({})
     })
+    localStorage.clear()
     router.push('/Login')
+
   }
   return (
     <>
