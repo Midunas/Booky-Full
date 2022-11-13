@@ -23,6 +23,9 @@ const Booky = () => {
 
   useEffect(() => {
     bookyName = localStorage.getItem("bookyName")
+    if (!user) {
+      router.push('/Login')
+    }
   }, [])
 
   const deleteBooky = async () => {
