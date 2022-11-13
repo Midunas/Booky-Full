@@ -29,7 +29,7 @@ const Profile = () => {
   }
   useEffect(() => {
     getCreatedBookies()
-    // getJoinedBookies()
+    getJoinedBookies()
   }, [user])
 
   return (

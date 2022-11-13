@@ -5,19 +5,20 @@ connect()
 
 export default async function handler(req, res) {
 
-  const { bookyName, id, email } = req.body
+  //TODO: Normal authorization pls. 
+
+  const { bookyName, id, email, code } = req.body
 
   const bookyExists = await Bookies.find({ bookyName })
 
-  if (bookyExists.length > 0) {
+  if (bookyExists[0].inviteCode === code) {
     if (email !== bookyExists.createdBy) {
       await Bookies.updateOne({ bookyName }, { $push: { members: id } })
       return res.status(200).json({ message: "Joined Booky" })
     } else {
-      return res.status(400).json({ message: "Booky not found" })
+      return res.status(401).json({ message: "Unauthorized" })
     }
-  } else {
-    return res.status(404).json({ message: "Something went wrong" })
   }
+  return res.status(401).json({ message: "Unauthorized" })
 
 }
