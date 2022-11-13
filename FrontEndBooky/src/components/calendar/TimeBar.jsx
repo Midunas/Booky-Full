@@ -21,7 +21,7 @@ const TimeBar = ({ id, count }) => {
 
   const getEventByDay = async () => {
     const bookyName = localStorage.getItem("bookyName")
-    const res = await get(`getEventByDay/${id}/${bookyName}`)
+    const res = await get(`/api/getEventsByDay/${id}/${bookyName}`)
     const data = await res.json()
     setEvents(data.eventsByDay)
   }
@@ -43,7 +43,7 @@ const TimeBar = ({ id, count }) => {
       id: eventToEdit._id,
       email: user.email,
     }
-    const res = await post("delete", bookyToDelete)
+    const res = await post("/api/deleteEvent", bookyToDelete)
     const data = await res.json()
     if (res.status !== 200) {
       setError(data.message)
@@ -59,7 +59,7 @@ const TimeBar = ({ id, count }) => {
       eventName: newEventName,
       email: user.email,
     }
-    const res = await post("update", bookyToUpdate)
+    const res = await post("/api/updateEvent", bookyToUpdate)
     const data = await res.json()
     if (res.status !== 200) {
       setError(data.message)

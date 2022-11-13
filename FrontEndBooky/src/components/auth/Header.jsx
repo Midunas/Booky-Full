@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { BiCalendar } from 'react-icons/bi'
 const Header = ({
   heading,
@@ -19,7 +20,7 @@ const Header = ({
       </h1>
       <p className=" mt-2 text-center">
         {paragraph}
-        <Link to={linkUrl} className="font-medium text-amber-600 hover:text-amber-500">
+        <Link href={linkUrl} className="font-medium text-amber-600 hover:text-amber-500">
           {linkName}
         </Link>
       </p>

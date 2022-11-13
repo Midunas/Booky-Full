@@ -15,12 +15,16 @@ import { get } from '../plugins/http'
 
 const SideBar = ({ isOpen, onClose }) => {
 
-  const bookyName = localStorage.getItem('bookyName')
+  let bookyName = ''
+  if (typeof window !== "undefined") {
+
+    bookyName = localStorage.getItem('bookyName')
+  }
   const [users, setUsers] = useState()
 
   const getAllUsers = async () => {
     if (bookyName) {
-      const res = await get('getBookyUsers/' + bookyName)
+      const res = await get('/api/getBookyUsers/' + bookyName)
       const data = await res.json()
       setUsers(data.result)
     }

@@ -1,6 +1,6 @@
 import { Button, Input } from '@chakra-ui/react'
 import React, { useContext, useRef } from 'react'
-import {MainContext} from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 import { post } from '../../plugins/http'
 
 const EditProfileCard = ({ setIsShown }) => {
@@ -15,12 +15,10 @@ const EditProfileCard = ({ setIsShown }) => {
       photo: newPhotoRef.current.value,
       id: user._id,
       email: user.email,
-
     }
-    const userSecret = localStorage.getItem("secret")
-    await post('updateProfile', newInfo)
+    await post('/api/updateProfile', newInfo)
     setIsShown(false)
-    getUser(userSecret)
+    getUser()
   }
 
   return (

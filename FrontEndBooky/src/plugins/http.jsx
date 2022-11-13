@@ -1,7 +1,8 @@
 import urlJoin from "url-join"
+// const serverIp = '';
 
 const get = async (url) => {
-  return await fetch(urlJoin(`http://localhost:4000/`, url))
+  return await fetch(urlJoin(`http://localhost:3000/`, url))
 }
 
 const post = async (url, data) => {
@@ -12,7 +13,7 @@ const post = async (url, data) => {
     },
     body: JSON.stringify(data)
   }
-  return await fetch(urlJoin(`http://localhost:4000`, url), options)
+  return await fetch(urlJoin(`http://localhost:3000`, url), options)
 }
 
 export { get, post }

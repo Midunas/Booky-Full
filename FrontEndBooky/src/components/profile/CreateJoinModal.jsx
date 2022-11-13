@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { post } from '../../plugins/http'
 import { useContext } from 'react'
-import {MainContext} from '../../context/MainContext'
+import { MainContext } from '../../context/MainContext'
 
 const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, getJoinedBookies }) => {
 
@@ -29,7 +29,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
     }
 
     if (createOrJoin === 'Create') {
-      const res = await post('createBooky', info)
+      const res = await post('/api/createBooky', info)
       const data = await res.json();
 
       if (res.status === 200) {
@@ -46,7 +46,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
         id: user._id,
         code: inviteCodeRef.current.value
       }
-      const res = await post('joinBooky', info)
+      const res = await post('/api/joinBooky', info)
       const data = await res.json()
       if (res.status === 200) {
         getJoinedBookies()

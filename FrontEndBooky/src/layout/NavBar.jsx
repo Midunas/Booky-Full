@@ -5,47 +5,83 @@ import {
   HStack,
   Tooltip,
 } from '@chakra-ui/react';
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { useContext, useState, useEffect } from 'react';
 import { MainContext } from '../context/MainContext';
-import { get } from '../plugins/http';
 import MenuItems from './MenuItems';
+import { useTheme } from "next-themes";
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 const NavBar = ({ onOpen }) => {
 
-  //TODO: Tooltip at Booky logo.
+  const router = useRouter()
 
-  const navigate = useNavigate()
-  const localEmail = localStorage.getItem("email")
-  const isLoggedIn = localStorage.getItem("logedIn")
-  const bookyName = localStorage.getItem("bookyName")
+  let bookyName = ''
 
-  const { colorTheme, setTheme } = useContext(MainContext)
-  const { user, setUser } = useContext(MainContext)
-
-  const logInOrOut = () => {
-    if (localEmail) {
-      get("logout").then(() => {
-        localStorage.clear()
-        localStorage.setItem('logedIn', false)
-        localStorage.setItem("autologin", false)
-        setUser('')
-        navigate('/')
-      })
-    } else {
-      navigate('/login')
-      localStorage.setItem('logedIn', false)
-    }
+  if (typeof window !== "undefined") {
+    bookyName = localStorage.getItem("bookyName")
   }
+
+  const { colorTheme } = useContext(MainContext)
+  const { user, setUser } = useContext(MainContext)
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const renderThemeChanger = () => {
+    if (!mounted) return null;
+
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
+    if (currentTheme === "dark") {
+      return (
+        <SunIcon className="w-10 h-10" onClick={() => setTheme('light')} />
+      )
+    }
+
+    else {
+      return (
+        <MoonIcon className="w-10 h-10" onClick={() => setTheme('dark')} />
+      )
+    }
+  };
+
+  // const logInOrOut = () => {
+  //   if (localEmail) {
+  //     get("logout").then(() => {
+  //       localStorage.clear()
+  //       setUser('')
+  //       router.push('/')
+  //     })
+  //   } else {
+  //     router.push('/Login')
+  //     localStorage.setItem('logedIn', false)
+  //   }
+  // }
   function goToMainPage() {
-    if (isLoggedIn === "true" && bookyName) {
-      navigate('/')
+    if (bookyName) {
+      router.push('/')
     }
   }
   const goToProfile = () => {
-    navigate('/profile')
+    router.push('/Profile')
   }
 
+  function logOut() {
+    fetch("/api/logout", {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/jason",
+      },
+      body: JSON.stringify({})
+    })
+    localStorage.clear()
+    router.push('/Login')
+
+  }
   return (
     <>
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
@@ -60,15 +96,17 @@ const NavBar = ({ onOpen }) => {
             </Tooltip>
           </HStack>
           <Flex alignItems={'center'}>
-            <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button>
+            {/* <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button> */}
+            <button className='text-xl mr-5' onClick={logOut}>Logout</button>
+
             <MenuItems
               setTheme={setTheme}
               colorTheme={colorTheme}
-              localEmail={localEmail}
               user={user}
               goToProfile={goToProfile}
               bookyName={bookyName}
               onOpen={onOpen}
+              renderThemeChanger={renderThemeChanger}
             />
           </Flex>
         </Flex>
