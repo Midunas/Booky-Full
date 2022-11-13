@@ -53,20 +53,18 @@ const NavBar = ({ onOpen }) => {
     }
   };
 
-  const logInOrOut = () => {
-    if (localEmail) {
-      get("logout").then(() => {
-        localStorage.clear()
-        localStorage.setItem('logedIn', false)
-        localStorage.setItem("autologin", false)
-        setUser('')
-        router.push('/')
-      })
-    } else {
-      router.push('/Login')
-      localStorage.setItem('logedIn', false)
-    }
-  }
+  // const logInOrOut = () => {
+  //   if (localEmail) {
+  //     get("logout").then(() => {
+  //       localStorage.clear()
+  //       setUser('')
+  //       router.push('/')
+  //     })
+  //   } else {
+  //     router.push('/Login')
+  //     localStorage.setItem('logedIn', false)
+  //   }
+  // }
   function goToMainPage() {
     if (isLoggedIn === "true" && bookyName) {
       router.push('/')
@@ -76,6 +74,16 @@ const NavBar = ({ onOpen }) => {
     router.push('/Profile')
   }
 
+  function logOut() {
+    fetch("/api/logout", {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/jason",
+      },
+      body: JSON.stringify({})
+    })
+    router.push('/Login')
+  }
   return (
     <>
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
@@ -91,7 +99,7 @@ const NavBar = ({ onOpen }) => {
           </HStack>
           <Flex alignItems={'center'}>
             {/* <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button> */}
-            <button className='text-xl mr-5' onClick={logInOrOut}>Login</button>
+            <button className='text-xl mr-5' onClick={logOut}>Logout</button>
 
             <MenuItems
               setTheme={setTheme}

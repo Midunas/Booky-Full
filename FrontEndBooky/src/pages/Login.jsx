@@ -10,24 +10,11 @@ const Login = () => {
   const [error, setError] = useState()
   const { getUser } = useContext(MainContext)
 
-  // let autoLogin = ''
-  // if (typeof window !== "undefined") {
-  //   autoLogin = localStorage.getItem("autologin")
-  // }
-
   // const login = async () => {
   //   const user = {
   //     email: emailRef.current.value,
   //     password: passRef.current.value,
   //   }
-
-  //   // const options = {
-  //   //   method: 'POST',
-  //   //   headers: {
-  //   //     'Content-Type': 'application/json',
-  //   //   },
-  //   //   body: ,
-  //   // }
 
   //   const res = await fetch('/api/login', {
   //     method: 'POST',
@@ -45,14 +32,6 @@ const Login = () => {
   //   setError(data.message)
   // }
 
-  // const autoLoginCheck = (e) => {
-  //   localStorage.setItem("autologin", e.target.checked)
-  // }
-  // useEffect(() => {
-  //   if (autoLogin === "true") {
-  //     checkRef.current.checked = true
-  //   }
-  // },)
 
   return (
     <div className='container mt-52'>
@@ -60,7 +39,7 @@ const Login = () => {
         <Header
           heading="Login to your account"
           paragraph="Don't have an account yet? "
-          linkName="Signup"
+          linkName="SignUp"
           linkUrl="/SignUp"
           error={error}
         />

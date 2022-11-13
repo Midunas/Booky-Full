@@ -66,7 +66,6 @@ module.exports = {
     new bookySchema({
       bookyName,
       createdBy: email,
-      secret: uid(),
       members: id,
       inviteCode
     }).save()

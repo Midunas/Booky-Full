@@ -16,7 +16,7 @@ const Profile = () => {
   const [joinedBookies, setJoinedBookies] = useState([])
 
   const getCreatedBookies = async () => {
-    const res = await get(`getAllCreated/${user && user.email}`)
+    const res = await get(`/api/getAllCreated/${user?.email}`)
     const data = await res.json()
     setCreatedBookies(data.bookiesExist)
   }
@@ -27,10 +27,10 @@ const Profile = () => {
       setJoinedBookies(data.result)
     }
   }
-  // useEffect(() => {
-  //   getCreatedBookies()
-  //   getJoinedBookies()
-  // }, [user])
+  useEffect(() => {
+    getCreatedBookies()
+    // getJoinedBookies()
+  }, [user])
 
   return (
     <div className='mt-10'>

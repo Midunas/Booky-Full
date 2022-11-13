@@ -7,28 +7,18 @@ const MainProvider = ({ children }) => {
 
   const [user, setUser] = useState();
 
-  let userSecret = ''
-  if (typeof window !== "undefined") {
-    userSecret = localStorage.getItem('secret')
-  }
+  const getUser = async () => {
 
-  const getUser = async (secret) => {
-    const res = await get("getUser/" + secret)
+    const res = await get("api/getUser/")
     const data = await res.json()
-    setUser((userData) => ({ ...userData, ...data.userExists[0] }))
+    setUser(data.userExists)
+
   }
 
   useEffect(() => {
-    if (user?.secret) {
-      getUser(user.secret)
-    }
-  }, [user?.secret])
+    getUser()
+  }, [])
 
-  useEffect(() => {
-    if (userSecret) {
-      getUser(userSecret)
-    }
-  },)
 
   return (
     <MainContext.Provider value={{ user, getUser, setUser }}>
