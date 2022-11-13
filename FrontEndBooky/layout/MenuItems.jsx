@@ -8,9 +8,9 @@ import {
   MenuDivider,
   Switch,
 } from '@chakra-ui/react';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-const MenuItems = ({ setTheme, renderThemeChanger, colorTheme, localEmail, user, goToProfile, bookyName, onOpen }) => {
+
+const MenuItems = ({ renderThemeChanger, localEmail, user, goToProfile, bookyName, onOpen }) => {
 
   return (
     <>
@@ -23,7 +23,7 @@ const MenuItems = ({ setTheme, renderThemeChanger, colorTheme, localEmail, user,
             cursor={'pointer'}>
             <Avatar
               size={'sm'}
-              src={user && user.photo}
+              src={user?.photo}
             />
           </MenuButton>
           <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
@@ -36,14 +36,11 @@ const MenuItems = ({ setTheme, renderThemeChanger, colorTheme, localEmail, user,
               >{bookyName}</button>
             </div>
             <MenuDivider />
-            <Switch
+            {/* <Switch
               className='ml-2'
               onChange={() => setTheme(colorTheme)}
             >Mode:
-            </Switch>
-            {colorTheme === "dark" ?
-              <SunIcon className='ml-2' /> : <MoonIcon className='ml-2' />
-            }
+            </Switch> */}
             <MenuDivider />
             {renderThemeChanger()}
           </MenuList>

@@ -13,7 +13,7 @@ module.exports = {
     const emailAlreadyExists = await userSchema.findOne({ email })
 
     if (emailAlreadyExists) {
-      return res.json({ error: true, message: "Email is taken" })
+      return res.status(401).json({ message: "Email is taken" })
     }
 
     const hashPass = await bcrypt.hash(password, 10)

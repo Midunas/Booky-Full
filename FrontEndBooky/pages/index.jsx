@@ -32,7 +32,6 @@ const Booky = () => {
     }
     if (!localEmail) {
       alert('You are not Logged in')
-      // redirectTo('/login')
       router.push('/Login')
     }
   },)
@@ -45,7 +44,7 @@ const Booky = () => {
     const res = await post("deleteBooky", bookyToDelete)
     const data = await res.json()
     if (res.status === 200) {
-      navigate('/profile')
+      router.push('/Profile')
       if (typeof window !== "undefined") {
         localStorage.removeItem('bookyName')
       }
@@ -84,4 +83,3 @@ const Booky = () => {
 }
 
 export default Booky
-

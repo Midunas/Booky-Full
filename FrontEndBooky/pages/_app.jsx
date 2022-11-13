@@ -2,23 +2,21 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { MainProvider } from '../context/MainContext'
 import Layout from '../layout/Layout'
-import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
+import 'tailwindcss/tailwind.css';
 import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }) {
   return (
-
-    <ChakraProvider>
-      <MainProvider>
-        <ThemeProvider enableSystem={true} attribute="class">
+    <ThemeProvider attribute="class">
+      <ChakraProvider>
+        <MainProvider>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </ThemeProvider>
-      </MainProvider>
-    </ChakraProvider>
-
+        </MainProvider>
+      </ChakraProvider>
+    </ThemeProvider>
   )
 }
 

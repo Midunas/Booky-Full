@@ -9,7 +9,6 @@ import { get } from '../plugins/http'
 
 const Profile = () => {
 
-
   const { user } = useContext(MainContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [createOrJoin, setCreateOrJoin] = useState()
@@ -28,10 +27,10 @@ const Profile = () => {
       setJoinedBookies(data.result)
     }
   }
-  useEffect(() => {
-    getCreatedBookies()
-    getJoinedBookies()
-  }, [user])
+  // useEffect(() => {
+  //   getCreatedBookies()
+  //   getJoinedBookies()
+  // }, [user])
 
   return (
     <div className='mt-10'>

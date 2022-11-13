@@ -1,43 +1,36 @@
 import React, { useContext, useRef, useState } from 'react'
 import { post } from '../plugins/http'
-// import { useNavigate } from "react-router-dom";
 import Header from '../components/auth/Header';
 import { MainContext } from '../context/MainContext';
 
 const SignUp = () => {
-  const userContext = useContext(MainContext)
+  // const userContext = useContext(MainContext)
 
   const [error, setError] = useState('')
-  const emailRef = useRef()
-  const usernameRef = useRef()
-  const passRef = useRef()
-  const repeatPass = useRef()
 
-  // const navigate = useNavigate()
 
-  const createBooky = async () => {
+  // const createBooky = async () => {
 
-    const adminUser = {
-      email: emailRef.current.value,
-      username: usernameRef.current.value,
-      password: passRef.current.value,
-      repeat: repeatPass.current.value,
-    }
+  //   const adminUser = {
+  //     email: emailRef.current.value,
+  //     username: usernameRef.current.value,
+  //     password: passRef.current.value,
+  //     // repeat: repeatPass.current.value,
+  //   }
 
-    const res = await post("register", adminUser)
-    const data = await res.json();
+  //   const res = await post("register", adminUser)
+  //   const data = await res.json();
 
-    if (res.status === 200) {
-      localStorage.setItem("secret", data.secret)
-      localStorage.setItem("bookyName", data.sessions.bookyName)
-      localStorage.setItem("email", data.sessions.email)
-      localStorage.setItem("logedIn", true)
-      userContext.setUser((userData) => ({ ...userData, secret: data.secret }));
-      // navigate(`/profile`)
-    } else {
-      setError(data.message)
-    }
-  }
+  //   if (res.status === 200) {
+  //     localStorage.setItem("secret", data.secret)
+  //     localStorage.setItem("bookyName", data.sessions.bookyName)
+  //     localStorage.setItem("email", data.sessions.email)
+  //     localStorage.setItem("logedIn", true)
+  //     userContext.setUser((userData) => ({ ...userData, secret: data.secret }));
+  //   } else {
+  //     setError(data.message)
+  //   }
+  // }
 
   return (
     <div className='container mt-52'>
@@ -46,20 +39,22 @@ const SignUp = () => {
           heading="Sign up"
           paragraph="Already have an account? "
           linkName="Login"
-          linkUrl="/login"
+          linkUrl="/Login"
           error={error}
         />
-        <input className='input' type="text" placeholder='email' ref={emailRef} />
-        <input className='input' type="text" placeholder='username' ref={usernameRef} />
-        <input className='input' type="password" placeholder='password' ref={passRef} />
-        <input className='input' type="password" placeholder='repeat password' ref={repeatPass} />
-        <button
-          className="button"
-          onClick={createBooky}>
-          Sign up
-        </button>
+        <form action="/api/register" method='post' className='flex flex-col bg-blue-100'>
+          <input className='input' name='email' type="email" placeholder='email' />
+          <input className='input' name='username' type="text" placeholder='username' />
+          <input className='input' name='password' type="password" placeholder='password' />
+          {/* <input className='input' type="password" placeholder='repeat password' ref={repeatPass} /> */}
+          <button
+            type='submit'
+            className="button">
+            Sign up
+          </button>
+        </form>
       </div>
-    </div>
+    </div >
   )
 }
 export default SignUp;

@@ -1,17 +1,20 @@
 import React, { useContext, useState } from 'react'
 import { Grid, Tooltip } from '@chakra-ui/react'
-import darkBooky from '../../images/darkBooky.JPG'
-import lightBooky from '../../images/lightBooky.JPG'
-// import { useNavigate } from 'react-router-dom'
-import { MainContext } from '../../context/MainContext'
+// import darkBooky from '../../images/darkBooky.JPG'
+// import lightBooky from '../../images/lightBooky.JPG'
 import { useRouter } from 'next/router'
+import { useTheme } from "next-themes";
+import Image from 'next/image'
 
 const UserBookies = ({ heading, bookies }) => {
 
   const [isShown, setIsShown] = useState(false)
   const [isNowOpen, setIsOpen] = useState(false)
-  const { colorTheme } = useContext(MainContext)
+  // const { colorTheme } = useContext(MainContext)
+  const { systemTheme, theme } = useTheme();
   const router = useRouter()
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
 
   const goToBookyPage = (bookyName) => {
     localStorage.setItem('bookyName', bookyName)
@@ -50,11 +53,17 @@ const UserBookies = ({ heading, bookies }) => {
                 > {x.inviteCode}</h1>
               </Tooltip>
             </div>
-            <img
+            {/* <img
               onClick={() => goToBookyPage(x.bookyName)}
               className='rounded cursor-pointer'
-              src={colorTheme === 'dark' ? lightBooky : darkBooky}
-              alt="calendar" />
+              src={currentTheme === 'dark' ? lightBooky : darkBooky}
+              alt="calendar" /> */}
+            <img
+              src={currentTheme === 'dark' ? '/darkBooky.JPG' : '/lightBooky.JPG'}
+              alt='calendar'
+              onClick={() => goToBookyPage(x.bookyName)}
+              className='rounded cursor-pointer'
+            ></img>
           </div>)}
       </Grid>
     </div>

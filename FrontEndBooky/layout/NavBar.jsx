@@ -36,18 +36,19 @@ const NavBar = ({ onOpen }) => {
   }, [])
 
   const renderThemeChanger = () => {
+    if (!mounted) return null;
 
     const currentTheme = theme === "system" ? systemTheme : theme;
 
     if (currentTheme === "dark") {
       return (
-        <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+        <SunIcon className="w-10 h-10" onClick={() => setTheme('light')} />
       )
     }
 
     else {
       return (
-        <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+        <MoonIcon className="w-10 h-10" onClick={() => setTheme('dark')} />
       )
     }
   };

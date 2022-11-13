@@ -1,17 +1,14 @@
 import { createContext, useEffect, useState } from "react";
-import useDarkMode from "../hook/useDarkMode";
 import { get } from "../plugins/http";
-const ISSERVER = typeof window === "undefined"
 
 const MainContext = createContext()
 
 const MainProvider = ({ children }) => {
 
   const [user, setUser] = useState();
-  // const [colorTheme, setTheme] = useDarkMode()
 
   let userSecret = ''
-  if (!ISSERVER) {
+  if (typeof window !== "undefined") {
     userSecret = localStorage.getItem('secret')
   }
 

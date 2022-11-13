@@ -24,8 +24,9 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/index.jsx",
-    "pages/booky.jsx",
-    "pages/_app.jsx"
+    "pages/_app.jsx",
+    "pages/api/register.jsx",
+    "pages/api/login.jsx"
   ],
   "exclude": [
     "node_modules"
