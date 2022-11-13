@@ -6,7 +6,6 @@ connect()
 
 export default async function handler(req, res) {
 
-  //TODO: if userToken then proceed, else login page.
   const cookies = cookie.parse(req.headers.cookie || '')
   const email = cookies.userToken
 
@@ -18,8 +17,5 @@ export default async function handler(req, res) {
   else {
     res.status(200).json({ userExists })
   }
-
-  res.status(400).json({ message: 'Something went wrong' })
-
 
 }

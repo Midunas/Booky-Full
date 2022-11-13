@@ -24,7 +24,7 @@ const SideBar = ({ isOpen, onClose }) => {
 
   const getAllUsers = async () => {
     if (bookyName) {
-      const res = await get('getBookyUsers/' + bookyName)
+      const res = await get('/api/getBookyUsers/' + bookyName)
       const data = await res.json()
       setUsers(data.result)
     }

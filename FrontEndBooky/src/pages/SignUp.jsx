@@ -42,7 +42,7 @@ const SignUp = () => {
           linkUrl="/Login"
           error={error}
         />
-        <form action="/api/register" method='post' className='flex flex-col bg-blue-100'>
+        <form action="/api/register" method='post' className='flex flex-col'>
           <input className='input' name='email' type="email" placeholder='email' />
           <input className='input' name='username' type="text" placeholder='username' />
           <input className='input' name='password' type="password" placeholder='password' />

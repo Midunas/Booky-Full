@@ -8,7 +8,6 @@ import {
 import { useRouter } from 'next/router';
 import { useContext, useState, useEffect } from 'react';
 import { MainContext } from '../context/MainContext';
-import { get } from '../plugins/http';
 import MenuItems from './MenuItems';
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
@@ -17,15 +16,12 @@ const NavBar = ({ onOpen }) => {
 
   const router = useRouter()
 
-  let localEmail = ''
-  let isLoggedIn = ''
   let bookyName = ''
 
   if (typeof window !== "undefined") {
-    localEmail = localStorage.getItem("email")
-    isLoggedIn = localStorage.getItem("logedIn")
     bookyName = localStorage.getItem("bookyName")
   }
+
   const { colorTheme } = useContext(MainContext)
   const { user, setUser } = useContext(MainContext)
   const { systemTheme, theme, setTheme } = useTheme();
@@ -66,7 +62,7 @@ const NavBar = ({ onOpen }) => {
   //   }
   // }
   function goToMainPage() {
-    if (isLoggedIn === "true" && bookyName) {
+    if (bookyName) {
       router.push('/')
     }
   }
@@ -104,7 +100,6 @@ const NavBar = ({ onOpen }) => {
             <MenuItems
               setTheme={setTheme}
               colorTheme={colorTheme}
-              localEmail={localEmail}
               user={user}
               goToProfile={goToProfile}
               bookyName={bookyName}

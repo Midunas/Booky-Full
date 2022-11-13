@@ -46,7 +46,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
         id: user._id,
         code: inviteCodeRef.current.value
       }
-      const res = await post('joinBooky', info)
+      const res = await post('/api/joinBooky', info)
       const data = await res.json()
       if (res.status === 200) {
         getJoinedBookies()

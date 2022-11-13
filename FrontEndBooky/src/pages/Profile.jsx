@@ -22,7 +22,7 @@ const Profile = () => {
   }
   const getJoinedBookies = async () => {
     if (user) {
-      const res = await get(`getAllJoined/${user._id}/${user.email}`)
+      const res = await get(`/api/getAllJoined/${user._id}/${user.email}`)
       const data = await res.json()
       setJoinedBookies(data.result)
     }
