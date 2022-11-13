@@ -5,8 +5,6 @@ connect()
 
 export default async function handler(req, res) {
 
-  console.log(req.query)
-
   const bookiesExist = await Bookies.find({ members: req.query.id })
 
   if (bookiesExist) {
