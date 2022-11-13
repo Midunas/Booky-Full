@@ -9,12 +9,10 @@ import {
   Switch,
 } from '@chakra-ui/react';
 
-
 const MenuItems = ({ renderThemeChanger, user, goToProfile, bookyName, onOpen }) => {
 
   return (
     <>
-
       <Menu>
         <MenuButton
           as={Button}

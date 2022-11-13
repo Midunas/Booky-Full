@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Grid, Tooltip } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTheme } from "next-themes";
-
+import cookie from 'js-cookie'
 
 const UserBookies = ({ heading, bookies }) => {
 
@@ -15,6 +15,8 @@ const UserBookies = ({ heading, bookies }) => {
 
   const goToBookyPage = (bookyName) => {
     localStorage.setItem('bookyName', bookyName)
+    //todo: set cookies
+    cookie.set("bookyName", bookyName, { expires: 1 / 24 })
     router.push('/')
   }
 

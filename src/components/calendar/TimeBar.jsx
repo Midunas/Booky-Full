@@ -9,6 +9,7 @@ import EditEventModal from './EditEventModal'
 import LongEventDisplay from './LongEventDisplay'
 import ShortEventDisplay from './ShortEventDisplay'
 
+//TODO: replace all local storage bookyName, to cookie bookyName
 
 const TimeBar = ({ id, count }) => {
 

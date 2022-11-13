@@ -16,18 +16,18 @@ const NavBar = ({ onOpen }) => {
 
   const router = useRouter()
 
+
   let bookyName = ''
 
-  if (typeof window !== "undefined") {
-    bookyName = localStorage.getItem("bookyName")
-  }
-
   const { colorTheme } = useContext(MainContext)
-  const { user, setUser } = useContext(MainContext)
+  const { user } = useContext(MainContext)
   const { systemTheme, theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      bookyName = localStorage.getItem("bookyName")
+    }
     setMounted(true)
   }, [])
 
