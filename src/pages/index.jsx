@@ -19,11 +19,11 @@ const Booky = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
   const { user } = useContext(MainContext)
-
   let bookyName = ''
-  if (typeof window !== "undefined") {
+
+  useEffect(() => {
     bookyName = localStorage.getItem("bookyName")
-  }
+  }, [])
 
   const deleteBooky = async () => {
     const bookyToDelete = {
