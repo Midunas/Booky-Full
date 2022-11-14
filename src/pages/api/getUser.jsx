@@ -16,8 +16,8 @@ export default async function handler(req, res) {
       return res.status(400).send({ error: true, message: "user doesn't exist" });
     }
     else {
-      res.status(200).json({ userExists })
+      return res.status(200).json({ userExists })
     }
   }
-
+  return res.status(404).json({ message: 'User not found' })
 }
