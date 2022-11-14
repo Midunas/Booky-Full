@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     sameSite: "strict",
     path: '/'
   }))
-  // res.redirect('/Login')
+
   res.status(200).json({ message: 'User loged out' })
 }
 
