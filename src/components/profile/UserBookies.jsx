@@ -2,22 +2,21 @@ import React, { useContext, useState } from 'react'
 import { Grid, Tooltip } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTheme } from "next-themes";
-import cookie from 'js-cookie'
+import { MainContext } from '../../context/MainContext';
 
 const UserBookies = ({ heading, bookies }) => {
 
   const [isShown, setIsShown] = useState(false)
   const [isNowOpen, setIsOpen] = useState(false)
-  // const { colorTheme } = useContext(MainContext)
   const { systemTheme, theme } = useTheme();
+  const { setBookyName } = useContext(MainContext)
   const router = useRouter()
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   const goToBookyPage = (bookyName) => {
-    localStorage.setItem('bookyName', bookyName)
-    //todo: set cookies
-    cookie.set("bookyName", bookyName, { expires: 1 / 24 })
-    router.push('/')
+    setBookyName(bookyName)
+    router.push('/Booky')
+    //TODO: BOOKYNAME IN CONTEXT
   }
 
   const copyInviteCode = (event) => {

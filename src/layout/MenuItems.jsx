@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Avatar,
   Button,
@@ -8,8 +8,11 @@ import {
   MenuDivider,
   Switch,
 } from '@chakra-ui/react';
+import { MainContext } from '../context/MainContext';
 
-const MenuItems = ({ renderThemeChanger, user, goToProfile, bookyName, onOpen }) => {
+const MenuItems = ({ renderThemeChanger, user, goToProfile, onOpen }) => {
+
+  const { bookyName } = useContext(MainContext)
 
   return (
     <>

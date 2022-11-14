@@ -16,18 +16,12 @@ const NavBar = ({ onOpen }) => {
 
   const router = useRouter()
 
-
-  let bookyName = ''
-
   const { colorTheme } = useContext(MainContext)
-  const { user } = useContext(MainContext)
+  const { user, setUser, bookyName } = useContext(MainContext)
   const { systemTheme, theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      bookyName = localStorage.getItem("bookyName")
-    }
     setMounted(true)
   }, [])
 
@@ -49,21 +43,9 @@ const NavBar = ({ onOpen }) => {
     }
   };
 
-  // const logInOrOut = () => {
-  //   if (localEmail) {
-  //     get("logout").then(() => {
-  //       localStorage.clear()
-  //       setUser('')
-  //       router.push('/')
-  //     })
-  //   } else {
-  //     router.push('/Login')
-  //     localStorage.setItem('logedIn', false)
-  //   }
-  // }
   function goToMainPage() {
     if (bookyName) {
-      router.push('/')
+      router.push('/Booky')
     }
   }
   const goToProfile = () => {
@@ -79,7 +61,8 @@ const NavBar = ({ onOpen }) => {
       body: JSON.stringify({})
     })
     localStorage.clear()
-    router.push('/Login')
+    router.push('/')
+    setUser('')
 
   }
   return (
@@ -97,17 +80,20 @@ const NavBar = ({ onOpen }) => {
           </HStack>
           <Flex alignItems={'center'}>
             {/* <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button> */}
-            <button className='text-xl mr-5' onClick={logOut}>Logout</button>
-
-            <MenuItems
-              setTheme={setTheme}
-              colorTheme={colorTheme}
-              user={user}
-              goToProfile={goToProfile}
-              bookyName={bookyName}
-              onOpen={onOpen}
-              renderThemeChanger={renderThemeChanger}
-            />
+            {user &&
+              <>
+                <button className='text-xl mr-5' onClick={logOut}>Logout</button>
+                <MenuItems
+                  setTheme={setTheme}
+                  colorTheme={colorTheme}
+                  user={user}
+                  goToProfile={goToProfile}
+                  bookyName={bookyName}
+                  onOpen={onOpen}
+                  renderThemeChanger={renderThemeChanger}
+                />
+              </>
+            }
           </Flex>
         </Flex>
       </Box>

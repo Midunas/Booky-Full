@@ -18,10 +18,9 @@ const TimeBar = ({ id, count }) => {
   const [eventToEdit, setEventToEdit] = useState([])
   const [error, setError] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { user } = useContext(MainContext)
+  const { user,bookyName } = useContext(MainContext)
 
   const getEventByDay = async () => {
-    const bookyName = localStorage.getItem("bookyName")
     const res = await get(`/api/getEventsByDay/${id}/${bookyName}`)
     const data = await res.json()
     setEvents(data.eventsByDay)

@@ -1,36 +1,20 @@
-import React, { useContext, useRef, useState } from 'react'
-import { post } from '../plugins/http'
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../components/auth/Header';
 import { MainContext } from '../context/MainContext';
 
 const SignUp = () => {
-  // const userContext = useContext(MainContext)
 
   const [error, setError] = useState('')
+  const { user } = useContext(MainContext)
+  const router = useRouter()
 
-
-  // const createBooky = async () => {
-
-  //   const adminUser = {
-  //     email: emailRef.current.value,
-  //     username: usernameRef.current.value,
-  //     password: passRef.current.value,
-  //     // repeat: repeatPass.current.value,
-  //   }
-
-  //   const res = await post("register", adminUser)
-  //   const data = await res.json();
-
-  //   if (res.status === 200) {
-  //     localStorage.setItem("secret", data.secret)
-  //     localStorage.setItem("bookyName", data.sessions.bookyName)
-  //     localStorage.setItem("email", data.sessions.email)
-  //     localStorage.setItem("logedIn", true)
-  //     userContext.setUser((userData) => ({ ...userData, secret: data.secret }));
-  //   } else {
-  //     setError(data.message)
-  //   }
-  // }
+  //Todo: set up errors 
+  useEffect(() => {
+    if (user) {
+      router.push('/Booky')
+    }
+  })
 
   return (
     <div className='container mt-52'>
