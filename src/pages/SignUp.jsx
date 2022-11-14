@@ -23,14 +23,13 @@ const SignUp = () => {
           heading="Sign up"
           paragraph="Already have an account? "
           linkName="Login"
-          linkUrl="/Login"
+          linkUrl="/"
           error={error}
         />
         <form action="/api/register" method='post' className='flex flex-col'>
           <input className='input' name='email' type="email" placeholder='email' />
           <input className='input' name='username' type="text" placeholder='username' />
           <input className='input' name='password' type="password" placeholder='password' />
-          {/* <input className='input' type="password" placeholder='repeat password' ref={repeatPass} /> */}
           <button
             type='submit'
             className="button">
