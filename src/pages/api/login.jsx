@@ -2,10 +2,9 @@ import connect from '../../lib/mongodb'
 import User from '../../model/userSchema'
 import cookie from 'cookie'
 
-connect()
 
 export default async function handler(req, res) {
-
+  await connect()
   const { email, password } = req.body
   const userExists = await User.findOne({ email, password })
 

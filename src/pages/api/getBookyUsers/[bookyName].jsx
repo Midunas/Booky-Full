@@ -1,10 +1,9 @@
 import Bookies from '../../../model/bookySchema'
 import connect from '../../../lib/mongodb'
 
-connect()
 
 export default async function handler(req, res) {
-
+  await connect()
   const { query } = req
   const { bookyName } = query
 

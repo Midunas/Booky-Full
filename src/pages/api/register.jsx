@@ -2,9 +2,10 @@ import connect from '../../lib/mongodb'
 import User from '../../model/userSchema'
 import { uid } from 'uid';
 
-connect()
+
 
 export default async function handler(req, res) {
+  await connect()
   try {
     //TODO: Set up validation 
     const { email, password, username } = req.body
