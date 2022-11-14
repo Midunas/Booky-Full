@@ -2,6 +2,7 @@ import connect from '../../lib/mongodb'
 import User from '../../model/userSchema'
 import cookie from 'cookie'
 
+//TODO: check the headers return at res.status later
 
 export default async function handler(req, res) {
   await connect()
@@ -20,9 +21,7 @@ export default async function handler(req, res) {
     }))
 
     res.redirect('/Profile')
-    res.status(200).json({ message: 'User logged in' })
-
+    return res.status(200).json({ message: 'User logged in' })
   }
-  res.status(400).json({ message: 'Unable to create new user.' })
 
 }
