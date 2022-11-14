@@ -18,7 +18,6 @@ const MainProvider = ({ children }) => {
     getUser()
   }, [])
 
-
   return (
     <MainContext.Provider value={{
       user,
@@ -27,7 +26,6 @@ const MainProvider = ({ children }) => {
       setBookyName,
       bookyName,
     }}>
-      {/* <MainContext.Provider value={{ user, setTheme, colorTheme, getUser, setUser }}> */}
       {children}
     </MainContext.Provider>
   )
