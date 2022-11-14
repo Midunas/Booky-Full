@@ -13,7 +13,7 @@ const post = async (url, data) => {
     },
     body: JSON.stringify(data)
   }
-  return await fetch(urlJoin(`http://localhost:3000`, url), options)
+  return await fetch(urlJoin(HOSTNAME, url), options)
 }
 
 export { get, post }
