@@ -5,6 +5,7 @@ import cookie from 'cookie'
 //TODO: check the headers return at res.status later
 
 export default async function handler(req, res) {
+
   await connect()
   const { email, password } = req.body
   const userExists = await User.findOne({ email, password })
@@ -20,8 +21,7 @@ export default async function handler(req, res) {
       path: '/'
     }))
 
-    res.redirect('/Profile')
-    return res.status(200).json({ message: 'User logged in' })
+    return res.redirect('/Profile')
   }
 
 }
