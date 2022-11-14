@@ -1,8 +1,6 @@
-import urlJoin from "url-join";
-import { HOSTNAME } from '../lib/constants'
-
+// import urlJoin from "url-join";
 const get = async (url) => {
-  return await fetch(urlJoin(HOSTNAME, url))
+  return await fetch(url)
 }
 
 const post = async (url, data) => {
@@ -13,7 +11,7 @@ const post = async (url, data) => {
     },
     body: JSON.stringify(data)
   }
-  return await fetch(urlJoin(HOSTNAME, url), options)
+  return await fetch(url, options)
 }
 
 export { get, post }
