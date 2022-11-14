@@ -11,13 +11,7 @@ const Login = () => {
   const passRef = useRef();
   const [error, setError] = useState();
   const router = useRouter();
-  const { user, getUser } = useContext(MainContext);
-
-  useEffect(() => {
-    if (user) {
-      router.push('/Booky')
-    }
-  }, [])
+  const { getUser } = useContext(MainContext);
 
   const login = async () => {
     const user = {
@@ -29,7 +23,9 @@ const Login = () => {
     console.log(data.message)
     if (res.status === 200) {
       getUser()
-      router.push('/Profile')
+      setTimeout(() => router.push('/Profile'), 250)
+    } else {
+      setError(data.message)
     }
   }
 

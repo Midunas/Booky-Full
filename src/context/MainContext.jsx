@@ -9,11 +9,9 @@ const MainProvider = ({ children }) => {
   const [bookyName, setBookyName] = useState()
 
   const getUser = async () => {
-
     const res = await get("api/getUser/")
     const data = await res.json()
     setUser(data.userExists)
-
   }
 
   useEffect(() => {
@@ -22,7 +20,13 @@ const MainProvider = ({ children }) => {
 
 
   return (
-    <MainContext.Provider value={{ user, getUser, setUser, setBookyName, bookyName }}>
+    <MainContext.Provider value={{
+      user,
+      getUser,
+      setUser,
+      setBookyName,
+      bookyName,
+    }}>
       {/* <MainContext.Provider value={{ user, setTheme, colorTheme, getUser, setUser }}> */}
       {children}
     </MainContext.Provider>
