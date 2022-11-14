@@ -1,37 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useContext } from 'react';
-import { MainContext } from '../context/MainContext';
+import React, { useRef, useState } from 'react';
 import Header from '../components/auth/Header';
-import { useRouter } from 'next/router';
 
 const Login = () => {
 
   const checkRef = useRef()
   const [error, setError] = useState()
-  const { getUser } = useContext(MainContext)
-
-  // const login = async () => {
-  //   const user = {
-  //     email: emailRef.current.value,
-  //     password: passRef.current.value,
-  //   }
-
-  //   const res = await fetch('/api/login', {
-  //     method: 'POST',
-  //     body: JSON.stringify(user)
-  //   });
-  //   const data = await login()
-
-  //   if (res.status === 200) {
-  //     localStorage.setItem("secret", data.secret)
-  //     localStorage.setItem("email", data.sessions.email)
-  //     localStorage.setItem("logedIn", true)
-  //     getUser(data.secret)
-  //     router.push('/Profile')
-  //   }
-  //   setError(data.message)
-  // }
-
 
   return (
     <div className='container mt-52'>
