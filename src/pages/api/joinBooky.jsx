@@ -1,10 +1,10 @@
 import Bookies from '../../model/bookySchema'
 import connect from '../../lib/mongodb'
 
-connect()
+
 
 export default async function handler(req, res) {
-
+  await connect()
   //TODO: Normal authorization pls. 
 
   const { bookyName, id, email, code } = req.body

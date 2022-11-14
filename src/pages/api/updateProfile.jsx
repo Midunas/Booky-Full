@@ -2,9 +2,9 @@ import Events from '../../model/eventSchema'
 import User from '../../model/userSchema'
 import connect from '../../lib/mongodb'
 
-connect()
 
 export default async function handler(req, res) {
+  await connect()
   const { id, username, photo, email } = req.body
 
   if (photo.length > 0 && username.length === 0) {
