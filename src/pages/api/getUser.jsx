@@ -9,15 +9,14 @@ export default async function handler(req, res) {
   const cookies = cookie.parse(req.headers.cookie || '')
   const email = cookies.userToken
 
-  if (email) {
-    const userExists = await User.findOne({ email })
-
-    if (!userExists) {
-      return res.status(400).send({ error: true, message: "user doesn't exist" });
-    }
-    else {
-      return res.status(200).json({ userExists })
-    }
+  if (!email) {
+    return res.status(404).json({ message: 'User not found' })
   }
-  return res.status(404).json({ message: 'User not found' })
+  const userExists = await User.findOne({ email })
+  if (!userExists) {
+    return res.status(400).send({ error: true, message: "user doesn't exist" });
+  }
+  else {
+    return res.status(200).json({ userExists })
+  }
 }

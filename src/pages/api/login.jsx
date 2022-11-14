@@ -21,7 +21,8 @@ export default async function handler(req, res) {
       path: '/'
     }))
 
-    return res.redirect('/Profile')
+    return res.status(200).json({ message: 'User logged in' })
+
   }
 
 }

@@ -2,8 +2,6 @@ import connect from '../../lib/mongodb'
 import User from '../../model/userSchema'
 import { uid } from 'uid';
 
-
-
 export default async function handler(req, res) {
   await connect()
   try {
@@ -29,7 +27,7 @@ export default async function handler(req, res) {
     }
   }
   catch (error) {
-    res.status(400).json({ message: 'Unable to create new user.' })
+    return res.status(400).json({ message: 'Unable to create new user.' })
   }
 
 }

@@ -7,6 +7,7 @@ const MainProvider = ({ children }) => {
 
   const [user, setUser] = useState();
   const [bookyName, setBookyName] = useState()
+
   const getUser = async () => {
 
     const res = await get("api/getUser/")
