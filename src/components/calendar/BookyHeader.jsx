@@ -1,7 +1,12 @@
 import { Button, Tooltip } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { MainContext } from '../../context/MainContext'
 
-const BookyHeader = ({ setIsShown, bookyName, isShown, onOpen }) => {
+const BookyHeader = ({ setIsShown, isShown, onOpen }) => {
+
+  const { bookyName } = useContext(MainContext)
+
+
   return (
     <div className='flex gap-x-3'>
       <Tooltip label='Delete booky?'>

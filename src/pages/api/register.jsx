@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       secret: uid(),
     })).save()
 
-    res.redirect('/Login')
+    res.redirect('/')
 
     if (!user) {
       return res.status(400).json({ message: 'User not created' })

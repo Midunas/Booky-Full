@@ -1,77 +1,57 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
-import { useContext } from 'react';
-import BookTime from '../components/booktime/BookTime'
-import BookyHeader from '../components/calendar/BookyHeader';
-import DeleteBookyModal from '../components/calendar/DeleteBookyModal';
-import TimeBar from '../components/calendar/TimeBar';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import Header from '../components/auth/Header';
 import { MainContext } from '../context/MainContext';
-import { post } from '../plugins/http';
 
-const Booky = () => {
+const Login = () => {
 
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-  const [count, setCount] = useState(1)
-  const [isShown, setIsShown] = useState()
+  const checkRef = useRef()
   const [error, setError] = useState()
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
   const { user } = useContext(MainContext)
-  let bookyName = ''
 
   useEffect(() => {
-    bookyName = localStorage.getItem("bookyName")
-    if (!user) {
-      router.push('/Login')
+    if (user) {
+      router.push('/Booky')
     }
   }, [])
 
-  const deleteBooky = async () => {
-    const bookyToDelete = {
-      email: user.email,
-      bookyName,
-    }
-    const res = await post("deleteBooky", bookyToDelete)
-    const data = await res.json()
-    if (res.status === 200) {
-      router.push('/Profile')
-      if (typeof window !== "undefined") {
-        localStorage.removeItem('bookyName')
-      }
-      setError('')
-    }
-    setError(data.message)
-  }
-
   return (
-    <div className='max-w-[1980px] mx-auto'>
-      <DeleteBookyModal
-        deleteBooky={deleteBooky}
-        onClose={onClose}
-        isOpen={isOpen}
-        error={error}
-        setError={setError}
-        setIsShown={setIsShown}
-        warning='After deleting this Booky, you will no longer be able to access it, are you sure?'
-      />
-      <div className='mt-16 flex flex-wrap items-center justify-around'>
-        <div className='overflow-x-auto w-[980px] mb-20'>
-          <BookyHeader
-            setIsShown={setIsShown}
-            bookyName={bookyName}
-            isShown={isShown}
-            onOpen={onOpen}
-          />
-          {days?.map((x, i) =>
-            <TimeBar setCount={setCount} count={count} key={i} id={x} />
-          )}
-        </div>
-        <BookTime count={count} setCount={setCount}></BookTime>
+    <div className='container mt-52'>
+      <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
+        <Header
+          heading="Login to your account"
+          paragraph="Don't have an account yet? "
+          linkName="SignUp"
+          linkUrl="/SignUp"
+          error={error}
+        />
+        <form action="/api/login" method='post' className='flex flex-col'>
+          <input className='input' type="email" placeholder='email' name='email' />
+          <input className='input' type="password" placeholder='password' name='password' />
+          <div className="flex items-center justify-between ">
+            <div className="flex items-center mt-6">
+              <input
+                ref={checkRef}
+                id="autoLogin"
+                // onChange={autoLoginCheck}
+                type="checkbox"
+                className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-white">
+                Remember me
+              </label>
+            </div>
+          </div>
+          <button
+            className='button'
+            type='submit'>
+            Login
+          </button>
+        </form>
       </div>
     </div>
   )
 }
 
-export default Booky
+export default Login

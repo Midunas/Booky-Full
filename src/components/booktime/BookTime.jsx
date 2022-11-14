@@ -5,25 +5,19 @@ import TimeSelect from './components/TimeSelect'
 import { TwitterPicker } from 'react-color'
 import { post } from '../../plugins/http'
 import { MainContext } from '../../context/MainContext'
-const ISSERVER = typeof window === "undefined"
+
 
 const BookTime = ({ setCount, count }) => {
 
   const eventStartRef = useRef();
   const eventEndRef = useRef();
   const eventNameRef = useRef();
-  const { user } = useContext(MainContext)
+  const { user, bookyName } = useContext(MainContext)
 
   const [currentColor, setCurrentColor] = useState([])
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [error, setError] = useState('')
   const [isActive, setIsActive] = useState(false)
-
-  let bookyName = ''
-  if (!ISSERVER) {
-    bookyName = localStorage.getItem('bookyName')
-
-  }
 
   const addReservation = async () => {
     const newBooking = {

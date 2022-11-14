@@ -7,20 +7,17 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react'
-import React, { } from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import UserBox from '../components/sidebar/UserContainer'
+import { MainContext } from '../context/MainContext'
 import { get } from '../plugins/http'
 
 const SideBar = ({ isOpen, onClose }) => {
 
-  let bookyName = ''
-  if (typeof window !== "undefined") {
-
-    bookyName = localStorage.getItem('bookyName')
-  }
   const [users, setUsers] = useState()
+  const { bookyName } = useContext(MainContext)
 
   const getAllUsers = async () => {
     if (bookyName) {
