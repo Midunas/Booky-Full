@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Avatar,
   Button,
@@ -6,11 +6,11 @@ import {
   MenuButton,
   MenuList,
   MenuDivider,
-  Switch,
 } from '@chakra-ui/react';
 import { MainContext } from '../context/MainContext';
+import RenderThemeChanger from '../hooks/renderThemeChanger';
 
-const MenuItems = ({ renderThemeChanger, user, goToProfile, onOpen }) => {
+const MenuItems = ({ user, goToProfile, onOpen }) => {
 
   const { bookyName } = useContext(MainContext)
 
@@ -30,20 +30,21 @@ const MenuItems = ({ renderThemeChanger, user, goToProfile, onOpen }) => {
         <MenuList className='text-xl dark:bg-zinc-700 dark:text-white'>
           <button className='ml-2' onClick={goToProfile}>Profile</button>
           <div style={{ display: bookyName ? 'block' : 'none' }}>
-            <MenuDivider />
-            <button
-              className='ml-2 text-orange-400'
-              onClick={onOpen}
-            >{bookyName}</button>
+            {bookyName &&
+              <>
+                <MenuDivider />
+                <button
+                  className='ml-2 text-orange-400'
+                  onClick={onOpen}
+                >{bookyName}</button>
+              </>
+            }
           </div>
           <MenuDivider />
-          {/* <Switch
-              className='ml-2'
-              onChange={() => setTheme(colorTheme)}
-            >Mode:
-            </Switch> */}
-          <MenuDivider />
-          {renderThemeChanger()}
+          <div className='ml-2'>
+            <span className='mr-2'>Mode</span>
+            {RenderThemeChanger()}
+          </div>
         </MenuList>
       </Menu>
     </>

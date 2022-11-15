@@ -22,7 +22,7 @@
     "express-session": "^1.17.3",
     "framer-motion": "^6.5.1",
     "iron-session": "^6.3.1",
-    "isemail": "^3.2.0",
+    "is-email": "^1.0.2",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.11.0",
@@ -35,11 +35,13 @@
     "react": "18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.4",
     "react-icons": "^4.6.0",
     "react-time-picker": "^5.1.0",
     "uid": "^2.0.1",
     "url-join": "^5.0.0",
-    "vercel": "^28.4.17"
+    "vercel": "^28.4.17",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "18.11.9",

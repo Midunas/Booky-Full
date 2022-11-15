@@ -1,6 +1,6 @@
 import connect from '../../lib/mongodb'
 import User from '../../model/userSchema'
-var cookie = require('cookie');
+import cookie from 'cookie'
 
 export default async function handler(req, res) {
 
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const email = cookies.userToken
 
   if (!email) {
-    return res.status(404).json({ message: 'User not found' })
+    return res.status(400).json({ message: 'User not found' })
   }
   const userExists = await User.findOne({ email })
   if (!userExists) {

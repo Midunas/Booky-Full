@@ -18,30 +18,6 @@ const NavBar = ({ onOpen }) => {
 
   const { colorTheme } = useContext(MainContext)
   const { user, setUser, bookyName } = useContext(MainContext)
-  const { systemTheme, theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const renderThemeChanger = () => {
-    if (!mounted) return null;
-
-    const currentTheme = theme === "system" ? systemTheme : theme;
-
-    if (currentTheme === "dark") {
-      return (
-        <SunIcon className="w-10 h-10" onClick={() => setTheme('light')} />
-      )
-    }
-
-    else {
-      return (
-        <MoonIcon className="w-10 h-10" onClick={() => setTheme('dark')} />
-      )
-    }
-  };
 
   function goToMainPage() {
     if (bookyName) {
@@ -63,7 +39,6 @@ const NavBar = ({ onOpen }) => {
     localStorage.clear()
     router.push('/')
     setUser('')
-
   }
   return (
     <>
@@ -84,13 +59,11 @@ const NavBar = ({ onOpen }) => {
               <>
                 <button className='text-xl mr-5' onClick={logOut}>Logout</button>
                 <MenuItems
-                  setTheme={setTheme}
                   colorTheme={colorTheme}
                   user={user}
                   goToProfile={goToProfile}
                   bookyName={bookyName}
                   onOpen={onOpen}
-                  renderThemeChanger={renderThemeChanger}
                 />
               </>
             }

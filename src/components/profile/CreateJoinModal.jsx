@@ -18,7 +18,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
   const bookyNameRef = useRef()
   const inviteCodeRef = useRef()
 
-  const { user } = useContext(MainContext)
+  const { user, setBookyName } = useContext(MainContext)
   const [error, setError] = useState()
 
   const createOrJoinBooky = async () => {
@@ -32,12 +32,13 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
       const res = await post('/api/createBooky', info)
       const data = await res.json();
 
-      if (res.status === 200) {
-        getCreatedBookies()
-        onClose()
-      } else {
+      if (res.status !== 200) {
         setError(data.message)
       }
+      setBookyName(bookyNameRef.current.value)
+      getCreatedBookies()
+      onClose()
+
 
     } else {
       const info = {
@@ -48,12 +49,12 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
       }
       const res = await post('/api/joinBooky', info)
       const data = await res.json()
-      if (res.status === 200) {
-        getJoinedBookies()
-        onClose()
-      } else {
+      if (res.status !== 200) {
         setError(data.message)
       }
+      getJoinedBookies()
+      onClose()
+
     }
   }
 
