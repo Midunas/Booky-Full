@@ -1,28 +1,26 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../components/auth/Header';
 import { MainContext } from '../context/MainContext';
 import { post } from '../plugins/http';
+import { useForm } from 'react-hook-form';
 
 const SignUp = () => {
 
   const [error, setError] = useState('')
-  const emailRef = useRef()
-  const usernameRef = useRef()
-  const passRef = useRef()
-  const repeatPass = useRef()
+  const { getUser } = useContext(MainContext);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  const { getUser } = useContext(MainContext)
   const router = useRouter()
 
-  const register = async () => {
-    const user = {
-      email: emailRef.current.value,
-      username: usernameRef.current.value,
-      password: passRef.current.value,
-      repeat: repeatPass.current.value,
-    }
-    const res = await post("api/register", user)
+  const signUp = async (userData) => {
+
+    const res = await post("api/signUp", userData)
     const data = await res.json();
     if (res.status !== 200) {
       setError(data.message)
@@ -30,7 +28,6 @@ const SignUp = () => {
     localStorage.setItem('loggedIn', true)
     getUser()
     setTimeout(() => router.push('/Profile'), 250)
-
   }
 
   return (
@@ -43,16 +40,51 @@ const SignUp = () => {
           linkUrl="/"
           error={error}
         />
-        <input className='input' type="email" placeholder='email' ref={emailRef} />
-        <input className='input' type="text" placeholder='username' ref={usernameRef} />
-        <input className='input' type="password" placeholder='password' ref={passRef} />
-        <input className='input' type="password" placeholder='repeat password' ref={repeatPass} />
-        <button
-          className="button"
-          onClick={register}
-        >
-          Sign up
-        </button>
+        <form
+          className='flex flex-col'
+          onSubmit={handleSubmit((data) => signUp(data))}>
+          <input {...register("email",
+            {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "invalid email address"
+              }
+            })}
+            className='input'
+            placeholder='email' />
+          <p className='text-red-500'>{errors.email?.message}</p>
+          <input {...register("username", { required: "Username is required" })} className='input' placeholder='username' />
+          <p className='text-red-500'>{errors.username?.message}</p>
+          <input {...register("password", {
+            required: 'A password is required', minLength: {
+              value: 5,
+              message: 'Must be longer then 4 symbols'
+            }
+          })}
+            className='input'
+            type="password"
+            placeholder='password' />
+          <p className='text-red-500'>{errors.password?.message}</p>
+          <input {...register("repeat", {
+            required: true,
+            validate: (val) => {
+              if (watch('password') != val) {
+                return "The passwords do not match"
+              }
+            }
+          })}
+            className='input'
+            type="password"
+            placeholder='repeat password' />
+          <p className='text-red-500'>{errors.repeat?.message}</p>
+          <button
+            className="button"
+            type='submit'
+          >
+            Sign up
+          </button>
+        </form>
       </div>
     </div >
   )

@@ -27,7 +27,8 @@
     "pages/_app.jsx",
     "pages/api/register.jsx",
     "pages/api/login.jsx",
-    "src/pages/api/getUsers/[id].jsx"
+    "src/pages/api/getUsers/[id].jsx",
+    "src/pages/api/signUp.jsx"
   ],
   "exclude": [
     "node_modules"

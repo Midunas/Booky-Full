@@ -1,7 +1,6 @@
 import Events from '../../model/eventSchema'
 import connect from '../../lib/mongodb'
 
-
 export default async function handler(req, res) {
   await connect()
   const { id, eventName, email } = req.body
