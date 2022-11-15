@@ -14,8 +14,13 @@ const MainProvider = ({ children }) => {
     setUser(data.userExists)
   }
 
+  //TODO: find a better way. 
+
   useEffect(() => {
-    getUser()
+    const isLogedIn = localStorage.getItem('loggedIn')
+    if (isLogedIn) {
+      getUser()
+    }
   }, [])
 
   return (

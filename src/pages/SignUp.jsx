@@ -24,12 +24,13 @@ const SignUp = () => {
     }
     const res = await post("api/register", user)
     const data = await res.json();
-    if (res.status === 200) {
-      getUser()
-      setTimeout(() => router.push('/Profile'), 250)
-    } else {
+    if (res.status !== 200) {
       setError(data.message)
     }
+    localStorage.setItem('loggedIn', true)
+    getUser()
+    setTimeout(() => router.push('/Profile'), 250)
+
   }
 
   return (

@@ -63,7 +63,6 @@ const NavBar = ({ onOpen }) => {
     localStorage.clear()
     router.push('/')
     setUser('')
-
   }
   return (
     <>

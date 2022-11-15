@@ -20,13 +20,13 @@ const Login = () => {
     }
     const res = await post('api/login', user)
     const data = await res.json()
-    console.log(data.message)
-    if (res.status === 200) {
-      getUser()
-      setTimeout(() => router.push('/Profile'), 250)
-    } else {
+    if (res.status !== 200) {
       setError(data.message)
     }
+    getUser()
+    localStorage.setItem('loggedIn', true)
+    setTimeout(() => router.push('/Profile'), 250)
+
   }
 
   return (
