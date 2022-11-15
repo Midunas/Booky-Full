@@ -8,12 +8,13 @@ export default async function handler(req, res) {
   await connect()
 
   const { email, password } = req.body
-  const userExists = await User.findOne({ email, password })
-  const passwordsMatch = await bcrypt.compare(password, userExists.password)
+  const userExists = await User.findOne({ email })
 
   if (!userExists) {
     return res.status(400).json({ message: 'User not found' })
   }
+  const passwordsMatch = await bcrypt.compare(password, userExists.password)
+
   if (!passwordsMatch) {
     return res.status(400).json({ message: 'Bad credentials' })
   }
