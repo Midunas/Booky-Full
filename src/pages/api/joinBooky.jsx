@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const bookyExists = await Bookies.find({ bookyName })
 
-  if (!bookyExists.length > 0) {
+  if (bookyExists.length < 0) {
     return res.status(401).json({ message: "Incorrect booky name" })
   }
 

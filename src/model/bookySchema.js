@@ -12,7 +12,7 @@ const bookySchema = new Schema({
   },
   members: {
     type: [],
-    required: false,
+    required: true,
     default: undefined,
   },
   inviteCode: {

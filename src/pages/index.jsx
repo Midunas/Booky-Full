@@ -8,8 +8,10 @@ import { post } from '../plugins/http';
 const Login = () => {
 
   //TODO: add email check on login with regex.
-  //TODO: dont let same user register for same booky twice.
-  //TODO: Allow user to leave booky if (!createdBy tai ne delete o leave booky, /Booky page)
+  //TODO: add some sort of alert/modal when leaving booky?
+  //TODO: make sure when you create first booky it shows up.
+  //TODO: allow change cover photo 
+
   const checkRef = useRef();
   const [error, setError] = useState();
   const router = useRouter();
@@ -34,7 +36,6 @@ const Login = () => {
     }
 
   }
-
   return (
     <div className='container'>
       <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
@@ -47,7 +48,13 @@ const Login = () => {
         />
         <form className='flex flex-col' onSubmit={handleSubmit((data) => login(data))}>
           <input
-            {...register('email', { required: 'Email is required' })}
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "invalid email address"
+              }
+            })}
             className='input'
             placeholder='email' />
           <p className='text-red-500'>{errors.email?.message}</p>

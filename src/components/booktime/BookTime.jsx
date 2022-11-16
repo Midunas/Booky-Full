@@ -46,7 +46,7 @@ const BookTime = ({ setCount, count }) => {
 
   return (
     <div className='flex flex-col w-[280px] mb-20'>
-      <div className='text-red-500'>{error}</div>
+      <div className='text-red-500 h-10'>{error}</div>
       <div className="bigInp" >{user && user.username}</div>
       <input className="bigInp" ref={eventNameRef} placeholder='event name'></input>
       <DaySelect setSelectedDay={setSelectedDay}></DaySelect>
