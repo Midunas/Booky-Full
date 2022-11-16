@@ -11,6 +11,8 @@ import { post } from '../plugins/http';
 
 const Booky = () => {
 
+  //TODO: allow user to leave Booky if he did not create it (delete ID from members)
+
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   const [count, setCount] = useState(1)
   const [isShown, setIsShown] = useState()
@@ -33,6 +35,7 @@ const Booky = () => {
     }
     setError(data.message)
   }
+  //TODO: fetchink is bookies su bookyName patikrini ar createdBy jeigu ne tai siunti 200, jeigu 200 tai allow to Leave. 
 
   return (
     <div className='max-w-[1980px] mx-auto'>
