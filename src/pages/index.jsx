@@ -7,8 +7,9 @@ import { post } from '../plugins/http';
 
 const Login = () => {
 
-  //TODO: gabija praleido tsg on login? 
-
+  //TODO: add email check on login with regex.
+  //TODO: dont let same user register for same booky twice.
+  //TODO: Allow user to leave booky if (!createdBy tai ne delete o leave booky, /Booky page)
   const checkRef = useRef();
   const [error, setError] = useState();
   const router = useRouter();

@@ -34,12 +34,12 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
 
       if (res.status !== 200) {
         setError(data.message)
+      } else {
+        setBookyName(bookyNameRef.current.value)
+        localStorage.setItem('bookyName', bookyNameRef.current.value)
+        getCreatedBookies()
+        onClose()
       }
-      setBookyName(bookyNameRef.current.value)
-      localStorage.setItem('bookyName', bookyNameRef.current.value)
-      getCreatedBookies()
-      onClose()
-
 
     } else {
       const info = {
@@ -52,10 +52,10 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
       const data = await res.json()
       if (res.status !== 200) {
         setError(data.message)
+      } else {
+        getJoinedBookies()
+        onClose()
       }
-      getJoinedBookies()
-      onClose()
-
     }
   }
 
@@ -88,7 +88,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
           </div>
         </ModalBody>
         <ModalFooter>
-          <div className='text-md text-red-500 h-2 mt-2 -mb-4 '>{error}</div>
+          <div className='text-md text-red-500 mr-8 '>{error}</div>
           <Button variant='ghost' onClick={createOrJoinBooky}>{createOrJoin}</Button>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
             Close
