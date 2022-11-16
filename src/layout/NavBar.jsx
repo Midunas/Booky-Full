@@ -38,13 +38,10 @@ const NavBar = ({ onOpen }) => {
       <Box className='bg-white dark:bg-zinc-800 dark:text-white' px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
-            <Tooltip
-              label='Make sure to select a booky!'>
-              <Link
-                className='text-5xl'
-                style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
-                href='/Profile'>Booky</Link>
-            </Tooltip>
+            <Link
+              className='text-5xl'
+              style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
+              href='/Profile'>Booky</Link>
           </HStack>
           <Flex alignItems={'center'}>
             {user &&

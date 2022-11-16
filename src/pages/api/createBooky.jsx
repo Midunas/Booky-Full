@@ -2,7 +2,6 @@ import Bookies from '../../model/bookySchema'
 import connect from '../../lib/mongodb'
 const random = require('random-string-alphanumeric-generator')
 
-
 export default async function handler(req, res) {
   await connect()
   const { bookyName, id, email } = req.body
