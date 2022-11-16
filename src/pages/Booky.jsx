@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useContext } from 'react';
 import BookTime from '../components/booktime/BookTime'
 import BookyHeader from '../components/calendar/BookyHeader';

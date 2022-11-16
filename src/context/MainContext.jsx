@@ -20,6 +20,7 @@ const MainProvider = ({ children }) => {
     const isLogedIn = localStorage.getItem('loggedIn')
     if (isLogedIn) {
       getUser()
+      setBookyName(localStorage.getItem('bookyName'))
     }
   }, [])
 

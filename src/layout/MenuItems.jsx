@@ -10,9 +10,10 @@ import {
 import { MainContext } from '../context/MainContext';
 import RenderThemeChanger from '../hooks/renderThemeChanger';
 
+
 const MenuItems = ({ user, goToProfile, onOpen }) => {
 
-  const { bookyName } = useContext(MainContext)
+  const { bookyName } = useContext(MainContext);
 
   return (
     <>
