@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useContext, useState } from 'react'
 import { Grid, Tooltip } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTheme } from "next-themes";
 import { MainContext } from '../../context/MainContext';
+import Image from 'next/image';
 
 const UserBookies = ({ heading, bookies }) => {
 
@@ -15,8 +17,8 @@ const UserBookies = ({ heading, bookies }) => {
 
   const goToBookyPage = (bookyName) => {
     setBookyName(bookyName)
+    localStorage.setItem('bookyName', bookyName)
     router.push('/Booky')
-    //TODO: BOOKYNAME IN CONTEXT
   }
 
   const copyInviteCode = (event) => {

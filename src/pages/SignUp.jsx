@@ -17,21 +17,23 @@ const SignUp = () => {
   } = useForm();
 
   const router = useRouter()
-
+  //TODO: need to watch() password so it matches the repeat as well x)
   const signUp = async (userData) => {
 
     const res = await post("api/signUp", userData)
     const data = await res.json();
     if (res.status !== 200) {
       setError(data.message)
+    } else {
+      localStorage.setItem('loggedIn', true)
+      getUser()
+      setTimeout(() => router.push('/Profile'), 250)
     }
-    localStorage.setItem('loggedIn', true)
-    getUser()
-    setTimeout(() => router.push('/Profile'), 250)
+
   }
 
   return (
-    <div className='container mt-52'>
+    <div className='container'>
       <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
         <Header
           heading="Sign up"

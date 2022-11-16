@@ -15,6 +15,7 @@ const Profile = () => {
   const [createdBookies, setCreatedBookies] = useState([])
   const [joinedBookies, setJoinedBookies] = useState([])
 
+  //TODO: tegul veikia profile
   const getCreatedBookies = async () => {
     const res = await get(`/api/getAllCreated/${user?.email}`)
     const data = await res.json()

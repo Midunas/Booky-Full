@@ -36,6 +36,7 @@ const CreateJoinModal = ({ isOpen, onClose, createOrJoin, getCreatedBookies, get
         setError(data.message)
       }
       setBookyName(bookyNameRef.current.value)
+      localStorage.setItem('bookyName', bookyNameRef.current.value)
       getCreatedBookies()
       onClose()
 

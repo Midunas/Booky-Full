@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Header from '../components/auth/Header';
 import { MainContext } from '../context/MainContext';
 import { post } from '../plugins/http';
 
 const Login = () => {
+
+  //TODO: gabija praleido tsg on login? 
 
   const checkRef = useRef();
   const [error, setError] = useState();
@@ -21,16 +23,19 @@ const Login = () => {
   const login = async (userData) => {
     const res = await post('api/login', userData)
     const data = await res.json()
-    if (res.status !== 200) {
+
+    if (res.status === 400) {
       setError(data.message)
+    } else {
+      getUser()
+      localStorage.setItem('loggedIn', true)
+      setTimeout(() => router.push('/Profile'), 250)
     }
-    getUser()
-    localStorage.setItem('loggedIn', true)
-    setTimeout(() => router.push('/Profile'), 250)
+
   }
 
   return (
-    <div className='container mt-52'>
+    <div className='container'>
       <div className='flex flex-col bg-white dark:bg-zinc-800 p-10 text-center rounded'>
         <Header
           heading="Login to your account"

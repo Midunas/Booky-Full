@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   Box,
   Flex,
@@ -9,8 +8,7 @@ import { useRouter } from 'next/router';
 import { useContext, useState, useEffect } from 'react';
 import { MainContext } from '../context/MainContext';
 import MenuItems from './MenuItems';
-import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import Link from 'next/link';
 
 const NavBar = ({ onOpen }) => {
 
@@ -19,11 +17,6 @@ const NavBar = ({ onOpen }) => {
   const { colorTheme } = useContext(MainContext)
   const { user, setUser, bookyName } = useContext(MainContext)
 
-  function goToMainPage() {
-    if (bookyName) {
-      router.push('/Booky')
-    }
-  }
   const goToProfile = () => {
     router.push('/Profile')
   }
@@ -47,23 +40,22 @@ const NavBar = ({ onOpen }) => {
           <HStack spacing={8} alignItems={'center'}>
             <Tooltip
               label='Make sure to select a booky!'>
-              <h1
+              <Link
                 className='text-5xl'
                 style={{ flexGrow: 1, color: '#FF6900', ml: -10, mr: 4, cursor: 'pointer' }}
-                onClick={goToMainPage}>Booky</h1>
+                href='/Profile'>Booky</Link>
             </Tooltip>
           </HStack>
           <Flex alignItems={'center'}>
-            {/* <button className='text-xl mr-5' onClick={logInOrOut}>{isLoggedIn === "true" ? 'Logout' : 'Login'}</button> */}
             {user &&
               <>
                 <button className='text-xl mr-5' onClick={logOut}>Logout</button>
                 <MenuItems
                   colorTheme={colorTheme}
                   user={user}
-                  goToProfile={goToProfile}
                   bookyName={bookyName}
                   onOpen={onOpen}
+                  goToProfile={goToProfile}
                 />
               </>
             }
